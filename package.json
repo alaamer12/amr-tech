@@ -1,0 +1,42 @@
+{
+  "name": "amr-tech",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "astro dev",
+    "resolve": "node scripts/resolve-assets.mjs",
+    "build": "bun run resolve && astro build && bun run emit-mirrors && pagefind --site dist --force-language en",
+    "build:ci": "astro build && bun run emit-mirrors && pagefind --site dist --force-language en",
+    "preview": "astro preview",
+    "emit-mirrors": "node scripts/emit-mirrors.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "private": "true",
+  "dependencies": {
+    "@astrojs/markdown-satteri": "^0.4.6",
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource-variable/fraunces": "^5.3.0",
+    "@shikijs/transformers": "^4.6.0",
+    "astro": "^7.4.5",
+    "sass": "^1.107.1",
+    "satteri": "0.10.5"
+  },
+  "devDependencies": {
+    "@fontsource-variable/cairo": "^5.3.0",
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "@fontsource-variable/literata": "^5.3.0",
+    "@fontsource-variable/noto-naskh-arabic": "^5.3.0",
+    "@fontsource-variable/reem-kufi": "^5.3.0",
+    "@fontsource-variable/space-grotesk": "^5.3.0",
+    "@fontsource/instrument-serif": "^5.3.0",
+    "pagefind": "^1.6.0"
+  },
+  "trustedDependencies": [
+    "@parcel/watcher"
+  ]
+}
