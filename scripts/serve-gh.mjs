@@ -49,7 +49,7 @@ const server = serve({
     const publicOrigin = process.env.PUBLIC_ORIGIN;
     if (publicOrigin && (type.startsWith('text/html') || type.startsWith('application/xml') || type === 'text/plain; charset=utf-8')) {
       let text = await Bun.file(file).text();
-      text = text.replaceAll('https://amrmu.github.io', publicOrigin.replace(/\/$/, ''));
+      text = text.replaceAll('https://alaamer12.github.io', publicOrigin.replace(/\/$/, ''));
       return new Response(text, { headers: { 'Content-Type': type } });
     }
     return new Response(Bun.file(file), { headers: { 'Content-Type': type } });

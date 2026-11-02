@@ -69,7 +69,7 @@ broken.length === 0 ? pass(`all internal links resolve (${resolved.size} unique)
 
 // 4. sitemap <-> pages parity
 const sm = existsSync(path.join(DIST, 'sitemap-0.xml')) ? readFileSync(path.join(DIST, 'sitemap-0.xml'), 'utf-8') : '';
-const smUrls = [...sm.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].slice('https://amrmu.github.io'.length));
+const smUrls = [...sm.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].slice('https://alaamer12.github.io'.length));
 
 const smMissing = smUrls.filter((u) => {
   const rel2 = decodeURIComponent(u).slice(BASE.length) || '/';

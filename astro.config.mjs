@@ -29,14 +29,14 @@ function noindexStubs() {
 const STUBS = noindexStubs();
 
 export default defineConfig({
-  site: 'https://amrmu.github.io',
+  site: 'https://alaamer12.github.io',
   base: SITE_BASE,
   trailingSlash: 'always',
   integrations: [
     sitemap({
       filter: (page) => {
         if (page.endsWith('.md')) return false;
-        const rel = page.slice('https://amrmu.github.io'.length + SITE_BASE.length) || '/';
+        const rel = page.slice('https://alaamer12.github.io'.length + SITE_BASE.length) || '/';
         return !STUBS.includes(rel.endsWith('/') ? rel : `${rel}/`);
       },
     }),
