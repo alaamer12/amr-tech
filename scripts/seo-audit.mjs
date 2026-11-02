@@ -30,7 +30,7 @@ for (const h of htmls) {
   const checks = {
     title: /<title>[^<]{3,}<\/title>/.test(s),
     desc: /name="description" content="[^"]{20,}"/.test(s),
-    canonical: /rel="canonical" href="https:\/\/amrmu\.github\.io\/amr-tech\//.test(s),
+    canonical: /rel="canonical" href="https:\/\/alaamer12.github.io\/amr-tech\//.test(s),
     charset: /charset="utf-8"/.test(s),
     viewport: /name="viewport"/.test(s),
     og: /property="og:title"/.test(s) && /property="og:image"/.test(s),
