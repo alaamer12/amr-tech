@@ -1,0 +1,40 @@
+// Manifest — imports point downward only.
+@use 'themes/light';
+@use 'themes/dark';
+
+@use 'base/reset';
+@use 'base/typography';
+@use 'base/skip-link';
+@use 'base/scrollbar';
+@use 'base/morph';
+
+@use 'layout/header';
+@use 'layout/footer';
+@use 'layout/grid';
+@use 'layout/index';
+@use 'layout/post';
+@use 'layout/utilities';
+
+@use 'components/align-toggle';
+@use 'components/cards';
+@use 'components/chips';
+@use 'components/search';
+@use 'components/toc';
+@use 'components/version-box';
+@use 'components/code';
+@use 'components/theme-toggle';
+@use 'components/reading-progress';
+@use 'components/related';
+@use 'components/empty-state';
+
+// Respect reduced-motion: no fades, no transitions anywhere.
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

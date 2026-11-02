@@ -1,0 +1,82 @@
+@use '../abstracts/variables' as v;
+
+// Shiki dual themes (defaultColor: false): every token span carries both
+// --shiki color sets; the dark theme swaps them at runtime.
+.astro-code {
+  text-align: start;
+  background-color: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: v.$radius-md;
+  padding: v.$spacing-md;
+  margin-block: v.$spacing-lg;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: v.$text-small;
+  line-height: 1.6;
+}
+
+[data-theme='dark'] .astro-code,
+[data-theme='dark'] .astro-code span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .astro-code,
+  :root:not([data-theme]) .astro-code span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+  }
+}
+
+// Line highlighting: ```js {2,4}
+.astro-code .line.highlighted {
+  background: var(--surface-2);
+  border-inline-start: 2px solid var(--accent);
+  margin-inline: -1 * v.$spacing-md;
+  padding-inline: v.$spacing-md;
+}
+
+// Word highlighting: ```js /2/
+.astro-code .line.has-word-highlight {
+  background: var(--surface-2);
+}
+
+.astro-code .word {
+  border-radius: 2px;
+}
+
+.astro-code .line:hover .word.has-highlighted-word {
+  background: var(--mark-bg);
+}
+
+// Block titles: ```js title="server.ts"
+.astro-code.has-title {
+  position: relative;
+  padding-block-start: v.$spacing-2xl;
+}
+
+.astro-code.has-title::before {
+  content: attr(data-title);
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  padding: v.$spacing-2xs v.$spacing-md;
+  font-family: var(--font-mono);
+  font-size: v.$text-label;
+  letter-spacing: 0.04em;
+  color: var(--text-subtle);
+  background: var(--surface-2);
+  border-block-end: 1px solid var(--border);
+  border-start-start-radius: v.$radius-md;
+  border-start-end-radius: v.$radius-md;
+}
+
+// Diff lines: ```ts ins=2 del=4
+.astro-code .line.diff-add {
+  background: var(--diff-add-bg);
+}
+
+.astro-code .line.diff-remove {
+  background: var(--diff-remove-bg);
+}

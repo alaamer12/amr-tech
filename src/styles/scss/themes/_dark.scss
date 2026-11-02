@@ -1,0 +1,50 @@
+@use '../abstracts/variables' as v;
+
+[data-theme='dark'] {
+  --bg: #{v.$dark-bg};
+  --surface: #{v.$dark-surface};
+  --surface-2: #{v.$dark-surface-2};
+  --text: #{v.$dark-text};
+  --text-muted: #{v.$dark-text-muted};
+  --text-subtle: #{v.$dark-text-subtle};
+  --accent: #{v.$accent-dark};
+  --accent-hover: #{v.$accent-dark-hover};
+  --border: #{v.$dark-border};
+  --code-bg: #{v.$dark-code-bg};
+  --mark-bg: #{v.$dark-mark-bg};
+  --diff-add-bg: #{v.$diff-add-dark};
+  --diff-remove-bg: #{v.$diff-remove-dark};
+  --shadow-pop: #{v.$shadow-pop};
+  --scrollbar-thumb: #{v.$dark-scrollbar-thumb};
+  --scrollbar-track: #{v.$dark-scrollbar-track};
+  --selection-bg: #{v.$dark-selection-bg};
+  --selection-text: #{v.$dark-selection-text};
+}
+
+// System preference applies dark unless an explicit choice is stored.
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg: #{v.$dark-bg};
+    --surface: #{v.$dark-surface};
+    --surface-2: #{v.$dark-surface-2};
+    --text: #{v.$dark-text};
+    --text-muted: #{v.$dark-text-muted};
+    --text-subtle: #{v.$dark-text-subtle};
+    --accent: #{v.$accent-dark};
+    --accent-hover: #{v.$accent-dark-hover};
+    --border: #{v.$dark-border};
+    --code-bg: #{v.$dark-code-bg};
+    --mark-bg: #{v.$dark-mark-bg};
+    --diff-add-bg: #{v.$diff-add-dark};
+    --diff-remove-bg: #{v.$diff-remove-dark};
+    --shadow-pop: #{v.$shadow-pop};
+  --scrollbar-thumb: #{v.$dark-scrollbar-thumb};
+  --scrollbar-track: #{v.$dark-scrollbar-track};
+  --selection-bg: #{v.$dark-selection-bg};
+  --selection-text: #{v.$dark-selection-text};
+    --scrollbar-thumb: #{v.$dark-scrollbar-thumb};
+    --scrollbar-track: #{v.$dark-scrollbar-track};
+    --selection-bg: #{v.$dark-selection-bg};
+    --selection-text: #{v.$dark-selection-text};
+  }
+}

@@ -1,0 +1,104 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: v.$spacing-sm;
+  padding: v.$spacing-lg;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: v.$radius-lg;
+  transition: border-color v.$transition-fast, transform v.$transition-fast;
+
+  &:hover {
+    border-color: var(--accent);
+  }
+
+  &:hover .card__title {
+    color: var(--accent);
+  }
+}
+
+.card__title {
+  font-family: var(--font-title);
+  font-size: v.$text-h2;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--text);
+  text-decoration: none;
+
+  // Stretched link: the whole card is clickable.
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+}
+
+.card__meta {
+  display: flex;
+  align-items: baseline;
+  gap: v.$spacing-sm;
+}
+
+.card__date {
+  @include m.mono-label;
+}
+
+.card__category {
+  font-family: var(--font-chrome);
+  font-size: v.$text-small;
+  color: var(--accent);
+}
+
+.card__excerpt {
+  font-size: v.$text-small;
+  line-height: 1.6;
+  color: var(--text-muted);
+  @include m.truncate(3);
+}
+
+.card__thumbnail {
+  inline-size: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: v.$radius-md;
+  border: 1px solid var(--border);
+}
+
+.card__versions {
+  display: flex;
+  gap: v.$spacing-2xs;
+  flex-wrap: wrap;
+  margin-block-start: v.$spacing-2xs;
+}
+
+.card__version {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-mono);
+  font-size: v.$text-label;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  border-radius: v.$radius-pill;
+  padding: 0.3rem 0.7rem;
+  min-block-size: 1.75rem;
+  display: inline-flex;
+  align-items: center;
+  transition: color v.$transition-fast, border-color v.$transition-fast;
+
+  &:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+}
+
+.card__version--current {
+  color: var(--accent);
+  border-color: var(--accent);
+  font-weight: 700;
+}

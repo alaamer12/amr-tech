@@ -1,0 +1,74 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+// Floating bottom-right version selector, menu opens upward (git-tree style).
+.version-box {
+  position: fixed;
+  inset-inline-end: v.$spacing-lg;
+  inset-block-end: v.$spacing-lg;
+  z-index: v.$z-version-box;
+  font-family: var(--font-chrome);
+}
+
+.version-box__toggle {
+  @include m.focus-visible;
+
+  display: flex;
+  align-items: center;
+  gap: v.$spacing-xs;
+  padding: v.$spacing-xs v.$spacing-md;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: v.$radius-pill;
+  box-shadow: var(--shadow-md);
+  color: var(--text);
+  font-size: v.$text-small;
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--accent);
+  }
+}
+
+.version-box__menu {
+  position: absolute;
+  inset-block-end: calc(100% + #{v.$spacing-xs});
+  inset-inline-end: 0;
+  min-inline-size: 10rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: v.$radius-md;
+  box-shadow: var(--shadow-pop);
+  padding: v.$spacing-2xs;
+  display: flex;
+  flex-direction: column;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.version-box__item {
+  display: flex;
+  align-items: center;
+  gap: v.$spacing-xs;
+  padding: v.$spacing-xs v.$spacing-sm;
+  border-radius: v.$radius-sm;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: v.$text-small;
+
+  &:hover {
+    background: var(--surface-2);
+    color: var(--text);
+  }
+
+  &.is-current {
+    color: var(--accent);
+    font-weight: 600;
+  }
+}
+
+.version-box__marker {
+  @include m.mono-label;
+}

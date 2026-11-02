@@ -1,0 +1,27 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+.page {
+  max-inline-size: v.$container;
+  margin-inline: auto;
+  padding-inline: v.$spacing-lg;
+}
+
+.post-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: v.$spacing-lg;
+
+  @include m.respond-to('sm') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include m.respond-to('lg') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.post-grid--single {
+  grid-template-columns: 1fr;
+  max-inline-size: v.$measure-body;
+}

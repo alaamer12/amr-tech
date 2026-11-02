@@ -1,0 +1,12 @@
+@use '../abstracts/variables' as v;
+
+.reading-progress {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  block-size: 3px;
+  inline-size: calc(var(--progress, 0) * 100%);
+  background: var(--accent);
+  z-index: calc(v.$z-sticky + 1);
+  pointer-events: none;
+}

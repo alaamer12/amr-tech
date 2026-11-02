@@ -1,0 +1,31 @@
+@use '../abstracts/variables' as v;
+
+// Role tokens for the light theme. This file (and _dark.scss) is the only
+// place raw palette values are assigned to consumed token names.
+:root,
+[data-theme='light'] {
+  --bg: #{v.$light-bg};
+  --surface: #{v.$light-surface};
+  --surface-2: #{v.$light-surface-2};
+  --text: #{v.$light-text};
+  --text-muted: #{v.$light-text-muted};
+  --text-subtle: #{v.$light-text-subtle};
+  --accent: #{v.$accent-light};
+  --accent-hover: #{v.$accent-light-hover};
+  --border: #{v.$light-border};
+  --code-bg: #{v.$light-code-bg};
+  --mark-bg: #{v.$light-mark-bg};
+  --diff-add-bg: #{v.$diff-add-light};
+  --diff-remove-bg: #{v.$diff-remove-light};
+  --shadow-pop: #{v.$shadow-pop};
+  --scrollbar-thumb: #{v.$light-scrollbar-thumb};
+  --scrollbar-track: #{v.$light-scrollbar-track};
+  --selection-bg: #{v.$light-selection-bg};
+  --selection-text: #{v.$light-selection-text};
+
+  --font-chrome: #{v.$font-chrome};
+  --font-title: #{v.$font-title};
+  --font-body: #{v.$font-body};
+  --font-mono: #{v.$font-mono};
+  --font-logo: #{v.$font-logo};
+}

@@ -1,0 +1,40 @@
+@use '../abstracts/variables' as v;
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: v.$spacing-md;
+  padding: v.$spacing-4xl v.$spacing-lg;
+  border: 1px dashed var(--border);
+  border-radius: v.$radius-lg;
+  margin-block: v.$spacing-xl;
+}
+
+.empty-state__icon {
+  color: var(--text-subtle);
+}
+
+.empty-state__title {
+  font-family: var(--font-title);
+  font-size: v.$text-h2;
+  font-weight: 400;
+  color: var(--text);
+}
+
+.empty-state__text {
+  max-inline-size: 46ch;
+  font-size: v.$text-small;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.empty-state__path {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: v.$radius-sm;
+  padding: 0.1em 0.4em;
+}

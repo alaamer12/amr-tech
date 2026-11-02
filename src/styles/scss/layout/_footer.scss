@@ -1,0 +1,31 @@
+@use '../abstracts/variables' as v;
+
+.site-footer {
+  border-block-start: 1px solid var(--border);
+  margin-block-start: v.$spacing-4xl;
+  padding: v.$spacing-2xl v.$spacing-lg;
+}
+
+.site-footer__inner {
+  max-inline-size: v.$container;
+  margin-inline: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: v.$spacing-md;
+}
+
+.site-footer__links {
+  display: flex;
+  gap: v.$spacing-lg;
+
+  a {
+    color: var(--text-muted);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--accent);
+    }
+  }
+}

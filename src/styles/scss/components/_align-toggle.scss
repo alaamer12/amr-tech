@@ -1,0 +1,53 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+.align-toggle {
+  display: none;
+
+  // Alignment is meaningless when the column is full-width; keep the header
+  // roomy on phones.
+  @include m.respond-to('sm') {
+    display: flex;
+  }
+
+  align-items: center;
+  gap: 2px;
+  padding: 2px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: v.$radius-pill;
+}
+
+.align-toggle__btn {
+  @include m.focus-visible;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+
+  @media (max-width: 1023px) {
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+  }
+  background: transparent;
+  border: none;
+  border-radius: v.$radius-pill;
+  color: var(--text-subtle);
+  cursor: pointer;
+  transition: color v.$transition-fast, background-color v.$transition-fast;
+
+  &:hover {
+    color: var(--text);
+  }
+}
+
+.align-toggle__btn--active {
+  background: var(--text);
+  color: var(--bg);
+
+  &:hover {
+    color: var(--bg);
+  }
+}

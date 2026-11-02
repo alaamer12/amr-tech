@@ -1,0 +1,98 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+.related {
+  margin-block-start: v.$spacing-4xl;
+  padding-block-start: v.$spacing-xl;
+}
+
+.related__head {
+  display: flex;
+  align-items: center;
+  margin-block-end: v.$spacing-lg;
+}
+
+.related__title {
+  font-family: var(--font-mono);
+  font-size: v.$text-h3;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.related__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: v.$spacing-lg;
+  padding-block-end: v.$spacing-sm;
+  border-block-end: 1px solid var(--border);
+  margin-block-end: v.$spacing-xs;
+}
+
+.related__tab {
+  @include m.focus-visible;
+
+  background: none;
+  border: none;
+  padding: v.$spacing-2xs 0;
+  font-family: var(--font-mono);
+  font-size: v.$text-label;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-subtle);
+  cursor: pointer;
+
+  &:hover {
+    color: var(--text);
+  }
+}
+
+.related__tab--active {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.related__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.related__row {
+  display: grid;
+  grid-template-columns: 8rem 1fr auto;
+  align-items: baseline;
+  gap: v.$spacing-md;
+  padding-block: v.$spacing-md;
+  border-block-end: 1px solid var(--border);
+}
+
+.related__link {
+  font-family: var(--font-chrome);
+  font-size: v.$text-body;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--accent);
+  }
+}
+
+.related__more {
+  margin-block-start: v.$spacing-lg;
+  background: none;
+  border: none;
+  padding: v.$spacing-xs 0;
+  font-family: var(--font-mono);
+  font-size: v.$text-label;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  cursor: pointer;
+
+  &:hover {
+    color: var(--accent);
+  }
+
+  @include m.focus-visible;
+}

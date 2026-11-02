@@ -1,0 +1,43 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+@use '../abstracts/placeholders' as p;
+
+.chip-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: v.$spacing-xs;
+  align-items: center;
+}
+
+.chip {
+  @extend %interactive-base;
+
+  @include m.focus-visible;
+
+  min-block-size: 2.25rem;
+  padding: v.$spacing-xs v.$spacing-md;
+
+  @media (max-width: 1023px) {
+    min-block-size: 2.75rem;
+    min-inline-size: 2.75rem;
+  }
+  background: transparent;
+  border-color: var(--border);
+  color: var(--text-muted);
+
+  &:hover {
+    color: var(--text);
+    border-color: var(--text-subtle);
+  }
+}
+
+.chip--active {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--bg);
+
+  &:hover {
+    color: var(--bg);
+    border-color: var(--text);
+  }
+}

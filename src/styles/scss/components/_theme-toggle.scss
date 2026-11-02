@@ -1,0 +1,54 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+.theme-toggle {
+  @include m.focus-visible;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: v.$spacing-2xs;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: v.$radius-pill;
+  color: var(--text-muted);
+  cursor: pointer;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+
+  @media (max-width: 1023px) {
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+  }
+
+  &:hover {
+    color: var(--text);
+    border-color: var(--text-subtle);
+  }
+}
+
+.theme-toggle__icon--sun {
+  display: none;
+}
+
+.theme-toggle__icon--moon {
+  display: block;
+}
+
+[data-theme='dark'] .theme-toggle__icon--sun {
+  display: block;
+}
+
+[data-theme='dark'] .theme-toggle__icon--moon {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .theme-toggle__icon--sun {
+    display: block;
+  }
+
+  :root:not([data-theme]) .theme-toggle__icon--moon {
+    display: none;
+  }
+}

@@ -1,0 +1,162 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+.toc {
+  margin-block: v.$spacing-xl v.$spacing-2xl;
+  padding: v.$spacing-lg;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: v.$radius-md;
+  max-inline-size: v.$measure-body;
+}
+
+.toc__title {
+  font-family: var(--font-chrome);
+  font-size: v.$text-h3;
+  font-weight: 600;
+  margin-block-end: v.$spacing-sm;
+}
+
+.toc__list {
+  list-style: decimal;
+  padding-inline-start: v.$spacing-lg;
+  display: flex;
+  flex-direction: column;
+  gap: v.$spacing-2xs;
+}
+
+.toc__item--sub {
+  list-style: none;
+  padding-inline-start: v.$spacing-md;
+  font-size: v.$text-small;
+}
+
+.toc__link {
+  color: var(--text-muted);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+}
+
+// Inline ToC: shown below lg where the rail gutter does not fit.
+.toc-inline {
+  display: block;
+
+  @include m.respond-to('lg') {
+    display: none;
+  }
+}
+
+// Claude-style rail: persistent edge tab, slide open/close, scroll-spy.
+.toc-rail {
+  display: none;
+
+  @include m.respond-to('lg') {
+    display: block;
+    position: fixed;
+    inset-block-start: 5rem;
+    inline-size: 0;
+    z-index: v.$z-sticky;
+  }
+}
+
+[data-align='left'] .toc-rail {
+  inset-inline-end: 0;
+}
+
+[data-align='center'] .toc-rail,
+[data-align='right'] .toc-rail {
+  inset-inline-start: 0;
+}
+
+.toc-rail__toggle {
+  @include m.focus-visible;
+
+  position: absolute;
+  inset-block-start: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: v.$spacing-2xs;
+  padding: v.$spacing-xs v.$spacing-sm;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-family: var(--font-chrome);
+  font-size: v.$text-label;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: v.$radius-md;
+  transition: color v.$transition-fast, border-color v.$transition-fast;
+
+  [data-align='left'] & {
+    inset-inline-end: 0;
+    border-start-end-radius: 0;
+  }
+
+  [data-align='center'] &,
+  [data-align='right'] & {
+    inset-inline-start: 0;
+    border-start-start-radius: 0;
+  }
+
+  &:hover {
+    color: var(--text);
+    border-color: var(--accent);
+  }
+}
+
+.toc-rail__chev {
+  transition: transform v.$transition-base;
+
+  [data-align='left'] .toc-rail[data-open] & {
+    transform: rotate(180deg);
+  }
+
+  [data-align='center'] .toc-rail[data-open] &,
+  [data-align='right'] .toc-rail[data-open] & {
+    transform: rotate(180deg);
+  }
+}
+
+.toc-rail__panel {
+  position: absolute;
+  inset-block-start: 2.75rem;
+  inline-size: 15rem;
+  max-block-size: calc(100vh - 12rem);
+  overflow-y: auto;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity v.$transition-base, transform v.$transition-base;
+
+  [data-align='left'] & {
+    inset-inline-end: 0;
+    transform: translateX(105%);
+  }
+
+  [data-align='center'] &,
+  [data-align='right'] & {
+    inset-inline-start: 0;
+    transform: translateX(-105%);
+  }
+
+  .toc-rail[data-open] & {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+}
+
+.toc-rail__panel .toc {
+  margin-block: 0;
+}
+
+.toc__link.is-active {
+  color: var(--accent);
+  font-weight: 600;
+}
+

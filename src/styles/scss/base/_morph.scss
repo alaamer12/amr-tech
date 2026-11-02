@@ -1,0 +1,67 @@
+@use '../abstracts/variables' as v;
+
+// Animated theme morph (magicui AnimatedThemeToggler mechanics).
+// Scoped to html[data-morphing] so Astro's navigation fade is untouched.
+
+:root[data-morphing]::view-transition-group(root) {
+  animation-duration: var(--morph-dur, 450ms);
+}
+
+:root[data-morphing]::view-transition-old(root),
+:root[data-morphing]::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+:root[data-morphing]::view-transition-old(root) {
+  z-index: 0;
+}
+
+:root[data-morphing]::view-transition-new(root) {
+  z-index: 1;
+  // Pinned collapsed clip: no unclipped frame of new content paints before
+  // the WAAPI animation starts (the "breaking glass" flash).
+  clip-path: var(--morph-clip-from, none);
+}
+
+// Wavefront ring: its own VT group so it rides the reveal edge.
+.morph-ring {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: v.$z-modal;
+  border: 3px solid var(--accent);
+  box-shadow:
+    0 0 22px color-mix(in srgb, var(--accent) 45%, transparent),
+    inset 0 0 22px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+
+:root::view-transition-group(ring) {
+  animation: none;
+  z-index: 3;
+}
+
+:root::view-transition-old(ring) {
+  display: none;
+}
+
+:root::view-transition-new(ring) {
+  animation: ring-grow var(--morph-dur, 450ms) ease-in-out forwards;
+  transform-origin: center;
+}
+
+@keyframes ring-grow {
+  0% {
+    transform: scale(0.02);
+    opacity: 1;
+  }
+
+  75% {
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}

@@ -1,0 +1,147 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+.search {
+  position: relative;
+  inline-size: 100%;
+  max-inline-size: 20rem;
+}
+
+.search__input {
+  inline-size: 100%;
+  padding: v.$spacing-xs v.$spacing-md;
+  padding-inline-start: v.$spacing-xl;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: v.$radius-pill;
+  color: var(--text);
+  font-family: var(--font-chrome);
+  font-size: v.$text-small;
+
+  &::placeholder {
+    color: var(--text-subtle);
+  }
+
+  @media (max-width: 1023px) {
+    min-block-size: 2.75rem;
+  }
+
+  @include m.focus-visible;
+}
+
+.search__icon {
+  position: absolute;
+  inset-inline-start: v.$spacing-sm;
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  color: var(--text-subtle);
+  pointer-events: none;
+}
+
+.search__clear {
+  position: absolute;
+  inset-inline-end: v.$spacing-xs;
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+  background: transparent;
+  border: none;
+  border-radius: v.$radius-pill;
+  color: var(--text-subtle);
+  cursor: pointer;
+
+  &:hover {
+    color: var(--text);
+    background: var(--surface-2);
+  }
+
+  @include m.focus-visible;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+// Hide the Ctrl K hint while a query is present (the clear button takes its place).
+.search:has(.search__clear:not([hidden])) .search__kbd {
+  display: none;
+}
+
+.search__kbd {
+  position: absolute;
+  inset-inline-end: v.$spacing-xs;
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-mono);
+  font-size: v.$text-label;
+  color: var(--text-subtle);
+  border: 1px solid var(--border);
+  border-radius: v.$radius-sm;
+  padding: 0 v.$spacing-2xs;
+}
+
+.search__results {
+  position: absolute;
+  inset-block-start: calc(100% + #{v.$spacing-xs});
+  inset-inline: 0;
+  z-index: v.$z-dropdown;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: v.$radius-md;
+  box-shadow: var(--shadow-pop);
+  max-block-size: 24rem;
+  overflow-y: auto;
+
+  &:empty {
+    display: none;
+  }
+}
+
+.search__result {
+  display: block;
+  padding: v.$spacing-sm v.$spacing-md;
+  border-block-end: 1px solid var(--border);
+  text-decoration: none;
+
+  &:last-child {
+    border-block-end: none;
+  }
+
+  &:hover,
+  &.is-selected {
+    background: var(--surface-2);
+  }
+}
+
+.search__result-title {
+  font-family: var(--font-chrome);
+  font-weight: 600;
+  font-size: v.$text-small;
+  color: var(--text);
+}
+
+.search__result-excerpt {
+  font-size: v.$text-small;
+  color: var(--text-muted);
+  line-height: 1.5;
+
+  mark {
+    background: var(--mark-bg);
+    color: inherit;
+    border-radius: 2px;
+  }
+}
+
+.search__result-meta {
+  @include m.mono-label;
+}
+
+.search__status {
+  padding: v.$spacing-sm v.$spacing-md;
+  font-size: v.$text-small;
+  color: var(--text-subtle);
+}

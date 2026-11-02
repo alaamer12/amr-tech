@@ -1,0 +1,24 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+.index-intro {
+  margin-block: v.$spacing-xs v.$spacing-xl;
+  max-inline-size: 60ch;
+  color: var(--text-muted);
+}
+
+.index-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: v.$spacing-md;
+  align-items: center;
+  justify-content: space-between;
+  margin-block-end: v.$spacing-lg;
+}
+
+.index-section-label {
+  @include m.mono-label;
+
+  margin-block-end: v.$spacing-md;
+  font-weight: 400;
+}

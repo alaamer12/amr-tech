@@ -1,0 +1,192 @@
+@use '../abstracts/variables' as v;
+
+body {
+  font-family: var(--font-body);
+  font-size: v.$text-body;
+  line-height: v.$leading-body;
+  color: var(--text);
+  background-color: var(--bg);
+}
+
+:lang(ar),
+[dir='rtl'] {
+  line-height: v.$leading-body-rtl;
+}
+
+// Role: site chrome / page headers
+.font-chrome {
+  font-family: var(--font-chrome);
+}
+
+.page-title {
+  font-family: var(--font-chrome);
+  font-size: v.$text-display;
+  font-weight: 700;
+  line-height: v.$leading-display;
+  letter-spacing: -0.02em;
+}
+
+// Role: blog post titles
+.post-title {
+  font-family: var(--font-title);
+  font-size: v.$text-title;
+  font-weight: 400;
+  line-height: v.$leading-display;
+  letter-spacing: -0.01em;
+}
+
+.post-lede {
+  font-family: var(--font-body);
+  font-size: v.$text-h3;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+// Mono micro-label (Resend signature)
+.meta-label {
+  font-family: var(--font-mono);
+  font-size: v.$text-label;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-subtle);
+
+  // Dates are Latin-formatted; keep them out of RTL bidi reordering.
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+// Rendered markdown body
+.post-body {
+  h2 {
+    font-family: var(--font-chrome);
+    font-size: v.$text-h2;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-block: v.$spacing-2xl v.$spacing-md;
+    scroll-margin-top: v.$spacing-xl;
+  }
+
+  h3 {
+    font-family: var(--font-chrome);
+    font-size: v.$text-h3;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-block: v.$spacing-xl v.$spacing-sm;
+    scroll-margin-top: v.$spacing-xl;
+  }
+
+  p {
+    margin-block-end: v.$spacing-md;
+  }
+
+  a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+    text-decoration-thickness: 1px;
+
+    &:hover {
+      color: var(--accent-hover);
+    }
+  }
+
+  ul,
+  ol {
+    padding-inline-start: v.$spacing-lg;
+    margin-block-end: v.$spacing-md;
+  }
+
+  li + li {
+    margin-block-start: v.$spacing-2xs;
+  }
+
+  blockquote {
+    border-inline-start: 3px solid var(--accent);
+    padding-inline-start: v.$spacing-md;
+    margin-block: v.$spacing-lg;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  hr {
+    border: none;
+    border-block-start: 1px solid var(--border);
+    margin-block: v.$spacing-2xl;
+  }
+
+  table {
+    display: block;
+    max-inline-size: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    inline-size: 100%;
+    margin-block-end: v.$spacing-md;
+    font-size: v.$text-small;
+  }
+
+  th,
+  td {
+    border: 1px solid var(--border);
+    padding: v.$spacing-xs v.$spacing-sm;
+    text-align: start;
+  }
+
+  :not(pre) > code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: v.$radius-sm;
+    padding: 0.1em 0.35em;
+  }
+
+  figure {
+    margin-block: v.$spacing-xl;
+  }
+
+  figcaption {
+    margin-block-start: v.$spacing-xs;
+    font-size: v.$text-small;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  video {
+    border-radius: v.$radius-md;
+    border: 1px solid var(--border);
+    margin-block: v.$spacing-xl;
+    inline-size: 100%;
+  }
+
+  mark {
+    background: var(--mark-bg);
+    color: inherit;
+    border-radius: 2px;
+    padding: 0 0.15em;
+  }
+
+  .footnotes {
+    border-block-start: 1px solid var(--border);
+    margin-block-start: v.$spacing-2xl;
+    font-size: v.$text-small;
+    color: var(--text-muted);
+  }
+
+  // GFM footnote markers: true superscripts that never stretch the line box.
+  sup {
+    line-height: 0;
+    font-size: 0.68em;
+    vertical-align: super;
+
+    a {
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      text-decoration: none;
+      padding-inline: 0.15em;
+
+      &:hover {
+        color: var(--accent);
+      }
+    }
+  }
+}

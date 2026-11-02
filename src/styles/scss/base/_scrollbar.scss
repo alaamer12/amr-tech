@@ -1,0 +1,36 @@
+@use '../abstracts/variables' as v;
+
+// Firefox fallback (Chrome ignores these when webkit pseudos are present).
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--bg);
+}
+
+// WebKit/Blink — reference recipe: physical width only (Chrome ignores
+// logical props on scrollbar pseudos), quiet track, rounded brand thumb.
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+
+  &:hover {
+    background: var(--text-subtle);
+  }
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--bg);
+}
+
+::selection {
+  background: var(--selection-bg);
+  color: var(--selection-text);
+}

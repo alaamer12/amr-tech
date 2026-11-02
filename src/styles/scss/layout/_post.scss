@@ -1,0 +1,151 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+// Content fills the page; the navbar toggle justifies the text itself
+// (document-editor model). RTL content follows automatically via `dir`.
+.post-shell {
+  position: relative;
+}
+
+.post-column {
+  inline-size: 100%;
+
+  [data-align='left'] & {
+    text-align: start;
+  }
+
+  [data-align='center'] & {
+    text-align: center;
+  }
+
+  [data-align='right'] & {
+    text-align: end;
+  }
+}
+
+.post-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: v.$spacing-md;
+  margin-block-start: v.$spacing-lg;
+}
+
+.post-back {
+  display: flex;
+  align-items: center;
+  gap: v.$spacing-2xs;
+  font-family: var(--font-chrome);
+  font-size: v.$text-small;
+  color: var(--text-muted);
+  text-decoration: none;
+
+  // Always pinned to the physical left, regardless of justification or RTL.
+  direction: ltr;
+  margin-right: auto;
+  inline-size: fit-content;
+
+  &:hover {
+    color: var(--accent);
+  }
+
+  @include m.focus-visible;
+}
+
+.copy-page {
+  @include m.focus-visible;
+
+  display: inline-flex;
+  align-items: center;
+  gap: v.$spacing-2xs;
+  direction: ltr;
+  padding: v.$spacing-2xs v.$spacing-md;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: v.$radius-pill;
+  font-family: var(--font-mono);
+  font-size: v.$text-label;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color v.$transition-fast, border-color v.$transition-fast;
+
+  &:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+}
+
+.post-header {
+  padding-block: v.$spacing-lg v.$spacing-lg;
+}
+
+.post-header__meta {
+  display: flex;
+  align-items: baseline;
+  gap: v.$spacing-md;
+  margin-block-end: v.$spacing-md;
+  flex-wrap: wrap;
+}
+
+.post-header__title {
+  margin-block-end: v.$spacing-md;
+}
+
+.post-tags {
+  display: flex;
+  gap: v.$spacing-xs;
+  flex-wrap: wrap;
+  margin-block-start: v.$spacing-md;
+}
+
+.post-tag {
+  @include m.mono-label;
+
+  border: 1px solid var(--border);
+  border-radius: v.$radius-pill;
+  padding: 0 v.$spacing-sm;
+}
+
+// Flex rows follow the text justification too.
+[data-align='center'] .post-header__meta,
+[data-align='center'] .post-tags {
+  justify-content: center;
+}
+
+[data-align='right'] .post-header__meta,
+[data-align='right'] .post-tags {
+  justify-content: flex-end;
+}
+
+.post-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: v.$spacing-md;
+  margin-block-start: v.$spacing-3xl;
+  padding-block-start: v.$spacing-lg;
+  border-block-start: 1px solid var(--border);
+}
+
+.post-nav__link {
+  display: flex;
+  flex-direction: column;
+  gap: v.$spacing-2xs;
+  text-decoration: none;
+  color: var(--text);
+  max-inline-size: 45%;
+
+  &:hover {
+    color: var(--accent);
+  }
+}
+
+.post-nav__link--next {
+  text-align: end;
+  margin-inline-start: auto;
+}
+
+.post-nav__label {
+  @include m.mono-label;
+}

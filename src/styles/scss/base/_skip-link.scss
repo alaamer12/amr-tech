@@ -1,0 +1,20 @@
+@use '../abstracts/variables' as v;
+
+.skip-link {
+  position: fixed;
+  inset-block-start: -100px;
+  inset-inline-start: v.$spacing-md;
+  z-index: 200;
+  padding: v.$spacing-xs v.$spacing-md;
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  border-radius: v.$radius-md;
+  font-family: var(--font-chrome);
+  font-size: v.$text-small;
+  text-decoration: none;
+  color: var(--text);
+
+  &:focus {
+    inset-block-start: v.$spacing-md;
+  }
+}

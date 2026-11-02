@@ -1,0 +1,10 @@
+@use 'sass:math';
+@use 'variables' as v;
+
+@function px-to-rem($px, $base: 16) {
+  @return math.div($px, $base) * 1rem;
+}
+
+@function spacing($multiplier) {
+  @return v.$spacing-unit * $multiplier;
+}

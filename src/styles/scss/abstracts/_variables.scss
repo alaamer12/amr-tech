@@ -1,0 +1,106 @@
+// Raw values — the only place values exist. Themes reassign these into role tokens.
+
+// Palette: dark (Resend near-black family)
+$dark-bg: #0a0a0a;
+$dark-surface: #141414;
+$dark-surface-2: #1c1c1c;
+$dark-text: #ededed;
+$dark-text-muted: #a1a1a1;
+$dark-text-subtle: #8b8b8b;
+$dark-border: rgba(255, 255, 255, 0.09);
+$dark-code-bg: #111318;
+$dark-mark-bg: rgba(217, 119, 87, 0.35);
+$diff-add-dark: rgba(70, 200, 120, 0.12);
+$diff-remove-dark: rgba(220, 80, 80, 0.14);
+
+// Palette: light (Claude cream family)
+$light-bg: #faf9f5;
+$light-surface: #fffefb;
+$light-surface-2: #f0ece3;
+$light-text: #1f1e1d;
+$light-text-muted: #5e5d59;
+$light-text-subtle: #6f6d68;
+$light-border: rgba(31, 30, 29, 0.12);
+$light-code-bg: #f4f1ea;
+$light-mark-bg: rgba(217, 119, 87, 0.28);
+$diff-add-light: rgba(40, 140, 80, 0.14);
+$diff-remove-light: rgba(190, 50, 50, 0.14);
+
+// Accent (shared identity, contrast-tuned per theme)
+$accent-dark: #d97757;
+$accent-dark-hover: #e69875;
+$accent-light: #b5502f;
+$accent-light-hover: #93401f;
+
+// Type families (roles assigned in base/_typography.scss)
+$font-chrome: 'Space Grotesk Variable', 'Cairo Variable', sans-serif;
+$font-title: 'Instrument Serif', 'Reem Kufi', serif;
+$font-body: 'Literata Variable', 'Noto Naskh Arabic Variable', serif;
+$font-mono: 'JetBrains Mono Variable', monospace;
+$font-logo: 'Fraunces Variable', serif;
+
+// Type scale (fluid display per resend.com pattern)
+$text-display: clamp(3rem, 7vw, 4.5rem);
+$text-title: clamp(2rem, 4.5vw, 3rem);
+$text-h2: 1.75rem;
+$text-h3: 1.35rem;
+$text-body: 1.125rem;
+$text-small: 0.875rem;
+$text-label: 0.75rem;
+
+$leading-body: 1.75;
+$leading-body-rtl: 1.9;
+$leading-display: 1.05;
+
+// Spacing (4px base)
+$spacing-unit: 0.25rem;
+$spacing-2xs: $spacing-unit;        // 4px
+$spacing-xs: $spacing-unit * 2;     // 8px
+$spacing-sm: $spacing-unit * 3;     // 12px
+$spacing-md: $spacing-unit * 4;     // 16px
+$spacing-lg: $spacing-unit * 6;     // 24px
+$spacing-xl: $spacing-unit * 8;     // 32px
+$spacing-2xl: $spacing-unit * 12;   // 48px
+$spacing-3xl: $spacing-unit * 16;   // 64px
+$spacing-4xl: $spacing-unit * 24;   // 96px
+
+// Radii
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 12px;
+$radius-pill: 999px;
+
+// Shadows (hairline-first design: minimal elevation)
+$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+$shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+$shadow-pop: 0 12px 40px rgba(0, 0, 0, 0.25);
+
+// Scrollbar + selection per theme
+$dark-scrollbar-thumb: #3d3d3d;
+$dark-scrollbar-track: transparent;
+$dark-selection-bg: #d97757;
+$dark-selection-text: #0a0a0a;
+$light-scrollbar-thumb: #cdc6b8;
+$light-scrollbar-track: transparent;
+$light-selection-bg: #b5502f;
+$light-selection-text: #fffefb;
+
+// Z-index
+$z-dropdown: 100;
+$z-sticky: 110;
+$z-version-box: 120;
+$z-modal: 9999;
+
+// Breakpoints
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+
+// Motion
+$transition-fast: 0.15s ease;
+$transition-base: 0.25s ease;
+
+// Measure
+$measure-body: 78ch;
+$container: 84rem;

@@ -1,0 +1,20 @@
+@use 'variables' as v;
+
+%interactive-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: v.$radius-pill;
+  font-family: var(--font-chrome);
+  font-size: v.$text-small;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color v.$transition-fast, border-color v.$transition-fast, color v.$transition-fast;
+}
+
+%hairline-surface {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: v.$radius-md;
+}
