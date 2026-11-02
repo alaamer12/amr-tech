@@ -1,0 +1,16 @@
+---
+import { SITE } from '../lib/site.mjs';
+const base = import.meta.env.BASE_URL;
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <span class="meta-label">© {year} {SITE.author}</span>
+    <nav class="site-footer__links" aria-label="Footer">
+      <a href={`${base}blogs/`}>Blog</a>
+      <a href={`${base}rss.xml`}>RSS</a>
+      <a href={`${base}llms.txt`}>llms.txt</a>
+    </nav>
+  </div>
+</footer>

@@ -1,0 +1,75 @@
+---
+import '../styles/scss/main.scss';
+import { ClientRouter } from 'astro:transitions';
+import '@fontsource-variable/space-grotesk';
+import '@fontsource/instrument-serif/400.css';
+import '@fontsource/instrument-serif/400-italic.css';
+import '@fontsource-variable/literata';
+import '@fontsource-variable/cairo';
+import '@fontsource-variable/reem-kufi';
+import '@fontsource-variable/noto-naskh-arabic';
+import '@fontsource-variable/jetbrains-mono';
+import '@fontsource-variable/fraunces';
+import SEO from '../components/SEO.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE } from '../lib/site.mjs';
+
+const base = import.meta.env.BASE_URL;
+const {
+  title,
+  description = SITE.description,
+  lang = 'en',
+  ogImage = new URL(`${base}og-default.svg`, Astro.site).href,
+  canonical = new URL(Astro.url.pathname, Astro.site).href,
+  publishedTime,
+  jsonLd,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang} data-base={base}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <SEO
+      ogTitle={title}
+      description={description}
+      canonical={canonical}
+      ogImage={ogImage}
+      publishedTime={publishedTime}
+      lang={lang}
+    />
+    <link rel="alternate" type="application/rss+xml" title={SITE.name} href={`${base}rss.xml`} />
+    <link rel="sitemap" type="application/xml" href={`${base}sitemap-index.xml`} />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <ClientRouter />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+    <slot name="head" />
+  </head>
+  <body transition:animate="fade">
+    <script is:inline data-astro-rerun>
+      (() => {
+        try {
+          const stored = localStorage.getItem('theme');
+          const dark = stored ? stored === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+        } catch {
+          document.documentElement.dataset.theme = 'light';
+        }
+        try {
+          document.documentElement.dataset.align = localStorage.getItem('align') || 'left';
+        } catch {
+          document.documentElement.dataset.align = 'left';
+        }
+      })();
+    </script>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <Header />
+    <main class="page" id="main-content">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

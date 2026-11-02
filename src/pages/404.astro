@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../lib/site.mjs';
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title={`Page not found — ${SITE.name}`} description="The requested page does not exist.">
+  <meta slot="head" name="robots" content="noindex" />
+  <div class="notfound">
+    <h1 class="page-title">404</h1>
+    <p class="index-intro">That page does not exist. It may have been renamed, or the link may be wrong.</p>
+    <a class="chip chip--active" href={`${base}blogs/`} style="margin-block-start: var(--spacing-lg);">Back to all posts</a>
+  </div>
+</BaseLayout>

@@ -1,0 +1,39 @@
+---
+import BlogPost from '../../layouts/BlogPost.astro';
+import AliasRedirect from '../../components/AliasRedirect.astro';
+import { getPosts, relatedOf } from '../../lib/posts.mjs';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  const paths = [];
+  posts.forEach((post, i) => {
+    const prev = i < posts.length - 1 ? { slug: posts[i + 1].slug, title: posts[i + 1].latest.title } : null;
+    const next = i > 0 ? { slug: posts[i - 1].slug, title: posts[i - 1].latest.title } : null;
+    const related = relatedOf(post, posts);
+    const latestVersion = post.versions[post.versions.length - 1];
+    for (const version of post.versions) {
+      const isLatest = version.version === latestVersion.version;
+      paths.push({
+        params: { slug: isLatest ? post.slug : `${post.slug}/v${version.version}` },
+        props: { post, version, prev, next, related, alias: false },
+      });
+    }
+    if (post.versions.length > 1) {
+      paths.push({
+        params: { slug: `${post.slug}/v${latestVersion.version}` },
+        props: { post, version: latestVersion, prev: null, next: null, alias: true },
+      });
+    }
+  });
+  return paths;
+}
+
+const { post, version, prev, next, alias } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+{alias ? (
+  <AliasRedirect slug={post.slug} base={base} site={Astro.site} />
+) : (
+  <BlogPost post={post} version={version} prev={prev} next={next} related={Astro.props.related} />
+)}

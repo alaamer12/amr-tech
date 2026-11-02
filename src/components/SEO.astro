@@ -1,0 +1,20 @@
+---
+import { SITE } from '../lib/site.mjs';
+const { description, canonical, ogImage, ogType = 'article', publishedTime, lang = 'en' } = Astro.props;
+const site = Astro.site ?? new URL(Astro.url.origin);
+---
+
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta property="og:site_name" content={SITE.name} />
+<meta property="og:title" content={Astro.props.ogTitle ?? description} />
+<meta property="og:type" content={ogType} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:description" content={description} />
+<meta property="og:locale" content={lang === 'ar' ? 'ar_AR' : 'en_US'} />
+{publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={Astro.props.ogTitle ?? description} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />

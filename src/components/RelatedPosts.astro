@@ -1,0 +1,37 @@
+---
+const base = import.meta.env.BASE_URL;
+const { related } = Astro.props;
+const fmt = (d) => new Date(d).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+const cats = [...new Set(related.map((p) => p.category).filter(Boolean))].sort();
+const visibleCount = 5;
+---
+
+{related.length > 0 && (
+  <section class="related" data-related aria-label="Related posts">
+    <div class="related__head">
+      <h2 class="related__title">Related posts</h2>
+    </div>
+    <div class="related__tabs" role="tablist" aria-label="Filter related posts by category">
+      <button class="related__tab related__tab--active" type="button" role="tab" aria-selected="true" data-rel-tab="">{`All`}</button>
+      {cats.map((c) => (
+        <button class="related__tab" type="button" role="tab" aria-selected="false" data-rel-tab={c}>{c}</button>
+      ))}
+    </div>
+    <ul class="related__list">
+      {related.map((p) => (
+        <li class="related__row" data-rel-cat={p.category}>
+          <span class="related__date meta-label">{fmt(p.date)}</span>
+          <a class="related__link" href={`${base}blogs/${p.slug}/`} lang={p.lang}>{p.title}</a>
+          <span class="related__time meta-label">{p.readingMinutes} min</span>
+        </li>
+      ))}
+    </ul>
+    {related.length > visibleCount && (
+      <button class="related__more" type="button" data-rel-more>Load more</button>
+    )}
+  </section>
+)}
+
+<script>
+  import '../scripts/related.js';
+</script>

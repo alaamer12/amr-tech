@@ -1,0 +1,38 @@
+---
+import { Image } from 'astro:assets';
+
+const base = import.meta.env.BASE_URL;
+const { post } = Astro.props;
+const { slug, latest, versions, data } = post;
+const url = `${base}blogs/${slug}/`;
+const thumbMeta = data.thumbnail ?? latest.thumbnailMeta;
+const thumbUrl = thumbMeta ? null : latest.thumbnailUrl;
+const dateStr = latest.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+const versionUrl = (v) => v.version === latest.version ? url : `${base}blogs/${slug}/v${v.version}/`;
+---
+
+<div class="card" data-category={data.category ?? ''}>
+  {thumbMeta && (
+    <Image class="card__thumbnail" src={thumbMeta} alt="" width={640} height={360} loading="lazy" />
+  )}
+  {!thumbMeta && thumbUrl && (
+    <img class="card__thumbnail" src={thumbUrl} alt="" width={640} height={360} loading="lazy" />
+  )}
+  <span class="card__meta">
+    <span class="card__date">{dateStr}</span>
+    {data.category && <span class="card__category">{data.category}</span>}
+  </span>
+  <a class="card__title" href={url} lang={data.lang}>{latest.title}</a>
+  <span class="card__excerpt" lang={data.lang}>{latest.excerpt}</span>
+  {versions.length > 1 && (
+    <span class="card__versions" aria-label="Versions">
+      {versions.map((v) => (
+        <a
+          class:list={['card__version', { 'card__version--current': v.version === latest.version }]}
+          href={versionUrl(v)}
+          aria-label={`Read version ${v.version}`}
+        >v{v.version}</a>
+      ))}
+    </span>
+  )}
+</div>

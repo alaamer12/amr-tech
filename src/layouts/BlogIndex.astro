@@ -1,0 +1,37 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import ChipBar from '../components/ChipBar.astro';
+import SearchBox from '../components/SearchBox.astro';
+import Card from '../components/Card.astro';
+import EmptyState from '../components/EmptyState.astro';
+import { SITE } from '../lib/site.mjs';
+
+const { posts, categories } = Astro.props;
+---
+
+<BaseLayout title={`${SITE.name} — ${SITE.description}`} description={SITE.description}>
+  <h1 class="page-title">Blog</h1>
+  <p class="index-intro">{SITE.description}</p>
+  {posts.length > 0 && (
+    <div class="index-toolbar">
+      <ChipBar categories={categories} />
+      <SearchBox />
+    </div>
+  )}
+  {posts.length > 0 ? (
+    <>
+      <h2 class="index-section-label">Latest posts</h2>
+      <div class="post-grid">
+        {posts.map((post) => <Card post={post} />)}
+      </div>
+    </>
+  ) : (
+    <EmptyState />
+  )}
+</BaseLayout>
+
+{posts.length > 0 && (
+  <script>
+    import '../scripts/index-filter.js';
+  </script>
+)}

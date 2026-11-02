@@ -1,0 +1,10 @@
+---
+const { categories } = Astro.props;
+---
+
+<div class="chip-bar" data-chip-bar role="group" aria-label="Filter by category">
+  <button class="chip chip--active" type="button" data-chip="">All</button>
+  {categories.map((c) => (
+    <button class="chip" type="button" data-chip={c}>{c}</button>
+  ))}
+</div>

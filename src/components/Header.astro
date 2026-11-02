@@ -1,0 +1,22 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+import AlignToggle from './AlignToggle.astro';
+import { SITE } from '../lib/site.mjs';
+const base = import.meta.env.BASE_URL;
+---
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-header__brand" href={`${base}blogs/`} aria-label={`${SITE.name} home`}>
+      <svg class="site-header__logo" width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="currentColor" opacity="0.08"/><path d="M9 22l7-12 7 12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="24" r="1.6" fill="currentColor"/></svg>
+      {SITE.name}
+    </a>
+    <AlignToggle />
+    <nav class="site-header__actions" aria-label="Main">
+      <a class="site-header__icon-link" href={`${base}rss.xml`} aria-label="RSS feed">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9H4v-9zm0-5a14 14 0 0 1 14 14h-4A10 10 0 0 0 4 10V6zm2.5-2A16.5 16.5 0 0 1 22.5 21h-4A12.5 12.5 0 0 0 6.5 8.5v-4.5z" opacity="0"/><circle cx="6.18" cy="17.82" r="2.18"/><path d="M4 4.05v3.06c9.39.3 12.56 3.4 12.89 12.89h3.06C19.7 9.2 14.8 4.3 4 4.05zm0 6.12v3.06c3.9.24 6.6 2.95 6.82 6.82h3.06C15.53 14.23 11.77 10.47 4 10.17z"/></svg>
+      </a>
+      <ThemeToggle />
+    </nav>
+  </div>
+</header>

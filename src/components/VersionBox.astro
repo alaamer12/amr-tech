@@ -1,0 +1,26 @@
+---
+const base = import.meta.env.BASE_URL;
+const { slug, versions, current } = Astro.props;
+const label = (v) => `v${v.version}`;
+---
+
+<details class="version-box">
+  <summary class="version-box__toggle">
+    <span class="version-box__marker">v{current}</span>
+    <span>{versions.length} version{versions.length > 1 ? 's' : ''}</span>
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
+  </summary>
+  <div class="version-box__menu">
+    {versions.map((v) => (
+      <a
+        class:list={['version-box__item', { 'is-current': v.version === current }]}
+        href={v.version === versions[versions.length - 1].version
+          ? `${base}blogs/${slug}/`
+          : `${base}blogs/${slug}/v${v.version}/`}
+      >
+        <span class="version-box__marker">{label(v)}</span>
+        <span>{v.title}</span>
+      </a>
+    ))}
+  </div>
+</details>

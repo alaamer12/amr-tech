@@ -1,0 +1,32 @@
+---
+const { headings } = Astro.props;
+const top = headings.filter((h) => h.depth === 2);
+const childrenOf = (parent) => {
+  const idx = headings.indexOf(parent);
+  const out = [];
+  for (let i = idx + 1; i < headings.length && headings[i].depth === 3; i++) out.push(headings[i]);
+  return out;
+};
+---
+
+{top.length > 0 && (
+  <nav class="toc" aria-label="Table of contents">
+    <h2 class="toc__title">Table of Contents</h2>
+    <ol class="toc__list">
+      {top.map((h) => (
+        <li>
+          <a class="toc__link" href={`#${h.slug}`}>{h.text}</a>
+          {childrenOf(h).length > 0 && (
+            <ul>
+              {childrenOf(h).map((sub) => (
+                <li class="toc__item--sub">
+                  <a class="toc__link" href={`#${sub.slug}`}>{sub.text}</a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </li>
+      ))}
+    </ol>
+  </nav>
+)}

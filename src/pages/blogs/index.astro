@@ -1,0 +1,9 @@
+---
+import BlogIndex from '../../layouts/BlogIndex.astro';
+import { getPosts, categoriesOf } from '../../lib/posts.mjs';
+
+const posts = await getPosts();
+const categories = categoriesOf(posts);
+---
+
+<BlogIndex posts={posts} categories={categories} />

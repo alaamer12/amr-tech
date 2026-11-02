@@ -1,0 +1,158 @@
+---
+import { render } from 'astro:content';
+import { getImage } from 'astro:assets';
+import BaseLayout from './BaseLayout.astro';
+import ToC from '../components/ToC.astro';
+import VersionBox from '../components/VersionBox.astro';
+import ReadingProgress from '../components/ReadingProgress.astro';
+import CopyPage from '../components/CopyPage.astro';
+import RelatedPosts from '../components/RelatedPosts.astro';
+import { SITE } from '../lib/site.mjs';
+
+const base = import.meta.env.BASE_URL;
+const { post, version, prev, next, related } = Astro.props;
+const entry = version.entry;
+const data = entry.data;
+const { Content, headings } = await render(entry);
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+let ogImage = new URL(`${base}og-default.svg`, Astro.site).href;
+const fallbackMeta = data.thumbnail ?? version.thumbnailMeta;
+if (fallbackMeta) {
+  const img = await getImage({ src: fallbackMeta });
+  ogImage = new URL(img.src, Astro.site).href;
+} else if (version.thumbnailUrl) {
+  ogImage = new URL(version.thumbnailUrl, Astro.site).href;
+}
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: version.title,
+    description: data.description ?? version.excerpt,
+    url: canonical,
+    image: ogImage,
+    datePublished: version.date.toISOString(),
+    dateModified: version.date.toISOString(),
+    inLanguage: data.lang,
+    author: { '@type': 'Person', name: SITE.author },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: new URL(base + '/', Astro.site).href },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: new URL(base + 'blogs/', Astro.site).href },
+      { '@type': 'ListItem', position: 3, name: version.title, item: canonical },
+    ],
+  },
+];
+
+const dateStr = version.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+const versionNums = post.versions.map((v) => v.version);
+const latestVersion = versionNums[versionNums.length - 1];
+---
+
+<BaseLayout
+  title={`${version.title} — ${SITE.name}`}
+  description={data.description ?? version.excerpt}
+  lang={data.lang}
+  ogImage={ogImage}
+  canonical={canonical}
+  publishedTime={version.date}
+  jsonLd={jsonLd}
+>
+  <script is:inline data-astro-rerun define:vars={{ base, slug: post.slug, versionNums, latestVersion }}>
+    (() => {
+      const q = new URLSearchParams(location.search).get('version');
+      if (!q) return;
+      const wanted = q === 'latest' ? latestVersion : Number(q);
+      const path = location.pathname;
+      const bare = base + 'blogs/' + slug + '/';
+      if (!Number.isInteger(wanted) || !versionNums.includes(wanted)) {
+        if (path !== bare) location.replace(bare);
+        else history.replaceState(null, '', bare);
+        return;
+      }
+      const target = wanted === latestVersion ? bare : bare + 'v' + wanted + '/';
+      if (path !== target) location.replace(target);
+      else history.replaceState(null, '', target);
+    })();
+  </script>
+
+  <ReadingProgress />
+
+  <div class="post-shell">
+  <article class="post-column" dir={data.lang === 'ar' ? 'rtl' : undefined} data-pagefind-body>
+  <div class="post-topbar">
+    <a class="post-back" href={`${base}blogs/`}>← Blog</a>
+    <CopyPage mdUrl={version.version === latestVersion ? `${base}blogs/${post.slug}.md` : `${base}blogs/${post.slug}/v${version.version}.md`} />
+  </div>
+  <header class="post-header">
+      <div class="post-header__meta">
+        <span class="meta-label">{dateStr}</span>
+        {data.category && <span class="card__category">{data.category}</span>}
+        <span class="visually-hidden" data-pagefind-filter={`category:${data.category ?? 'uncategorized'}`}></span>
+        <span class="visually-hidden" data-pagefind-meta={`date:${dateStr}`}></span>
+      </div>
+      <h1 class="post-title post-header__title" lang={data.lang} data-pagefind-meta="title">{version.title}</h1>
+      {data.description && <p class="post-lede post-header__lede" lang={data.lang}>{data.description}</p>}
+      {data.tags.length > 0 && (
+        <div class="post-tags">
+          {data.tags.map((t) => (
+            <span class="post-tag">{t}</span>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <div class="toc-inline">
+      <ToC headings={headings} />
+    </div>
+
+    <div class="post-body" lang={data.lang}>
+      <Content />
+    </div>
+
+    <nav class="post-nav" aria-label="More posts">
+      {prev && (
+        <a class="post-nav__link" href={`${base}blogs/${prev.slug}/`}>
+          <span class="post-nav__label">← Previous</span>
+          <span>{prev.title}</span>
+        </a>
+      )}
+      {next && (
+        <a class="post-nav__link post-nav__link--next" href={`${base}blogs/${next.slug}/`}>
+          <span class="post-nav__label">Next →</span>
+          <span>{next.title}</span>
+        </a>
+      )}
+    </nav>
+  </article>
+
+  {post.versions.length > 1 && <VersionBox slug={post.slug} versions={post.versions} current={version.version} />}
+
+  {headings.some((h) => h.depth === 2) && (
+    <aside class="toc-rail" dir={data.lang === 'ar' ? 'rtl' : undefined}>
+      <button class="toc-rail__toggle" type="button" data-toc-toggle aria-expanded="false" aria-controls="toc-panel">
+        <svg class="toc-rail__chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+        <span>Contents</span>
+      </button>
+      <nav class="toc-rail__panel" id="toc-panel" aria-label="Table of contents">
+        <ToC headings={headings} />
+      </nav>
+    </aside>
+  )}
+  </div>
+
+  <script>
+    import '../scripts/toc-rail.js';
+  </script>
+
+  {related && related.length > 0 && <RelatedPosts related={related} />}
+
+  <script>
+    import '../scripts/toc-rail.js';
+  </script>
+</BaseLayout>
