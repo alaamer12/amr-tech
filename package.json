@@ -9,7 +9,8 @@
     "build": "bun run resolve && astro build && bun run emit-mirrors && pagefind --site dist --force-language en",
     "build:ci": "astro build && bun run emit-mirrors && pagefind --site dist --force-language en",
     "preview": "astro preview",
-    "emit-mirrors": "node scripts/emit-mirrors.mjs"
+    "emit-mirrors": "node scripts/emit-mirrors.mjs",
+    "deploy:gh-pages": "node scripts/deploy-gh-pages.mjs"
   },
   "keywords": [],
   "author": "",
