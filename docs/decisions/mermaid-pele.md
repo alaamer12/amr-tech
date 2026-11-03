@@ -1,6 +1,6 @@
 # Mermaid rendering via Pele (build-time SVG)
 
-Date: 2026-11-03 · Commit: see next commit after 5f59fdf · Version: post-tree-posts site
+Date: 2026-11-03 · Commit: 335308f · Version: post-tree-posts site
 
 ## Context
 
