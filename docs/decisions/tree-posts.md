@@ -1,6 +1,6 @@
 # Tree-file posts (folder-shaped document sets)
 
-Date: 2026-11-03 · Commit: (this feature's commit) · Version: post-v1 site
+Date: 2026-11-03 · Commit: 8535d53 · Version: post-v1 site
 
 ## Context
 
