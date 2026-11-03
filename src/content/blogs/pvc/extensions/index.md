@@ -1,4 +1,8 @@
-# extensions/
+---
+title: "The Extensions Layer"
+order: 4
+---
+
 
 Seven documents, each closing a specific gap found in `../base/` once real, non-trivial features were built against it. These build on each other more than they stand alone — read in this order:
 

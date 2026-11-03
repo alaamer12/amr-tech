@@ -7,6 +7,27 @@ import { assertNoDuplicates } from './dedup.mjs';
 const assetImages = import.meta.glob('../assets/blogs/**/*.{png,jpg,jpeg,gif,webp,avif,svg}', { eager: true });
 
 const VERSION_RE = /^(.+)\/v(\d+)$/i;
+const FOLDER_INDEX_RE = /^(?:.*\/)?(index|readme)$/i;
+
+// "Package resolver" convention: a folder containing index.md (or README.md)
+// at the top level of a post folder makes the whole thing a tree post —
+// every other .md under that folder becomes a page of the same post.
+export function treeSlugOf(id) {
+  const m = id.match(/^([^/]+)\//);
+  return m ? m[1] : null;
+}
+
+export function isFolderIndex(id) {
+  return FOLDER_INDEX_RE.test(id);
+}
+
+export function pageUrlPath(id) {
+  const stripped = id.replace(/\.(md)$/, '');
+  const [top, ...rest] = stripped.split('/');
+  if (rest.length === 0) return null; // top-level single post, not a tree page
+  if (isFolderIndex(stripped)) return rest.slice(0, -1).join('/'); // '' for the tree root
+  return rest.join('/');
+}
 
 export function parseId(id) {
   const m = id.match(VERSION_RE);
@@ -111,13 +132,27 @@ export async function getPosts() {
   assertNoDuplicates(entries);
 
   const buildDate = new Date();
-  const bySlug = new Map();
+
+  // Detect tree posts: a top-level folder holding index.md / README.md.
+  const treeRoots = new Map(); // slug -> entry id of the folder index
   for (const entry of entries) {
-    const { slug, version } = parseId(entry.id);
-    if (!bySlug.has(slug)) bySlug.set(slug, []);
+    const m = entry.id.match(/^([^/]+)\/(index|readme)$/i);
+    if (m) {
+      const slug = m[1];
+      const existing = treeRoots.get(slug);
+      if (existing) {
+        throw new Error(
+          `DUPLICATED FOLDER INDEX — "${slug}/" has both "${existing}" and "${entry.id}". Keep one.`,
+        );
+      }
+      treeRoots.set(slug, entry.id);
+    }
+  }
+
+  const metaOf = (entry, version) => {
     const words = stripFrontmatter(entry.body ?? '').split(/\s+/).filter(Boolean).length;
     const img = firstImageOf(entry);
-    bySlug.get(slug).push({
+    return {
       entry,
       id: entry.id,
       version,
@@ -127,14 +162,65 @@ export async function getPosts() {
       readingMinutes: Math.max(1, Math.round(words / 230)),
       thumbnailMeta: img.meta ?? null,
       thumbnailUrl: img.url ?? null,
-    });
+    };
+  };
+
+  const bySlug = new Map();
+  const trees = new Map(); // slug -> page metas (incl. root)
+
+  for (const entry of entries) {
+    const tSlug = treeSlugOf(entry.id);
+    if (tSlug && treeRoots.has(tSlug)) {
+      if (!trees.has(tSlug)) trees.set(tSlug, []);
+      const urlPath = pageUrlPath(entry.id) ?? '';
+      const meta = metaOf(entry, 1);
+      meta.urlPath = urlPath;
+      meta.depth = urlPath === '' ? 0 : urlPath.split('/').length;
+      trees.get(tSlug).push(meta);
+      continue;
+    }
+    const { slug, version } = parseId(entry.id);
+    if (!bySlug.has(slug)) bySlug.set(slug, []);
+    bySlug.get(slug).push(metaOf(entry, version));
   }
 
   const posts = [];
+  for (const [slug, pages] of trees) {
+    const seen = new Map();
+    for (const p of pages) {
+      if (seen.has(p.urlPath)) {
+        throw new Error(
+          `DUPLICATED ROUTE — "${p.urlPath}" claimed by both "${seen.get(p.urlPath)}" and "${p.id}".`,
+        );
+      }
+      seen.set(p.urlPath, p.id);
+    }
+    const root = pages.find((p) => p.urlPath === '');
+    const children = pages
+      .filter((p) => p.urlPath !== '')
+      .sort((a, b) => {
+        const oa = a.entry.data.order ?? 9999;
+        const ob = b.entry.data.order ?? 9999;
+        return oa - ob || a.urlPath.localeCompare(b.urlPath);
+      });
+    const tree = [root, ...children];
+    const total = tree.reduce((sum, p) => sum + p.readingMinutes, 0);
+    root.readingMinutes = total;
+    for (const p of children) {
+      p.crumbs = [];
+      const parts = p.urlPath.split('/');
+      for (let i = 1; i < parts.length; i++) {
+        const ancestor = tree.find((t) => t.urlPath === parts.slice(0, i).join('/'));
+        if (ancestor) p.crumbs.push({ title: ancestor.title, urlPath: ancestor.urlPath });
+      }
+    }
+    posts.push({ slug, versions: [root], latest: root, tree, isTree: true, data: root.entry.data, entry: root.entry });
+  }
+
   for (const [slug, versions] of bySlug) {
     versions.sort((a, b) => a.version - b.version);
     const latest = versions[versions.length - 1];
-    posts.push({ slug, versions, latest, data: latest.entry.data, entry: latest.entry });
+    posts.push({ slug, versions, latest, isTree: false, data: latest.entry.data, entry: latest.entry });
   }
 
   posts.sort((a, b) => b.latest.date - a.latest.date);

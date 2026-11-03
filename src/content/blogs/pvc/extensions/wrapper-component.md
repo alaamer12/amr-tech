@@ -1,10 +1,14 @@
-# Wrapper Component
+---
+title: "Wrapper Component"
+order: 9
+---
+
 
 > Depends on: [`../base/architecture.md`](../base/architecture.md) (Component, §6, §14) and [`view-and-rendition.md`](./view-and-rendition.md) §7.1 (forwarding). Read both first — this document assumes their definitions and adds one more shape: a wrapper that forwards to *several* siblings at once instead of one.
 
 ---
 
-## Wrapper Components — Grouping Is Not a New Concept, It's Forwarding Applied to Several Siblings at Once
+### Wrapper Components — Grouping Is Not a New Concept, It's Forwarding Applied to Several Siblings at Once
 
 A trap surfaces once real features are built: a set of genuinely independent Components sit adjacent to each other in the markup — say, three unrelated action buttons — and get bundled under one plural, purposeful-sounding name (`FundInlineActions`, `SearchControls`, `ProfileButtons`). That name implies a single functional responsibility, which by the base architecture's own test ([`../base/architecture.md`](../base/architecture.md) §6: "it performs a meaningful action... for the user") would make it a Component. But nothing about grouping unrelated siblings together *is* a meaningful action — the buttons underneath are each independently purposeful; the thing holding them together does nothing on its own.
 

@@ -1,4 +1,8 @@
-# View & Rendition
+---
+title: "View & Rendition"
+order: 6
+---
+
 
 *Companion document: [State vs Condition](./state-vs-condition.md) — defines the two kinds of facts this document's View consults. Read that document first. This document defines who is allowed to look at those facts and render something, and what that rendered something is allowed to be.*
 
@@ -6,7 +10,7 @@
 
 ---
 
-## 1. The Problem This Solves
+### 1. The Problem This Solves
 
 Once State and Condition were correctly restricted to fact-only hooks that never render (see the companion doc, §0), a gap remained: something still has to *consult* those facts and decide what appears on screen. Early drafts of this architecture let that "something" borrow the `State`/`Condition` suffix directly — `MaintenanceCondition`, `SearchState` — which quietly smuggled rendering responsibility back into a name reserved for a fact. This document names the two roles that were missing:
 
@@ -17,9 +21,9 @@ Rendition   → what gets rendered — one of several possible outcomes of a Vie
 
 ---
 
-## 2. Definitions
+### 2. Definitions
 
-### View
+#### View
 
 > **A View consults State and/or Condition facts, and selects exactly one Rendition to return.**
 
@@ -33,7 +37,7 @@ This holds even when a View currently has only one visible case. A `SearchView` 
 
 This is also why a View can never be replaced by a Rendition and vice versa: a Rendition is one case; a View is the thing that owns the set of cases and picks among them. Even a "simple" View is a grouper of one.
 
-### Rendition
+#### Rendition
 
 > **A Rendition is one specific, complete render that a View can produce. It receives only props. It calls no `useXxxState()` or `useXxxCondition()` hook. It is not independently addressable — it has no purpose outside the View that selects it.**
 
@@ -45,7 +49,7 @@ A Rendition is built the same way any View content is built — from Component a
 
 ---
 
-## 3. The Rule
+### 3. The Rule
 
 ```
 useXxxCondition()   → hook, fact only, never renders           [defined in companion doc]
@@ -65,7 +69,7 @@ A quick self-check for any function in the codebase:
 
 There is no valid cell for "returns JSX, named with the `State` or `Condition` suffix." That combination is always a defect, regardless of which fact triggered it.
 
-### Terminology note: "branch" / "case," never "state," when talking about a View's outcomes
+#### Terminology note: "branch" / "case," never "state," when talking about a View's outcomes
 
 When describing what a View can show, use **branch** or **case** — the two are interchangeable — never "state." This isn't pedantry: "this View has three states" is genuinely ambiguous in this system, because it could mean either "three `useXxxState()` values" (a fact, defined in the companion doc) or "three Renditions" (an outcome, defined here), and those are two different things that can even vary independently — a single State value can map to multiple cases, and a case can be reached by either a State or a Condition (§5).
 
@@ -80,7 +84,7 @@ So: "SearchView has four branches" (loading, error, offline, success) is correct
 
 ---
 
-## 4. Worked Example — the Corrected `SearchView`
+### 4. Worked Example — the Corrected `SearchView`
 
 ```tsx
 // hooks/useNetworkCondition.ts — fact only, never renders (see companion doc §5)
@@ -132,7 +136,7 @@ Every function here fits exactly one row of the table in §3. Nothing is both a 
 
 ---
 
-## 5. Ownership in Practice — the Nested Case
+### 5. Ownership in Practice — the Nested Case
 
 The companion document (§5, "Nesting, and the Asymmetry in Ownership") defines the rule at the level of hooks. Here is how that rule plays out once a real View selects Renditions from it.
 
@@ -188,7 +192,7 @@ export function MaintenanceView({ children }: { children: ReactNode }) {
 
 ---
 
-## 6. Confirming the Asymmetry Is Naming-Independent
+### 6. Confirming the Asymmetry Is Naming-Independent
 
 This is worth stating explicitly, because it was tested directly: renaming the selector from `MaintenanceCondition` to `MaintenanceView` changes nothing about which hook owns what. The asymmetry test —
 
@@ -206,7 +210,7 @@ View reads → Condition   (a dependency — the View did not cause the fact and
 
 ---
 
-## 7. Nesting: Why View-in-View Holds but Rendition-in-Rendition Cannot
+### 7. Nesting: Why View-in-View Holds but Rendition-in-Rendition Cannot
 
 The base architecture already established that a View can contain another View (`DashboardView → DeleteAccountView → ConfirmationModalView`). That remains true, unchanged, and is now understood more precisely: a View's selected Rendition is free to host a *child View*, which consults its own facts and selects its own Renditions, completely independently of its parent. This is ordinary composition — two separate groupers, one nested inside the other's chosen case.
 
@@ -247,7 +251,7 @@ function SearchResultView({ result }: { result: Result }) {
 
 So the rule in full: **Views nest freely inside Views (including inside another View's Rendition). Renditions can host a nested View. Renditions cannot host a nested Rendition-that-selects — any function attempting that has already become a View and should be named and treated as one.**
 
-### 7.1 Reuse via wrapping is not nesting, and Renditions can be global or local
+#### 7.1 Reuse via wrapping is not nesting, and Renditions can be global or local
 
 > **Forwarding is not nesting.** A Rendition calling another Rendition and passing it props — *forwarding* — does not violate the §7 rule, because §7 only forbids a Rendition *selecting between* sibling Renditions. Forwarding makes no choice and consults no fact; it simply hands fixed, known props to a shared implementation. Nesting-as-selection requires a decision (which, by §3, requires a hook, which promotes the decider to a View). Forwarding requires nothing but a function call. They are not the same relationship, and only the second one is the one §7 rules out.
 
@@ -317,7 +321,7 @@ Placement follows the same reusable-vs-non-reusable split already established (c
 
 **Forwarding is optional, not mandatory.** Nothing in this architecture requires a local wrapper to exist — a View is always free to call the global `LoadingRendition`, `useAsyncState`, or `useBrowserEventCondition` directly, inline, with no wrapper at all. A thin wrapper is created only when a developer judges it worthwhile: a stable, named, colocated call site; a place to pin fixed props once instead of repeating them at every call site; or simply a name that reads better in that feature's context. Whether to forward is a readability/organization decision made per case, not a rule this architecture enforces — the only rule is that *if* a wrapper exists, it must be pure forwarding (no fact-consulting, no selection added on top), which is what keeps it from ever becoming a violation of §5 or §7.
 
-### 7.1.1 "Who Uses Who" Is Not a Dual-Direction Choice — It Was a Missing Step
+#### 7.1.1 "Who Uses Who" Is Not a Dual-Direction Choice — It Was a Missing Step
 
 Before §7.2's shape was reached, it looked like a fork between two competing directions:
 
@@ -340,7 +344,7 @@ FundCardView                    ← Direction B's question, answered: this IS th
 
 Once the fork was dissolved this way, a further fact fell out of it that neither direction alone would have surfaced: because `_FundCard` is consumed by *two* Renditions rather than one, a Rendition can be built from a Component (already known, §2) **and** a Component can be shared across sibling Renditions (not previously described). Noticing that a relationship holds in both directions at once — with neither direction blocking or requiring the other — is exactly what raised the question §7.3 answers: is this pair asymmetric, like State/Condition, or symmetric? §7.2 and §7.3 below are the direct continuation of that finding.
 
-### 7.2 When a Component Is Shared by Sibling Renditions of the Same View
+#### 7.2 When a Component Is Shared by Sibling Renditions of the Same View
 
 §7.1 covers a Rendition forwarding to a *generic, purpose-agnostic* global implementation (`LoadingRendition`, `useAsyncState`) — something any feature in the app could reasonably use. A different case surfaces once real features are built: two sibling Renditions belonging to the *same* View's branch set turn out to share a Component that is **not** purpose-agnostic — it has no meaning or use outside that one View's set of Renditions, and never will, but it is genuinely used by more than one of them.
 
@@ -386,7 +390,7 @@ export function FundCardView({ fund }: { fund: Fund }) {
 
 This is the same relationship as §7.1's forwarding (`_FundCard` makes no choice, consults no fact, is pure props → markup) — but it is not global, and it would be wrong to colocate it inside either Rendition file, because both Renditions genuinely depend on it. This is a third placement outcome the architecture had not yet named. It is defined fully, with its own test, in **[The Poles](./the-poles.md)** — in that document's terms, `_FundCard` is **Global-Local**: shared, but scoped exclusively to `FundCardView`'s closed set of Renditions, never promoted to the app-wide `ui/` layer.
 
-### 7.3 Component and Rendition Are Symmetric — Neither Is a Fact-Producer
+#### 7.3 Component and Rendition Are Symmetric — Neither Is a Fact-Producer
 
 The companion document establishes an *asymmetry* between State and Condition (§5–6 there): a View may own a State it caused, but may only read a Condition it did not cause. It is tempting to look for a similar asymmetry between Component and Rendition — but there isn't one, and the reason is precise, not incidental.
 
@@ -407,7 +411,7 @@ This distinction — and what it implies for where shared, non-global implementa
 
 ---
 
-## 8. Naming Checklist for Renditions
+### 8. Naming Checklist for Renditions
 
 Renditions are named for **what they display**, never for the fact that triggered them:
 
@@ -424,7 +428,7 @@ If a Rendition needs its own internal fact-branching (rare — usually a sign it
 
 ---
 
-## 9. Folder Placement
+### 9. Folder Placement
 
 ```
 features/search/
@@ -457,7 +461,7 @@ shared/
 
 Renditions are colocated with their View, not extracted to a shared folder — they are not independently addressable (§2), so there is nothing to share. If a Rendition's *content* genuinely repeats across features with different text (see the companion doc's discussion of reusable Conditions), the reusable part is a Decoration or Component consumed by several Renditions — the Renditions themselves still stay local to their View.
 
-### 9.1 Flat Files vs. Nested Subfolders — a Choice, Not a Rule
+#### 9.1 Flat Files vs. Nested Subfolders — a Choice, Not a Rule
 
 Every file shown in this document's folder trees is drawn flat — `FundCardView.tsx`, `FundCardListRendition.tsx`, `_FundCard.tsx` as sibling files directly inside `FundCardView/`. That flatness is only how the examples happen to be drawn; it is not part of what any of these terms *mean*. This was already established for the base architecture ([`../base/project-structure.md`](../base/project-structure.md) §17: "this model does not require one specific folder structure... it is primarily a construction and architectural model, not a mandatory filesystem convention") and it holds identically for every concept introduced since — Rendition, Global-Local Component, and Wrapper Component included. **Being a Rendition, a Global-Local Component, or a Wrapper Component is a statement about role and placement pole, never a statement about how many folder levels sit between a file and its siblings.**
 

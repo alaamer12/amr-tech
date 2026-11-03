@@ -1,4 +1,11 @@
-# PVC — Documentation Index
+---
+title: "PVC — A Role-Based UI Construction Architecture"
+description: "The complete PVC documentation set: five architectural roles (Page, View, Component, Decoration/Aligner, UI Element) distinct from any framework, project structure, State vs Condition, View & Rendition, the three placement poles, Wrapper Components, the Settled-Behavior Axiom, and Specialised Components."
+date: 2026-11-03
+category: "Architecture"
+tags: ["architecture", "frontend", "react", "component-design", "project-structure"]
+order: 0
+---
 
 PVC (Page → View → Component) is a role-based UI construction architecture: what matters is the *architectural role* a piece of code plays, never the framework or implementation it happens to be built with. This index links every document in the set, in the order a new reader should approach them.
 

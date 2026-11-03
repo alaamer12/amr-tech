@@ -5,6 +5,7 @@ import { transformerMetaHighlight, transformerMetaWordHighlight } from '@shikijs
 import { transformerMetaTitle, transformerMetaDiff } from './src/lib/shiki-meta.mjs';
 import { amrDerivedTitle } from './src/lib/remark/derived-title.mjs';
 import { arabicBlockDirection } from './src/lib/remark/arabic-direction.mjs';
+import { createTreeLinksPlugin } from './src/lib/remark/tree-links.mjs';
 import { createMediaBasePlugin, taskListLabels } from './src/lib/hast/media-base.mjs';
 import { readdirSync, existsSync } from 'node:fs';
 import path from 'node:path';
@@ -37,6 +38,8 @@ export default defineConfig({
       filter: (page) => {
         if (page.endsWith('.md')) return false;
         const rel = page.slice('https://alaamer12.github.io'.length + SITE_BASE.length) || '/';
+        // noindex alias stubs: /blogs/<anything>/index/ redirects to its folder URL
+        if (rel.endsWith('index/')) return false;
         return !STUBS.includes(rel.endsWith('/') ? rel : `${rel}/`);
       },
     }),
@@ -57,7 +60,7 @@ export default defineConfig({
       ],
     },
     processor: satteri({
-      mdastPlugins: [amrDerivedTitle, arabicBlockDirection],
+      mdastPlugins: [amrDerivedTitle, arabicBlockDirection, createTreeLinksPlugin(`${SITE_BASE}/`)],
       hastPlugins: [createMediaBasePlugin(SITE_BASE), taskListLabels],
     }),
   },

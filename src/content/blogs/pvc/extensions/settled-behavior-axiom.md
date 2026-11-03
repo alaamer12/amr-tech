@@ -1,10 +1,14 @@
-# The Settled-Behavior Axiom
+---
+title: "The Settled-Behavior Axiom"
+order: 10
+---
+
 
 > A general governing principle, not specific to any one document in this set. Referenced directly by [Specialised Component](./specialised-component.md), but applies anywhere a Component, Rendition, or placement decision is being classified. Assumes familiarity with [The Poles](./the-poles.md) §3 and [`view-and-rendition.md`](./view-and-rendition.md) §3's branch/case terminology, which it generalizes from.
 
 ---
 
-## A Feature's Components Reflect One Decided Behavior, Not a Menu of Behaviors
+### A Feature's Components Reflect One Decided Behavior, Not a Menu of Behaviors
 
 A prior question has to be answered honestly before any Component, wrapper, or placement decision can be classified, because getting it wrong silently corrupts every classification downstream of it: **is the behavior a Component embodies actually settled, or is it being treated as settled while still secretly being asked "but what if we also wanted it the other way"?**
 

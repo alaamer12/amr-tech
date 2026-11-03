@@ -22,6 +22,12 @@ export async function GET(context) {
         : `${base}blogs/${p.slug}/v${v.version}/`;
       lines.push(`- [${v.title}](${abs(path)}): v${v.version}, ${v.date.toISOString().slice(0, 10)}${p.data.category ? `, ${p.data.category}` : ''}`);
     }
+    if (p.isTree) {
+      for (const page of p.tree) {
+        if (page.urlPath === '') continue;
+        lines.push(`  - [${page.title}](${abs(`${base}blogs/${p.slug}/${page.urlPath}/`)})`);
+      }
+    }
   }
   return new Response(lines.join('\n') + '\n', {
     headers: { 'Content-Type': 'text/plain; charset=utf-8' },

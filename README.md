@@ -13,6 +13,7 @@ Full authoring contract: **[HOW-TO-ADD-A-POST.md](HOW-TO-ADD-A-POST.md)** · Dec
 ```
 src/content/blogs/my-post.md            →  /blogs/my-post/
 src/content/blogs/pvc/v1.md, v2.md ...  →  /blogs/pvc/ (highest vN = latest)
+src/content/blogs/pvc/index.md + tree   →  /blogs/pvc/ + /blogs/pvc/<path>/ per file
 ```
 
 ## Development
@@ -30,6 +31,7 @@ node scripts/seo-audit.mjs # pass/gap audit against dist/
 ## What's inside
 
 - **Versioned posts** — every post is `vN`; real prerendered URLs, `?version=` alias redirect, floating version switcher, clickable version pills on cards
+- **Tree-file posts** — a folder with `index.md` publishes as one multi-page post (`/blogs/pvc/base/architecture/` and friends): package-style directory resolution, automatic rewriting of relative `.md` links, per-page ToC/TreeNav/breadcrumbs, one card in the listing
 - **Search** — Pagefind (typo-tolerant, stemming, Arabic-aware) filtering the card grid in place, Ctrl+K
 - **SEO** — canonicals, BlogPosting + BreadcrumbList JSON-LD, sitemap, RSS, robots; Lighthouse 100/100/100/100 on index and post pages
 - **Agent-readable** — every page works without JS; `.md` mirrors and `llms.txt` for scrapers
@@ -39,4 +41,4 @@ node scripts/seo-audit.mjs # pass/gap audit against dist/
 
 ## Deploy
 
-GitHub Actions (`.github/workflows/deploy.yml`) builds `main` and deploys via `actions/deploy-pages`. PRs get preview builds. Source of truth for site config: `astro.config.mjs` (`site: https://alaamer12.github.io`, `base: /amr-tech`).
+GitHub Pages serves the `gh-pages` branch (plain static output, `.nojekyll`). Publish with `bun run deploy:gh-pages` after a build — no Actions workflow by design. Source of truth for site config: `astro.config.mjs` (`site: https://alaamer12.github.io`, `base: /amr-tech`).

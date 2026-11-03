@@ -1,0 +1,60 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+// Page map shown on every page of a tree post (folder-shaped blog series).
+.tree-nav {
+  margin-block: v.$spacing-lg;
+  padding: v.$spacing-md v.$spacing-lg;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: v.$radius-md;
+  font-family: var(--font-chrome);
+}
+
+.tree-nav__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: v.$spacing-xs;
+}
+
+.tree-nav__item {
+  padding-inline-start: calc(var(--tree-depth, 0) * v.$spacing-lg);
+
+  a {
+    @include m.focus-visible;
+
+    color: var(--text);
+    font-size: v.$text-small;
+    text-decoration: none;
+    border-inline-start: 2px solid transparent;
+
+    &:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+  }
+}
+
+.tree-nav__item--depth-0 {
+  --tree-depth: 0;
+
+  a {
+    font-weight: 600;
+  }
+}
+
+.tree-nav__item--depth-1 {
+  --tree-depth: 1;
+}
+
+.tree-nav__item--depth-2 {
+  --tree-depth: 2;
+}
+
+.tree-nav__item--current > a {
+  color: var(--accent);
+  border-inline-start-color: var(--accent);
+  font-weight: 600;
+}

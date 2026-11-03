@@ -1,4 +1,8 @@
-# base/
+---
+title: "The Base Layer"
+order: 1
+---
+
 
 This is the permanent, foundational layer of PVC. Nothing here changes as the system evolves — every document in `../extensions/` builds strictly on top of what's defined here, never contradicting it.
 

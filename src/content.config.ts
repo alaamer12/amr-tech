@@ -4,7 +4,7 @@ import { z } from 'astro/zod';
 
 const blogs = defineCollection({
   loader: glob({
-    pattern: ['*.md', '*/v*.md'],
+    pattern: ['**/*.md'],
     base: './src/content/blogs',
     generateId: ({ entry }) => entry.replace(/\.md$/, ''),
   }),
@@ -17,6 +17,7 @@ const blogs = defineCollection({
         category: z.string().nullable().optional(),
         tags: z.array(z.string()).default([]),
         draft: z.boolean().default(false),
+        order: z.number().optional(),
         thumbnail: image().optional(),
         lang: z.string().default('en'),
       })

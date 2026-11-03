@@ -1,4 +1,8 @@
-# State vs Condition
+---
+title: "State vs Condition"
+order: 5
+---
+
 
 *Companion document: [View & Rendition](./view-and-rendition.md) — defines the layer that consumes State and Condition and turns them into rendered UI. Read this document first; it defines the two facts. The companion document defines who is allowed to look at those facts and render something.*
 
@@ -8,7 +12,7 @@
 
 ---
 
-## 0. The Naming Rule — Read This First
+### 0. The Naming Rule — Read This First
 
 > **`useXxxCondition()` and `useXxxState()` are hooks. They return a fact. They never return JSX.**
 
@@ -29,7 +33,7 @@ Every code example from here on follows this convention exactly.
 
 ---
 
-## 1. The Boundary Statement
+### 1. The Boundary Statement
 
 > **State** is what *this View's own data cycle* is doing right now.
 > **Condition** is what *the outside world* is imposing on this View right now.
@@ -45,7 +49,7 @@ Both used to be lumped under the single word "state." They are kept apart becaus
 
 ---
 
-## 2. The One Question to Ask
+### 2. The One Question to Ask
 
 > **"If I fixed this by waiting, would it resolve on its own — or does something outside this View have to change first?"**
 
@@ -61,7 +65,7 @@ A second, faster check that gives the same answer:
 
 ---
 
-## 3. Decision Checklist
+### 3. Decision Checklist
 
 Walk through in order — stop at the first `yes`.
 
@@ -74,7 +78,7 @@ If still unsure, default to Condition — Conditions are the ones that quietly g
 
 ---
 
-## 4. Cause Is Not Scope — Two Independent Axes
+### 4. Cause Is Not Scope — Two Independent Axes
 
 An early version of this guide assumed Condition always meant "global" and State always meant "local." That's false. **Cause** (who triggered it) and **Scope** (who else is affected) are independent:
 
@@ -98,7 +102,7 @@ Reusability is a **third**, separate decision — "does the implementation file 
 
 ---
 
-## 5. Nesting, and the Asymmetry in Ownership
+### 5. Nesting, and the Asymmetry in Ownership
 
 Because State and Condition are both just facts consulted by a View, and Views can contain Views, a View that primarily reacts to a State can also own a nested State fetch triggered by a Condition, and vice versa. Both directions are real. **But they are not the same kind of relationship**, and treating them as symmetric is a mistake worth naming precisely.
 
@@ -107,7 +111,7 @@ Because State and Condition are both just facts consulted by a View, and Views c
 
 The test that exposes this: **does the hook's `useEffect` create the thing, or does it merely listen to a thing that already exists, before and after this View's lifetime?**
 
-### Condition owning a State — real composition
+#### Condition owning a State — real composition
 
 The maintenance ETA only exists *because* the View needed it to decide which Rendition to show. Nobody else needed that fetch; it is created and destroyed with this View:
 
@@ -144,7 +148,7 @@ function useMaintenanceEtaState() {
 
 *(How a View consults both of these hooks and selects a Rendition is shown in the companion document, §"Ownership in Practice" — this document only defines the facts themselves.)*
 
-### State reading a Condition — a dependency, not composition
+#### State reading a Condition — a dependency, not composition
 
 `navigator.onLine` exists whether or not any particular View ever mounts. It was not created by any one View, will not be destroyed by any one View, and every View in the app could ask the same hook the same question and get the same answer:
 
@@ -177,7 +181,7 @@ function useSearchState() {
 }
 ```
 
-### Why the asymmetry exists — the actual proof
+#### Why the asymmetry exists — the actual proof
 
 This isn't a stylistic preference; it falls directly out of §1 and §4:
 
@@ -195,7 +199,7 @@ This holds regardless of what the enclosing View is named — the asymmetry live
 
 ---
 
-## 6. Where Each Hook Lives
+### 6. Where Each Hook Lives
 
 **State hooks** — colocated with the View that owns the fetch:
 
@@ -223,7 +227,7 @@ Rule of thumb: **non-reusable always lives with its owner** (feature folder for 
 
 ---
 
-## 7. The Tell in the Code Itself
+### 7. The Tell in the Code Itself
 
 - Writing a **global Condition check** inline inside many different Views means copy-pasting the same check everywhere. That duplication is the signal it should be consulted once, by one View near the root, instead.
 - Writing a **State hook**'s logic at the root is impossible without that root somehow knowing about one specific feature's internal fetch — which breaks the point of the root being generic. That impossibility is the signal too.
@@ -234,7 +238,7 @@ If a check feels awkward to place, that discomfort is diagnostic, not incidental
 
 ---
 
-## 8. Quick Reference
+### 8. Quick Reference
 
 | Example | State or Condition? | Why |
 | --- | --- | --- |

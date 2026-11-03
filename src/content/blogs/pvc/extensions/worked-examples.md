@@ -1,4 +1,8 @@
-# Worked Examples
+---
+title: "Worked Examples"
+order: 8
+---
+
 
 > The single canonical home for every worked tree in this documentation set. [The Poles](./the-poles.md) states the tests and rules; this document shows them applied, in full, so no other document needs to redraw these trees. If you find the same `funds/`/`checkout/`/`search/` example elsewhere, that copy is stale — this file is the source of truth.
 
@@ -8,7 +12,7 @@
 
 ---
 
-## 1. Worked Example 1 — Global-Local via Component/Rendition Symmetry
+### 1. Worked Example 1 — Global-Local via Component/Rendition Symmetry
 
 ```
 features/funds/
@@ -104,7 +108,7 @@ The underscore prefix on `_FundCard` is a naming convention, not a mechanical re
 
 ---
 
-## 2. Worked Example 2 — Global-Local With No View, No Rendition, No Fact
+### 2. Worked Example 2 — Global-Local With No View, No Rendition, No Fact
 
 [The Poles](./the-poles.md) §4 draws a distinction worth proving rather than asserting: Global-Local is not a special consequence of Component/Rendition symmetry, it is a general placement test (§3) that happens to have been *discovered* through that symmetry. To prove that, here is a case where the test applies cleanly with neither a View, a Rendition, nor any fact-consulting hook anywhere in sight — just two ordinary sibling Components that happen to share a sub-piece.
 
@@ -167,7 +171,7 @@ This confirms The Poles §4's claim: Component/Rendition symmetry made the *firs
 
 ---
 
-## 3. Worked Example 3 — The Two Global-Local Configurations, Side by Side
+### 3. Worked Example 3 — The Two Global-Local Configurations, Side by Side
 
 This is the same `funds/` feature as Worked Example 1 (§1 above), redrawn to show both Global-Local configurations at once — (a) inside one View's own folder, governed by The Poles §3, and (b) at the feature's own tier, governed by §3.1 — so the difference is visible in one tree rather than described only in prose.
 
@@ -202,7 +206,7 @@ features/funds/
 
 ---
 
-## 4. The Full Composite Tree
+### 4. The Full Composite Tree
 
 The three examples above isolate one idea each. This section places all of them — plus `search/`'s ordinary State/Condition/View/Rendition usage, `search/`'s Specialised Component pairing, and the true Global layer (`ui/base/`, `ui/adaptive/`, `shared/`) — into one complete project tree, so every concept in this documentation set is visible in a single, consistent structure.
 
@@ -407,7 +411,7 @@ src/
                                                        above (specialised-component.md)
 ```
 
-### The Rule This Tree Demonstrates
+#### The Rule This Tree Demonstrates
 
 Two different, non-competing tests decide Global-Local, and this tree is built specifically so both are visible at once, in the same feature, without contradiction:
 

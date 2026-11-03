@@ -4,7 +4,7 @@
 
 Everything publishes automatically: routing, category chips, in-place card search (Pagefind: typo-tolerant + stemming), sitemap, RSS, `llms.txt`, raw `.md` mirrors, OG tags (with fallback chain), ToC (inline on mobile, slide-out rail on desktop), reading-time, related-posts, syntax highlighting, footnote rendering, RTL handling, version pills, Copy Page, theme/alignment controls, deployment. Your only job is **inserting a markdown file**.
 
-## The two shapes
+## The three shapes
 
 ### 1. Single file (the common case)
 
@@ -20,7 +20,29 @@ src/content/blogs/pvc/v2.md         →  /blogs/pvc/v2/
 src/content/blogs/pvc/v3.md         →  /blogs/pvc/       ← highest vN is latest
 ```
 
-To publish version 4, drop `v4.md` in the folder. **No flags, no config** — highest number wins. Files in a post folder that are not `vN.md` are ignored.
+To publish version 4, drop `v4.md` in the folder. **No flags, no config** — highest number wins. Don't keep non-`vN.md` files inside a versioned folder: they would be published as separate nested posts.
+
+### 3. Tree post (a folder-shaped document set)
+
+A folder whose top level contains `index.md` (or `README.md`) is a **tree post**: the index file is the post root (its overview page), and every `.md` file anywhere below it becomes a page of the same post — resolved like a package directory:
+
+```
+src/content/blogs/pvc/index.md               →  /blogs/pvc/
+src/content/blogs/pvc/base/index.md          →  /blogs/pvc/base/
+src/content/blogs/pvc/base/architecture.md   →  /blogs/pvc/base/architecture/
+src/content/blogs/pvc/extensions/the-poles.md→  /blogs/pvc/extensions/the-poles/
+```
+
+Rules:
+
+- **`<dir>/index.md` maps to `<dir>/`** (and `<dir>/README.md` works too if no index exists). The URL `/blogs/pvc/base/index/` stays valid as a redirect to `/blogs/pvc/base/`.
+- **Relative links between the files just work.** `./the-poles.md`, `../base/architecture.md`, `../README.md`, even `](../base/)` are rewritten at build time to their `/blogs/pvc/...` URLs. Copy a doc set in as-is; nothing needs hand-editing.
+- **Reading order** is `order: N` in each page's frontmatter (lowest first; unordered pages sort alphabetically after). The root index page always comes first.
+- **Page titles** come from each file's first H1 (it is lifted out of the body and rendered as the page title), or from `title:` in frontmatter if you prefer. The root index page follows the same rule.
+- Every tree page gets: the TreeNav page map, ToC rail, reading progress, copy-as-markdown, JSON-LD with full breadcrumb depth, its own canonical URL, sitemap entry, search index, and a raw `.md` mirror at its URL + `.md`.
+- The listing card shows the post once, with total reading time summed across all pages.
+- A tree post and `vN.md` versioning don't mix: if the folder has `index.md`, everything inside (including any `vN.md`) is treated as pages.
+- Two files resolving to the same URL (e.g. `base/index.md` + `base/README.md`) **fail the build**, same as duplicated content.
 
 ## Frontmatter (all optional, unknown keys fail the build)
 

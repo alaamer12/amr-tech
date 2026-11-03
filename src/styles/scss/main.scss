@@ -26,6 +26,7 @@
 @use 'components/reading-progress';
 @use 'components/related';
 @use 'components/empty-state';
+@use 'components/tree-nav';
 
 // Respect reduced-motion: no fades, no transitions anywhere.
 @media (prefers-reduced-motion: reduce) {

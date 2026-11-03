@@ -1,10 +1,12 @@
 ---
 const { headings } = Astro.props;
-const top = headings.filter((h) => h.depth === 2);
+const depths = headings.map((h) => h.depth).filter((d) => d >= 2);
+const topDepth = depths.length ? Math.min(...depths) : 2;
+const top = headings.filter((h) => h.depth === topDepth);
 const childrenOf = (parent) => {
   const idx = headings.indexOf(parent);
   const out = [];
-  for (let i = idx + 1; i < headings.length && headings[i].depth === 3; i++) out.push(headings[i]);
+  for (let i = idx + 1; i < headings.length && headings[i].depth === topDepth + 1; i++) out.push(headings[i]);
   return out;
 };
 ---

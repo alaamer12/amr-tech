@@ -1,4 +1,8 @@
-# The Poles
+---
+title: "The Poles"
+order: 7
+---
+
 
 *Third document in this set. [State vs Condition](./state-vs-condition.md) defines two kinds of facts and the asymmetric ownership rule between them. [View & Rendition](./view-and-rendition.md) defines who is allowed to consult those facts and render something, and — in §7.2–7.3 — surfaces the gap this document exists to close. Read both first. This document defines only the tests and rules for the three placement poles; every worked-out example lives in [Worked Examples](./worked-examples.md), which this document links to rather than reproduces.*
 
@@ -6,7 +10,7 @@
 
 ---
 
-## 1. The Gap
+### 1. The Gap
 
 The base architecture ([`../base/architecture.md`](../base/architecture.md): Page → View → Component → Decoration/Aligner → UI Element) only ever described two placement poles for any piece of implementation:
 
@@ -26,7 +30,7 @@ Neither placement was dishonest by accident — the model simply didn't have a s
 
 ---
 
-## 2. The Three Poles
+### 2. The Three Poles
 
 ```
 GLOBAL         → any feature, anywhere, may consume it; purpose-agnostic;
@@ -43,7 +47,7 @@ Global-Local sits between the other two not as a compromise or a "not sure yet" 
 
 ---
 
-## 3. The Test
+### 3. The Test
 
 The same instinct this architecture already uses elsewhere — the companion document's "if I deleted every other View in the app, would this still happen?" (State vs Condition, §2) — extends directly to placement:
 
@@ -55,11 +59,11 @@ The same instinct this architecture already uses elsewhere — the companion doc
 
 This test is decided the same way ownership is decided elsewhere in this architecture (companion doc §5–6): by asking what the thing's reason for existing actually is, not by how many places currently reference it, and not by what it is named.
 
-### The closed-family requirement
+#### The closed-family requirement
 
 Global-Local requires the family of consumers to be a **closed, enumerable set** — in the worked example, exactly `FundCardListRendition` and `FundCardGridRendition`, and nothing else, by design. This is what distinguishes Global-Local from "Global, but I haven't found the third consumer yet." A piece is not Global-Local merely because it currently has two consumers and an uncertain future — that is just a Global candidate with insufficient evidence. Global-Local is the deliberate, permanent judgment that this piece's *entire reason for existing* is to serve one named, closed family, and that this will remain true even if the family's members change internally.
 
-### 3.1 A Second Test: Tier-Locking, for Feature-Wide Folders
+#### 3.1 A Second Test: Tier-Locking, for Feature-Wide Folders
 
 §3's test asks about *actual current consumers* of one specific file. That test is correct for a file sitting inside one View's own folder (`FundCardView/_FundCard.tsx` — its consumers are literally the two Renditions in that same folder, countable, real). It gives the wrong answer, though, for an entire **feature-level tier** — `funds/components/`, `funds/decorations/`, `funds/hooks/` — because a tier is not one file with a fixed set of consumers to count. It is a **designated pool**, built to serve every View `funds/` will ever have, whether that's one View today or ten next year. Applying §3's literal file-by-file consumer count to a tier folder produces the wrong reclassification pressure: it would keep asking "does this file have a second consumer *yet*?" and answering Local every time, right up until the moment a second View appears — at which point nothing about the file actually changed, only the count did. That instability is the signal that consumer-counting was never the right test for a tier; the tier's membership was decided by **where it was deliberately placed**, not by how many imports currently point at it.
 
@@ -85,7 +89,7 @@ One feature's tier is never shared with a sibling feature's tier of the same nam
 
 ---
 
-## 4. Why Global-Local Surfaced Where It Did — and Why It Isn't Limited to That Case
+### 4. Why Global-Local Surfaced Where It Did — and Why It Isn't Limited to That Case
 
 This is worth stating precisely, because it separates *why* Global-Local was first noticed from *what it actually applies to* — those turned out to be two different things.
 
@@ -112,7 +116,7 @@ On the asymmetric side (State/Condition), by contrast, the test genuinely does n
 
 ---
 
-## 5. Folder Placement Rule
+### 5. Folder Placement Rule
 
 ```
 GLOBAL         → shared/, ui/elements/, ui/renditions/ — anywhere the base architecture
@@ -154,7 +158,7 @@ LOCAL          → colocated with its single owner, exactly as the base architec
 
 ---
 
-## 6. Quick Reference
+### 6. Quick Reference
 
 | Question | Answer | Pole |
 | --- | --- | --- |
@@ -166,7 +170,7 @@ LOCAL          → colocated with its single owner, exactly as the base architec
 
 ---
 
-## 7. The Complete Model
+### 7. The Complete Model
 
 The base architecture's placement question was always: *where does this piece belong, and who is allowed to consume it?* That question had a two-value answer for as long as every real case happened to be either app-wide-and-purpose-agnostic or single-owner-and-bespoke. The FundCard case first proved a third, stable answer exists: **shared, but only within a closed family that is itself the entire reason the shared piece exists** — and [Worked Examples](./worked-examples.md) §2 confirmed that answer is general, holding just as well for two ordinary Components as it did for Component/Rendition. [Worked Examples](./worked-examples.md) §3 then showed that Global-Local itself has two configurations, governed by two different tests (§3 vs §3.1), depending on whether the shared piece sits beside its literal, countable consumers or sits at a feature's own deliberately-built tier.
 

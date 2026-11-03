@@ -1,8 +1,12 @@
-# Project Structure and Code Organization
+---
+title: "Project Structure and Code Organization"
+order: 3
+---
+
 
 > Translates `architecture.md`'s roles into an actual folder/file layout. Read `architecture.md` first — this document assumes its definitions and only adds placement conventions on top.
 
-## 1. Purpose
+### 1. Purpose
 
 The previous architecture defines a web interface as:
 
@@ -33,7 +37,7 @@ The resulting project should make it easy to answer:
 
 ---
 
-# 2. The Main Project Model
+## 2. The Main Project Model
 
 A project can be organized around the following high-level structure:
 
@@ -105,7 +109,7 @@ This creates two dimensions:
 
 ---
 
-# 3. Recommended Complete Structure
+## 3. Recommended Complete Structure
 
 A larger application could look like this:
 
@@ -198,7 +202,7 @@ A small project can use a much smaller version.
 
 ---
 
-# 4. Page Structure
+## 4. Page Structure
 
 A Page should primarily compose Views.
 
@@ -252,7 +256,7 @@ The Page therefore remains easy to understand.
 
 ---
 
-# 5. View Structure
+## 5. View Structure
 
 A View represents a meaningful section.
 
@@ -303,7 +307,7 @@ The code communicates the architectural structure directly.
 
 ---
 
-# 6. Component Structure
+## 6. Component Structure
 
 A Component contains meaningful functionality.
 
@@ -368,7 +372,7 @@ It represents the meaningful functionality:
 
 ---
 
-# 7. Decorations
+## 7. Decorations
 
 A Decoration can have its own implementation.
 
@@ -407,7 +411,7 @@ It remains a Decoration because that is its role.
 
 ---
 
-# 8. Aligners in Code
+## 8. Aligners in Code
 
 Aligners do not necessarily need a dedicated folder.
 
@@ -476,7 +480,7 @@ It is a **role**.
 
 ---
 
-# 9. UI Element Structure
+## 9. UI Element Structure
 
 UI Elements are the primitive building blocks.
 
@@ -548,7 +552,7 @@ That responsibility belongs to higher-level Components.
 
 ---
 
-# 10. Primitive Versus Purposeful Component
+## 10. Primitive Versus Purposeful Component
 
 This distinction is fundamental.
 
@@ -601,7 +605,7 @@ This creates a clean abstraction boundary.
 
 ---
 
-# 11. A More Realistic Search Feature
+## 11. A More Realistic Search Feature
 
 The complete feature could therefore look like:
 
@@ -651,7 +655,7 @@ This gives the feature a clear internal architecture.
 
 ---
 
-# 12. Complete Search Composition
+## 12. Complete Search Composition
 
 The resulting composition becomes:
 
@@ -683,7 +687,7 @@ The Page, Views, Components, Decorations, and UI Elements all have different res
 
 ---
 
-# 13. State and Business Logic
+## 13. State and Business Logic
 
 The architecture should not force state and business logic into the UI hierarchy.
 
@@ -770,7 +774,7 @@ It defines the **UI composition layer**.
 
 ---
 
-# 14. Modal Project Structure
+## 14. Modal Project Structure
 
 The same approach applies to a Modal.
 
@@ -844,7 +848,7 @@ ConfirmationModalView
 
 ---
 
-# 15. Nested Views in Code
+## 15. Nested Views in Code
 
 Because Views can contain Views, the code can naturally become:
 
@@ -916,7 +920,7 @@ This is valid because the hierarchy follows the actual composition of the interf
 
 ---
 
-# 16. When Should a Folder Be Created?
+## 16. When Should a Folder Be Created?
 
 Not every architectural role needs its own folder.
 
@@ -958,7 +962,7 @@ The folder structure should not become a bureaucratic copy of the conceptual dia
 
 ---
 
-# 17. Co-Location for Small Compositions
+## 17. Co-Location for Small Compositions
 
 For a small View, co-location can be better.
 
@@ -996,7 +1000,7 @@ This prevents excessive folder fragmentation.
 
 ---
 
-# 18. Component Extraction
+## 18. Component Extraction
 
 A View should not automatically extract every element into a Component.
 
@@ -1038,7 +1042,7 @@ The architecture is intended to make the structure clearer, not to increase the 
 
 ---
 
-# 19. Avoiding the “Everything Is a Component” Problem
+## 19. Avoiding the “Everything Is a Component” Problem
 
 A project using this architecture should avoid this:
 
@@ -1075,7 +1079,7 @@ Now the filesystem itself communicates architectural intent.
 
 ---
 
-# 20. The `ui/elements` Layer
+## 20. The `ui/elements` Layer
 
 Global primitive elements should remain independent of business features.
 
@@ -1116,7 +1120,7 @@ The latter belongs to the relevant feature.
 
 ---
 
-# 21. UI Elements Should Stay Generic
+## 21. UI Elements Should Stay Generic
 
 A primitive `Button` should not know about:
 
@@ -1161,7 +1165,7 @@ This keeps the primitive layer stable while the application grows.
 
 ---
 
-# 22. Component API Design
+## 22. Component API Design
 
 A purposeful Component should expose a meaningful API.
 
@@ -1206,7 +1210,7 @@ Internal DOM/UI structure
 
 ---
 
-# 23. View API Design
+## 23. View API Design
 
 A View should also expose a meaningful API.
 
@@ -1241,7 +1245,7 @@ Internal View composition
 
 ---
 
-# 24. Import Direction
+## 24. Import Direction
 
 The project should generally maintain a downward dependency direction.
 
@@ -1284,7 +1288,7 @@ This would reverse the abstraction direction.
 
 ---
 
-# 25. Dependency Example
+## 25. Dependency Example
 
 Good:
 
@@ -1322,7 +1326,7 @@ Primitive
 
 ---
 
-# 26. A Complete Small Application
+## 26. A Complete Small Application
 
 A small application using the architecture could begin with:
 
@@ -1381,7 +1385,7 @@ There is no need to start with an enormous enterprise structure.
 
 ---
 
-# 27. A Larger Application
+## 27. A Larger Application
 
 As the application grows:
 
@@ -1439,7 +1443,7 @@ while the rest of the application architecture can evolve independently.
 
 ---
 
-# 28. Recommended Naming
+## 28. Recommended Naming
 
 Names should communicate the architectural role when useful.
 
@@ -1474,7 +1478,7 @@ A name should ideally communicate either:
 
 ---
 
-# 29. Naming Views
+## 29. Naming Views
 
 Views should generally describe the meaningful section they represent.
 
@@ -1502,7 +1506,7 @@ unless those names genuinely describe the purpose.
 
 ---
 
-# 30. Naming Components
+## 30. Naming Components
 
 Components should describe their purpose.
 
@@ -1524,7 +1528,7 @@ The name should ideally answer:
 
 ---
 
-# 31. Naming Decorations
+## 31. Naming Decorations
 
 Decorations should describe what they provide around the functionality.
 
@@ -1543,7 +1547,7 @@ They should not be named `Component1` simply because they happen to be implement
 
 ---
 
-# 32. Naming Aligners
+## 32. Naming Aligners
 
 Because Aligners are Decorations, their names do not necessarily need the word `Aligner`.
 
@@ -1571,7 +1575,7 @@ The term **Aligner** is therefore primarily an architectural classification, not
 
 ---
 
-# 33. The Code Should Reflect the Architecture
+## 33. The Code Should Reflect the Architecture
 
 The final goal is that reading the code should reveal the composition.
 
@@ -1629,11 +1633,11 @@ The code itself therefore becomes a representation of the architectural model.
 
 ---
 
-# 34. Final Project Model
+## 34. Final Project Model
 
 The complete project can be understood through three layers.
 
-## Layer 1 — Application Composition
+### Layer 1 — Application Composition
 
 ```
 Routes
@@ -1641,7 +1645,7 @@ Routes
 Pages
 ```
 
-## Layer 2 — UI Composition
+### Layer 2 — UI Composition
 
 ```
 Pages
@@ -1652,7 +1656,7 @@ Components
 Decorations / Aligners
 ```
 
-## Layer 3 — Primitive Construction
+### Layer 3 — Primitive Construction
 
 ```
 Components / Decorations
@@ -1685,7 +1689,7 @@ Application
 
 ---
 
-# 35. Final Example
+## 35. Final Example
 
 A complete page might therefore look like:
 
@@ -1765,7 +1769,7 @@ The architecture therefore produces a project in which the **filesystem, compone
 
 ---
 
-# 36. Final Principle
+## 36. Final Principle
 
 The project structure should not be:
 

@@ -1,0 +1,19 @@
+---
+const base = import.meta.env.BASE_URL;
+const { post, current } = Astro.props;
+---
+
+<nav class="tree-nav" aria-label="Post pages">
+  <ul class="tree-nav__list">
+    {post.tree.map((page) => (
+      <li class:list={['tree-nav__item', `tree-nav__item--depth-${page.depth}`, { 'tree-nav__item--current': page.urlPath === current }]}>
+        <a
+          href={`${base}blogs/${post.slug}/${page.urlPath ? `${page.urlPath}/` : ''}`}
+          aria-current={page.urlPath === current ? 'page' : undefined}
+        >
+          {page.title}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>

@@ -1,8 +1,12 @@
-# A Role-Based UI Construction Architecture for Web Applications
+---
+title: "A Role-Based UI Construction Architecture for Web Applications"
+order: 2
+---
+
 
 > The foundational document of this doc set. Defines the four architectural roles — Page, View, Component, Decoration/Aligner, UI Element — as concepts distinct from implementation. Nothing here changes as the system evolves; everything in `../extensions/` is built on top of it. Read this before `project-structure.md` and before anything in `../extensions/`.
 
-## 1. Overview
+### 1. Overview
 
 Modern web applications are commonly organized around a simple hierarchy such as:
 
@@ -55,7 +59,7 @@ The central principle is:
 
 ---
 
-# 2. The Problem With a Generic Component Model
+## 2. The Problem With a Generic Component Model
 
 In React and other component-based frameworks, almost anything can technically be called a component.
 
@@ -103,7 +107,7 @@ A `View`, `Component`, `Decoration`, or `UI Element` is an **architectural role*
 
 ---
 
-# 3. The Core Hierarchy
+## 3. The Core Hierarchy
 
 The proposed model uses four primary concepts:
 
@@ -133,7 +137,7 @@ They describe **what something is doing within a particular composition**.
 
 ---
 
-# 4. Page
+## 4. Page
 
 A **Page** represents an application-level screen or route.
 
@@ -168,7 +172,7 @@ A Page is therefore primarily a **container and composition boundary**.
 
 ---
 
-# 5. View
+## 5. View
 
 A **View** is a meaningful, self-contained portion of a Page.
 
@@ -208,7 +212,7 @@ A View may contain:
 
 The last point is important.
 
-## Views are composable
+### Views are composable
 
 A View can contain another View.
 
@@ -248,7 +252,7 @@ Therefore:
 
 ---
 
-# 6. Component
+## 6. Component
 
 A **Component** is the primary purposeful or functional unit within a View.
 
@@ -289,7 +293,7 @@ The Component is therefore the **functional focus** of the View.
 
 ---
 
-# 7. Decorations
+## 7. Decorations
 
 **Decorations** are supporting elements that provide context, explanation, emphasis, or additional information around the primary functional content.
 
@@ -332,7 +336,7 @@ SearchInput  → Component
 
 ---
 
-# 8. Aligners
+## 8. Aligners
 
 **Aligners are a specialized form of Decoration.**
 
@@ -388,7 +392,7 @@ An Aligner is a Decoration with a particularly meaningful positional role.
 
 ---
 
-# 9. UI Elements
+## 9. UI Elements
 
 **UI Elements are the primitive construction tools of the interface.**
 
@@ -447,7 +451,7 @@ The classification depends on the role and abstraction level.
 
 ---
 
-# 10. Example: Search View
+## 10. Example: Search View
 
 Consider a search interface:
 
@@ -501,7 +505,7 @@ The primitive controls are **UI Elements**.
 
 ---
 
-# 11. Example: Modal View
+## 11. Example: Modal View
 
 This model becomes particularly useful with things that are traditionally called “components”, such as Modals.
 
@@ -563,7 +567,7 @@ It simply means:
 
 ---
 
-# 12. Contextual Classification
+## 12. Contextual Classification
 
 One of the most important principles of this architecture is that classification is **contextual**.
 
@@ -611,7 +615,7 @@ The architecture classifies **what that unit represents in the UI composition**.
 
 ---
 
-# 13. Role Over Implementation
+## 13. Role Over Implementation
 
 The architecture therefore avoids a common mistake:
 
@@ -653,7 +657,7 @@ This allows the architecture to describe the UI more accurately.
 
 ---
 
-# 14. Recursive Composition
+## 14. Recursive Composition
 
 The model is intentionally recursive.
 
@@ -702,7 +706,7 @@ The concept of a “primary Component” describes the common case where the Vie
 
 ---
 
-# 15. Page Construction
+## 15. Page Construction
 
 With this model, Page construction becomes highly readable.
 
@@ -755,7 +759,7 @@ Primitive interface
 
 ---
 
-# 16. Separation of Concerns
+## 16. Separation of Concerns
 
 The model creates a natural separation of responsibilities.
 
@@ -770,39 +774,39 @@ The model creates a natural separation of responsibilities.
 
 This gives each level a clear question.
 
-### Page
+#### Page
 
 > What sections make up this screen?
 > 
 
-### View
+#### View
 
 > What is this section about?
 > 
 
-### Component
+#### Component
 
 > What is the meaningful functionality here?
 > 
 
-### Decoration
+#### Decoration
 
 > What supports or explains that functionality?
 > 
 
-### Aligner
+#### Aligner
 
 > What supports or aligns with the primary functionality?
 > 
 
-### UI Element
+#### UI Element
 
 > What primitive interface pieces are used to construct it?
 > 
 
 ---
 
-# 17. Folder Organization
+## 17. Folder Organization
 
 This model does not require one specific folder structure.
 
@@ -838,7 +842,7 @@ The important thing is that developers understand the **architectural role** of 
 
 ---
 
-# 18. Relationship With Feature-Based Architecture
+## 18. Relationship With Feature-Based Architecture
 
 This model does not replace Feature-Based Architecture.
 
@@ -881,7 +885,7 @@ View-based construction provides **UI composition semantics**.
 
 ---
 
-# 19. The Main Architectural Principle
+## 19. The Main Architectural Principle
 
 The architecture can be summarized as:
 
@@ -911,11 +915,11 @@ Or in words:
 
 ---
 
-# 20. Design Principles
+## 20. Design Principles
 
 The architecture follows several principles.
 
-## 20.1 Role over implementation
+### 20.1 Role over implementation
 
 Do not classify something merely by how it is implemented.
 
@@ -927,7 +931,7 @@ Architectural Component
 
 ---
 
-## 20.2 Purpose over size
+### 20.2 Purpose over size
 
 A Component is not a Component because it is large.
 
@@ -937,7 +941,7 @@ Classification comes from **purpose and abstraction**.
 
 ---
 
-## 20.3 Composition over rigid hierarchy
+### 20.3 Composition over rigid hierarchy
 
 Views may contain Views.
 
@@ -947,7 +951,7 @@ The architecture should follow the natural structure of the interface rather tha
 
 ---
 
-## 20.4 Context matters
+### 20.4 Context matters
 
 The same technical implementation can have different architectural roles in different contexts.
 
@@ -958,7 +962,7 @@ Always ask:
 
 ---
 
-## 20.5 Pages should remain compositional
+### 20.5 Pages should remain compositional
 
 A Page should primarily communicate:
 
@@ -974,7 +978,7 @@ rather than:
 
 ---
 
-## 20.6 Views should have a clear purpose
+### 20.6 Views should have a clear purpose
 
 A View should represent something users can conceptually recognize as a section, interaction, state, or focused piece of the interface.
 
@@ -982,11 +986,11 @@ Avoid creating Views merely because a group of elements happens to occupy a rect
 
 ---
 
-# 21. Benefits
+## 21. Benefits
 
 This architecture provides several practical benefits.
 
-### Better readability
+#### Better readability
 
 A developer can understand a page at a glance:
 
@@ -998,23 +1002,23 @@ DashboardPage
 └── GoalsView
 ```
 
-### Better semantic meaning
+#### Better semantic meaning
 
 Instead of calling everything a component, the architecture communicates why something exists.
 
-### Better separation
+#### Better separation
 
 Primitive UI controls do not become mixed with complete functional interactions.
 
-### Better composition
+#### Better composition
 
 Views become reusable composition units rather than only routes/pages.
 
-### Better scalability
+#### Better scalability
 
 Large pages can be decomposed without turning the entire application into an enormous collection of generic components.
 
-### Better communication
+#### Better communication
 
 Developers can say:
 
@@ -1030,7 +1034,7 @@ The former communicates substantially more information.
 
 ---
 
-# 22. A Compact Mental Model
+## 22. A Compact Mental Model
 
 The entire architecture can be remembered through five questions:
 
@@ -1065,7 +1069,7 @@ That distinction is the foundation of the model.
 
 ---
 
-# 23. Final Model
+## 23. Final Model
 
 The proposed architecture can ultimately be represented as:
 

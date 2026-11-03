@@ -1,10 +1,14 @@
-# Specialised Component
+---
+title: "Specialised Component"
+order: 11
+---
+
 
 > Depends on: [`../base/architecture.md`](../base/architecture.md) (Component), [`view-and-rendition.md`](./view-and-rendition.md) §7.1 (forwarding) and §7.3 (Component/Rendition symmetry), [`the-poles.md`](./the-poles.md) (Global vs. Local vs. Global-Local), and [The Settled-Behavior Axiom](./settled-behavior-axiom.md) (gates the underscore decision below). Read all four first.
 
 ---
 
-## A Fourth Kind of Composition, Adopted From the Four-Tier UI Chain
+### A Fourth Kind of Composition, Adopted From the Four-Tier UI Chain
 
 The base architecture, as extended so far, has three things a View's content is built from — Component, Decoration/Aligner, UI Element — plus the placement poles that decide where each lives (Global, Local, Global-Local). None of the three describes a situation that surfaces reliably once a codebase matures: a Component that already does its one job correctly, and that same behavior, refined by exactly one additional capability — debouncing a search-as-you-type input, adding infinite-scroll to a list, adding optimistic-update to a submit action. This concept is adopted directly from an existing, independently-developed doctrine, *The Four-Tier UI Chain* (`<base> → <adaptive> → <component> → <specialised>`; see the acknowledgment at the end of this document), which names it **"specialised."** PVC adopts the concept and its governing tests wholesale, keeping the same name so the provenance stays traceable, rather than inventing a parallel term for an already-solved problem.
 
@@ -85,7 +89,7 @@ SPECIALISED COMPONENT (DebouncedSearchInput)
 
 **Recognition test, carried over unchanged from the source doctrine:** the name should read as *"a specific Component that also ___."* If it instead reads as *"a generic thing that ___"* with no tie to one purpose, that's the capability mechanism itself (Global, lives in `shared/hooks/`) — not a Specialised Component. If it reads as *"the thing this feature's search does"* with no added capability beyond the Component's own settled purpose, it's just an ordinary Component ([`../base/architecture.md`](../base/architecture.md) §6) — nothing to specialise.
 
-## Acknowledgment
+### Acknowledgment
 
 The Specialised Component concept, its "composed, never copied" rule, and its recognition test are adopted from an external document, *The Four-Tier UI Chain* (`<base> → <adaptive> → <component> → <specialised>`), which independently arrived at a four-tier model for UI composition organized around *what each layer is allowed to know*. Its `<component>` tier corresponds directly to PVC's own **Component**. Its `<base>` and `<adaptive>` tiers, by contrast, are **kept as two distinct placement tiers within PVC's UI Element role**, not merged into one — `ui/base/` holds the raw framework re-export (one line, the framework named exactly once, per the source doctrine's Law 1), and `ui/adaptive/` holds that same primitive with the system's own styling, variants, and states layered on, still purpose-agnostic and still zero feature knowledge. Both remain the same *architectural role* (UI Element — "what primitive interface pieces are used to construct it?"), because styling richness doesn't change a thing's job in constructing a View's purpose; what changes is that PVC now recognizes `base` and `adaptive` as two separate placement tiers *within* that one role, mirroring the source doctrine's own directory split rather than collapsing it. Its fourth tier, `<specialised>`, was the one genuine gap in PVC's *role* vocabulary (not just placement): PVC had no existing concept for "a purposeful Component, refined by exactly one additional, reusable, purpose-agnostic capability, composed rather than copied." That gap is what this document closes, under the adopted name.
 
