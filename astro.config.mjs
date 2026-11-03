@@ -6,6 +6,7 @@ import { transformerMetaTitle, transformerMetaDiff } from './src/lib/shiki-meta.
 import { amrDerivedTitle } from './src/lib/remark/derived-title.mjs';
 import { arabicBlockDirection } from './src/lib/remark/arabic-direction.mjs';
 import { createTreeLinksPlugin } from './src/lib/remark/tree-links.mjs';
+import { amrMermaid } from './src/lib/remark/mermaid.mjs';
 import { createMediaBasePlugin, taskListLabels } from './src/lib/hast/media-base.mjs';
 import { readdirSync, existsSync } from 'node:fs';
 import path from 'node:path';
@@ -60,7 +61,7 @@ export default defineConfig({
       ],
     },
     processor: satteri({
-      mdastPlugins: [amrDerivedTitle, arabicBlockDirection, createTreeLinksPlugin(`${SITE_BASE}/`)],
+      mdastPlugins: [amrDerivedTitle, amrMermaid, arabicBlockDirection, createTreeLinksPlugin(`${SITE_BASE}/`)],
       hastPlugins: [createMediaBasePlugin(SITE_BASE), taskListLabels],
     }),
   },

@@ -32,6 +32,7 @@ node scripts/seo-audit.mjs # pass/gap audit against dist/
 
 - **Versioned posts** — every post is `vN`; real prerendered URLs, `?version=` alias redirect, floating version switcher, clickable version pills on cards
 - **Tree-file posts** — a folder with `index.md` publishes as one multi-page post (`/blogs/pvc/base/architecture/` and friends): package-style directory resolution, automatic rewriting of relative `.md` links, per-page ToC/TreeNav/breadcrumbs, one card in the listing
+- **Mermaid diagrams** — ```` ```mermaid ```` fences render to inline SVG at build time via Pele; zero client JS, theme-adaptive through CSS variables, broken syntax fails the build
 - **Search** — Pagefind (typo-tolerant, stemming, Arabic-aware) filtering the card grid in place, Ctrl+K
 - **SEO** — canonicals, BlogPosting + BreadcrumbList JSON-LD, sitemap, RSS, robots; Lighthouse 100/100/100/100 on index and post pages
 - **Agent-readable** — every page works without JS; `.md` mirrors and `llms.txt` for scrapers

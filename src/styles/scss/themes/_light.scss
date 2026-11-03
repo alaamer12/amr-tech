@@ -29,3 +29,10 @@
   --font-mono: #{v.$font-mono};
   --font-logo: #{v.$font-logo};
 }
+
+:root,
+[data-theme='light'] {
+  @for $i from 1 through 8 {
+    --series-#{$i}: #{nth(v.$series-light, $i)};
+  }
+}

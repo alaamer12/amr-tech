@@ -111,6 +111,22 @@ You (or an agent) may reference files **outside the repo** by absolute disk path
 
 Run `bun run build` **locally**: the resolver copies each referenced file into the repo (`src/assets/` for images, `public/media/` for the rest), rewrites the markdown, and fails loudly if a file is missing. **Commit the resolved files.** CI never runs the resolver and never sees a disk path.
 
+## Mermaid diagrams
+
+Any fenced code block annotated `mermaid` is rendered to inline SVG **at build time** by [Pele](https://github.com/obsidianmd/pele) (Mermaid 12.1.0 syntax, every built-in diagram type: flowchart, sequence, state, class, ER, gantt, pie, mindmap, gitGraph, …):
+
+````markdown
+```mermaid
+flowchart LR
+  A[push] --> B[build] --> C[SVG]
+```
+````
+
+- **Zero client JS** — readers get plain SVG; the site works without JavaScript exactly as elsewhere.
+- **Theme-adaptive** — the SVG reads the site's CSS variables, so the dark/light morph restyles diagrams live without re-rendering. Series colors come from the `--series-1..8` role tokens.
+- **A broken diagram fails the build** with file, line and column — same guard philosophy as duplicated content and missing media. Fix the syntax, rebuild.
+- The raw `.md` mirror keeps the mermaid source text (agents still see the code); the HTML page carries the rendered SVG.
+
 ## Code blocks
 
 Shiki, build-time, dual light/dark themes. Meta syntax supported:

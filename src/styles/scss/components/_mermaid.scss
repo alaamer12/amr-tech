@@ -1,0 +1,38 @@
+@use '../abstracts/variables' as v;
+
+// Build-time Mermaid rendering (Pele): the SVG is inlined in the page and
+// reads all its colors/fonts from these CSS variables, so the dark/light
+// morph restyles diagrams without re-rendering.
+.pele {
+  --pele-bg: var(--surface);
+  --pele-fg: var(--text);
+  --pele-muted: var(--text-muted);
+  --pele-line: var(--text-muted);
+  --pele-surface: var(--surface-2);
+  --pele-surface-alt: var(--surface-2);
+  --pele-border: var(--border);
+  --pele-accent: var(--accent);
+  --pele-font: var(--font-chrome);
+  --pele-series-1: var(--series-1);
+  --pele-series-2: var(--series-2);
+  --pele-series-3: var(--series-3);
+  --pele-series-4: var(--series-4);
+  --pele-series-5: var(--series-5);
+  --pele-series-6: var(--series-6);
+  --pele-series-7: var(--series-7);
+  --pele-series-8: var(--series-8);
+
+  margin-block: v.$spacing-lg;
+  padding: v.$spacing-lg;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: v.$radius-md;
+  background: var(--surface);
+
+  svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin-inline: auto;
+  }
+}

@@ -24,6 +24,7 @@
     "@fontsource-variable/fraunces": "^5.3.0",
     "@shikijs/transformers": "^4.6.0",
     "astro": "^7.4.5",
+    "pele": "^1.13.0",
     "sass": "^1.107.1",
     "satteri": "0.10.5"
   },

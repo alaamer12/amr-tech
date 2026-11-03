@@ -48,3 +48,9 @@
     --selection-text: #{v.$dark-selection-text};
   }
 }
+
+[data-theme='dark'] {
+  @for $i from 1 through 8 {
+    --series-#{$i}: #{nth(v.$series-dark, $i)};
+  }
+}

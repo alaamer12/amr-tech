@@ -27,6 +27,7 @@
 @use 'components/related';
 @use 'components/empty-state';
 @use 'components/tree-nav';
+@use 'components/mermaid';
 
 // Respect reduced-motion: no fades, no transitions anywhere.
 @media (prefers-reduced-motion: reduce) {

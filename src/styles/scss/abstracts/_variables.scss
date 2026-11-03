@@ -104,3 +104,7 @@ $transition-base: 0.25s ease;
 // Measure
 $measure-body: 78ch;
 $container: 84rem;
+
+// Chart/diagram series palette (Pele mermaid SVGs read these via --pele-series-*)
+$series-light: (#d97757, #2f6f4f, #3b6ea5, #b45309, #7e57c2, #0f766e, #be185d, #4d7c0f);
+$series-dark: (#e08a6a, #6fae8f, #7aa7d9, #e0a458, #a78bda, #4db6ac, #e07ab0, #a3c644);
