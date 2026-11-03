@@ -1,0 +1,1308 @@
+<!DOCTYPE html><html lang="en" data-base="/amr-tech/"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Project Structure and Code Organization — Amr</title><meta name="description" content="The complete PVC documentation set: five architectural roles (Page, View, Component, Decoration/Aligner, UI Element) distinct from any framework, project structure, State vs Condition, View &amp; Rendition, the three placement poles, Wrapper Components, the Settled-Behavior Axiom, and Specialised Components."><link rel="canonical" href="https://alaamer12.github.io/amr-tech/blogs/pvc/base/project-structure/"><meta property="og:site_name" content="Amr"><meta property="og:title" content="Project Structure and Code Organization — Amr"><meta property="og:type" content="article"><meta property="og:url" content="https://alaamer12.github.io/amr-tech/blogs/pvc/base/project-structure/"><meta property="og:image" content="https://alaamer12.github.io/amr-tech/og-default.svg"><meta property="og:description" content="The complete PVC documentation set: five architectural roles (Page, View, Component, Decoration/Aligner, UI Element) distinct from any framework, project structure, State vs Condition, View &amp; Rendition, the three placement poles, Wrapper Components, the Settled-Behavior Axiom, and Specialised Components."><meta property="og:locale" content="en_US"><meta property="article:published_time" content="2026-11-03T00:26:47.000Z"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Project Structure and Code Organization — Amr"><meta name="twitter:description" content="The complete PVC documentation set: five architectural roles (Page, View, Component, Decoration/Aligner, UI Element) distinct from any framework, project structure, State vs Condition, View &amp; Rendition, the three placement poles, Wrapper Components, the Settled-Behavior Axiom, and Specialised Components."><meta name="twitter:image" content="https://alaamer12.github.io/amr-tech/og-default.svg"><link rel="alternate" type="application/rss+xml" title="Amr" href="/amr-tech/rss.xml"><link rel="sitemap" type="application/xml" href="/amr-tech/sitemap-index.xml"><link rel="icon" type="image/svg+xml" href="/amr-tech/favicon.svg"><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/amr-tech/_astro/ClientRouter.astro_astro_type_script_index_0_lang.DXqcZz58.js"></script><script type="application/ld+json">[{"@context":"https://schema.org","@type":"BlogPosting","headline":"Project Structure and Code Organization","description":"The complete PVC documentation set: five architectural roles (Page, View, Component, Decoration/Aligner, UI Element) distinct from any framework, project structure, State vs Condition, View & Rendition, the three placement poles, Wrapper Components, the Settled-Behavior Axiom, and Specialised Components.","url":"https://alaamer12.github.io/amr-tech/blogs/pvc/base/project-structure/","image":"https://alaamer12.github.io/amr-tech/og-default.svg","datePublished":"2026-11-03T00:26:47.000Z","dateModified":"2026-11-03T00:26:47.000Z","inLanguage":"en","author":{"@type":"Person","name":"Amr"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://alaamer12.github.io/amr-tech//"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://alaamer12.github.io/amr-tech/blogs/"},{"@type":"ListItem","position":3,"name":"PVC — A Role-Based UI Construction Architecture","item":"https://alaamer12.github.io/amr-tech/blogs/pvc/"},{"@type":"ListItem","position":4,"name":"The Base Layer","item":"https://alaamer12.github.io/amr-tech/blogs/pvc/base/"},{"@type":"ListItem","position":5,"name":"Project Structure and Code Organization","item":"https://alaamer12.github.io/amr-tech/blogs/pvc/base/project-structure/"}]}]</script><link rel="stylesheet" href="/amr-tech/_astro/BaseLayout.BTeEYYcC.css"><style>@layer astro.images{:where([data-astro-image]){height:auto}:where([data-astro-image=full-width]){width:100%}:where([data-astro-image=constrained]){max-width:100%}[data-astro-image-fit=fill]{object-fit:fill}[data-astro-image-fit=contain]{object-fit:contain}[data-astro-image-fit=cover]{object-fit:cover}[data-astro-image-fit=scale-down]{object-fit:scale-down}[data-astro-image-pos=top]{object-position:top}[data-astro-image-pos=bottom]{object-position:bottom}[data-astro-image-pos=left]{object-position:left}[data-astro-image-pos=right]{object-position:right}[data-astro-image-pos=center]{object-position:center}[data-astro-image-pos=top-left]{object-position:top left}[data-astro-image-pos=top-right]{object-position:top right}[data-astro-image-pos=top-center]{object-position:top center}[data-astro-image-pos=bottom-left]{object-position:bottom left}[data-astro-image-pos=bottom-right]{object-position:bottom right}[data-astro-image-pos=bottom-center]{object-position:bottom center}[data-astro-image-pos=left-top]{object-position:left top}[data-astro-image-pos=left-bottom]{object-position:left bottom}[data-astro-image-pos=left-center]{object-position:left center}[data-astro-image-pos=right-top]{object-position:right top}[data-astro-image-pos=right-bottom]{object-position:right bottom}[data-astro-image-pos=right-center]{object-position:right center}[data-astro-image-pos=center-top]{object-position:center top}[data-astro-image-pos=center-bottom]{object-position:center bottom}[data-astro-image-pos=center-left]{object-position:center left}[data-astro-image-pos=center-right]{object-position:center right}}
+</style><style>[data-astro-transition-scope="astro-nfpogox7-1"] { view-transition-name: astro-nfpogox7-1; }@layer astro { ::view-transition-old(astro-nfpogox7-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(astro-nfpogox7-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(astro-nfpogox7-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(astro-nfpogox7-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-nfpogox7-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-nfpogox7-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-nfpogox7-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-nfpogox7-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-nfpogox7-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-nfpogox7-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-nfpogox7-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-nfpogox7-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head><body data-astro-transition-scope="astro-nfpogox7-1"><script data-astro-rerun>
+      (() => {
+        try {
+          const stored = localStorage.getItem('theme');
+          const dark = stored ? stored === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+        } catch {
+          document.documentElement.dataset.theme = 'light';
+        }
+        try {
+          document.documentElement.dataset.align = localStorage.getItem('align') || 'left';
+        } catch {
+          document.documentElement.dataset.align = 'left';
+        }
+      })();
+    </script><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><div class="site-header__inner"><a class="site-header__brand" href="/amr-tech/blogs/" aria-label="Amr home"><svg class="site-header__logo" width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="currentColor" opacity="0.08"></rect><path d="M9 22l7-12 7 12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="16" cy="24" r="1.6" fill="currentColor"></circle></svg>Amr</a><div class="align-toggle" role="group" aria-label="Content alignment"><button class="align-toggle__btn" type="button" data-align="left" aria-label="Align content left"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="15" y2="12"></line><line x1="3" y1="18" x2="18" y2="18"></line></svg></button><button class="align-toggle__btn" type="button" data-align="center" aria-label="Align content center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="6" y1="12" x2="18" y2="12"></line><line x1="4" y1="18" x2="20" y2="18"></line></svg></button><button class="align-toggle__btn" type="button" data-align="right" aria-label="Align content right"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="9" y1="12" x2="21" y2="12"></line><line x1="6" y1="18" x2="21" y2="18"></line></svg></button></div><script type="module">function e(){let e=[...document.querySelectorAll(`[data-align]`)];function t(t){document.documentElement.dataset.align=t;for(let n of e)n.classList.toggle(`align-toggle__btn--active`,n.dataset.align===t),n.setAttribute(`aria-pressed`,String(n.dataset.align===t));try{localStorage.setItem(`align`,t)}catch{}}for(let n of e)n.addEventListener(`click`,()=>t(n.dataset.align??`left`)),n.classList.toggle(`align-toggle__btn--active`,n.dataset.align===document.documentElement.dataset.align)}document.addEventListener(`astro:page-load`,e);</script><nav class="site-header__actions" aria-label="Main"><a class="site-header__icon-link" href="/amr-tech/rss.xml" aria-label="RSS feed"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9H4v-9zm0-5a14 14 0 0 1 14 14h-4A10 10 0 0 0 4 10V6zm2.5-2A16.5 16.5 0 0 1 22.5 21h-4A12.5 12.5 0 0 0 6.5 8.5v-4.5z" opacity="0"></path><circle cx="6.18" cy="17.82" r="2.18"></circle><path d="M4 4.05v3.06c9.39.3 12.56 3.4 12.89 12.89h3.06C19.7 9.2 14.8 4.3 4 4.05zm0 6.12v3.06c3.9.24 6.6 2.95 6.82 6.82h3.06C15.53 14.23 11.77 10.47 4 10.17z"></path></svg></a><button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-theme-toggle><svg class="theme-toggle__icon theme-toggle__icon--moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg><svg class="theme-toggle__icon theme-toggle__icon--sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></button><script type="module">var e=()=>matchMedia(`(prefers-reduced-motion: reduce)`).matches,t=!1;function n(e){let t=innerWidth,n=innerHeight,r=t/2,i=n/2;if(e){let t=e.getBoundingClientRect();r=t.left+t.width/2,i=t.top+t.height/2}let a=Math.hypot(Math.max(r,t-r),Math.max(i,n-i));return{cx:r,cy:i,maxRadius:a,vw:t,vh:n}}function r(e){let t=`${e.cx/e.vw*100}%`,n=`${e.cy/e.vh*100}%`,r=e.maxRadius/(Math.hypot(e.vw,e.vh)/Math.SQRT2)*100;return[`circle(0% at ${t} ${n})`,`circle(${r}% at ${t} ${n})`]}function i(e){let t=document.createElement(`div`);return t.className=`morph-ring`,t.style.left=`${e.cx-e.maxRadius}px`,t.style.top=`${e.cy-e.maxRadius}px`,t.style.width=t.style.height=`${e.maxRadius*2}px`,t.style.viewTransitionName=`ring`,document.body.appendChild(t),t}function a(e){document.documentElement.dataset.theme=e?`dark`:`light`;try{localStorage.setItem(`theme`,e?`dark`:`light`)}catch{}}function o(a,o,s){if(t)return;if(typeof document.startViewTransition!=`function`||e()){o();return}let c=n(a),l=r(c),u=document.documentElement,d=null;t=!0,u.dataset.morphing=``,u.style.setProperty(`--morph-dur`,`${s}ms`),u.style.setProperty(`--morph-clip-from`,l[0]);let f=document.startViewTransition(()=>{o(),d=i(c)});f.finished.finally(()=>{t=!1,d?.remove(),delete u.dataset.morphing,u.style.removeProperty(`--morph-dur`),u.style.removeProperty(`--morph-clip-from`)}),f.ready.then(()=>{u.animate({clipPath:l},{duration:s,easing:`ease-in-out`,fill:`forwards`,pseudoElement:`::view-transition-new(root)`})}).catch(()=>{})}function s(){let e=document.querySelector(`[data-theme-toggle]`);e&&e.addEventListener(`click`,()=>{let t=document.documentElement.dataset.theme!==`dark`;o(e,()=>a(t),400)})}document.addEventListener(`astro:page-load`,s);</script></nav></div></header><main class="page" id="main-content"><div class="reading-progress" aria-hidden="true"></div><script type="module">var e=document.documentElement,t=!1;function n(){t=!1;let n=document.querySelector(`.reading-progress`);if(!n)return;let r=e.scrollHeight-e.clientHeight;n.style.setProperty(`--progress`,r>0?(e.scrollTop/r).toFixed(4):`0`)}function r(){t||(t=!0,requestAnimationFrame(n))}addEventListener(`scroll`,r,{passive:!0}),addEventListener(`resize`,r,{passive:!0}),document.addEventListener(`astro:page-load`,n);</script><div class="post-shell"><article class="post-column" data-pagefind-body><div class="post-topbar"><a class="post-back" href="/amr-tech/blogs/">← Blog</a><button class="copy-page" type="button" data-copy-page data-md-url="/amr-tech/blogs/pvc/base/project-structure.md"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span data-copy-label>Copy Page</span></button><script type="module">function e(){let e=document.querySelector(`[data-copy-page]`);if(!e)return;let t=e.querySelector(`[data-copy-label]`);e.addEventListener(`click`,async()=>{let n=e.getAttribute(`data-md-url`);t.textContent=`Copying…`;try{let e=await fetch(n).then(e=>{if(!e.ok)throw Error(`mirror missing`);return e.text()});await navigator.clipboard.writeText(e),t.textContent=`Copied ✓`}catch{t.textContent=`Copy failed`}setTimeout(()=>{t.textContent=`Copy Page`},2e3)})}document.addEventListener(`astro:page-load`,e);</script></div><header class="post-header"><div class="post-header__meta"><span class="meta-label">3 November 2026</span><span class="card__category">Architecture</span><span class="visually-hidden" data-pagefind-filter="category:Architecture"></span><span class="visually-hidden" data-pagefind-meta="date:3 November 2026"></span></div><h1 class="post-title post-header__title" lang="en" data-pagefind-meta="title">Project Structure and Code Organization</h1><p class="post-lede post-header__lede" lang="en">The complete PVC documentation set: five architectural roles (Page, View, Component, Decoration/Aligner, UI Element) distinct from any framework, project structure, State vs Condition, View &amp; Rendition, the three placement poles, Wrapper Components, the Settled-Behavior Axiom, and Specialised Components.</p><div class="post-tags"><span class="post-tag">architecture</span><span class="post-tag">frontend</span><span class="post-tag">react</span><span class="post-tag">component-design</span><span class="post-tag">project-structure</span></div></header><nav class="tree-nav" aria-label="Post pages"><ul class="tree-nav__list"><li class="tree-nav__item tree-nav__item--depth-0"><a href="/amr-tech/blogs/pvc/">PVC — A Role-Based UI Construction Architecture</a></li><li class="tree-nav__item tree-nav__item--depth-1"><a href="/amr-tech/blogs/pvc/base/">The Base Layer</a></li><li class="tree-nav__item tree-nav__item--depth-2"><a href="/amr-tech/blogs/pvc/base/architecture/">A Role-Based UI Construction Architecture for Web Applications</a></li><li class="tree-nav__item tree-nav__item--depth-2 tree-nav__item--current"><a href="/amr-tech/blogs/pvc/base/project-structure/" aria-current="page">Project Structure and Code Organization</a></li><li class="tree-nav__item tree-nav__item--depth-1"><a href="/amr-tech/blogs/pvc/extensions/">The Extensions Layer</a></li><li class="tree-nav__item tree-nav__item--depth-2"><a href="/amr-tech/blogs/pvc/extensions/state-vs-condition/">State vs Condition</a></li><li class="tree-nav__item tree-nav__item--depth-2"><a href="/amr-tech/blogs/pvc/extensions/view-and-rendition/">View &amp; Rendition</a></li><li class="tree-nav__item tree-nav__item--depth-2"><a href="/amr-tech/blogs/pvc/extensions/the-poles/">The Poles</a></li><li class="tree-nav__item tree-nav__item--depth-2"><a href="/amr-tech/blogs/pvc/extensions/worked-examples/">Worked Examples</a></li><li class="tree-nav__item tree-nav__item--depth-2"><a href="/amr-tech/blogs/pvc/extensions/wrapper-component/">Wrapper Component</a></li><li class="tree-nav__item tree-nav__item--depth-2"><a href="/amr-tech/blogs/pvc/extensions/settled-behavior-axiom/">The Settled-Behavior Axiom</a></li><li class="tree-nav__item tree-nav__item--depth-2"><a href="/amr-tech/blogs/pvc/extensions/specialised-component/">Specialised Component</a></li></ul></nav><div class="toc-inline"><nav class="toc" aria-label="Table of contents"><h2 class="toc__title">Table of Contents</h2><ol class="toc__list"><li><a class="toc__link" href="#2-the-main-project-model">2. The Main Project Model</a></li><li><a class="toc__link" href="#3-recommended-complete-structure">3. Recommended Complete Structure</a></li><li><a class="toc__link" href="#4-page-structure">4. Page Structure</a></li><li><a class="toc__link" href="#5-view-structure">5. View Structure</a></li><li><a class="toc__link" href="#6-component-structure">6. Component Structure</a></li><li><a class="toc__link" href="#7-decorations">7. Decorations</a></li><li><a class="toc__link" href="#8-aligners-in-code">8. Aligners in Code</a></li><li><a class="toc__link" href="#9-ui-element-structure">9. UI Element Structure</a></li><li><a class="toc__link" href="#10-primitive-versus-purposeful-component">10. Primitive Versus Purposeful Component</a></li><li><a class="toc__link" href="#11-a-more-realistic-search-feature">11. A More Realistic Search Feature</a></li><li><a class="toc__link" href="#12-complete-search-composition">12. Complete Search Composition</a></li><li><a class="toc__link" href="#13-state-and-business-logic">13. State and Business Logic</a></li><li><a class="toc__link" href="#14-modal-project-structure">14. Modal Project Structure</a></li><li><a class="toc__link" href="#15-nested-views-in-code">15. Nested Views in Code</a></li><li><a class="toc__link" href="#16-when-should-a-folder-be-created">16. When Should a Folder Be Created?</a></li><li><a class="toc__link" href="#17-co-location-for-small-compositions">17. Co-Location for Small Compositions</a></li><li><a class="toc__link" href="#18-component-extraction">18. Component Extraction</a></li><li><a class="toc__link" href="#19-avoiding-the-everything-is-a-component-problem">19. Avoiding the “Everything Is a Component” Problem</a></li><li><a class="toc__link" href="#20-the-uielements-layer">20. The ui/elements Layer</a></li><li><a class="toc__link" href="#21-ui-elements-should-stay-generic">21. UI Elements Should Stay Generic</a></li><li><a class="toc__link" href="#22-component-api-design">22. Component API Design</a></li><li><a class="toc__link" href="#23-view-api-design">23. View API Design</a></li><li><a class="toc__link" href="#24-import-direction">24. Import Direction</a></li><li><a class="toc__link" href="#25-dependency-example">25. Dependency Example</a></li><li><a class="toc__link" href="#26-a-complete-small-application">26. A Complete Small Application</a></li><li><a class="toc__link" href="#27-a-larger-application">27. A Larger Application</a></li><li><a class="toc__link" href="#28-recommended-naming">28. Recommended Naming</a></li><li><a class="toc__link" href="#29-naming-views">29. Naming Views</a></li><li><a class="toc__link" href="#30-naming-components">30. Naming Components</a></li><li><a class="toc__link" href="#31-naming-decorations">31. Naming Decorations</a></li><li><a class="toc__link" href="#32-naming-aligners">32. Naming Aligners</a></li><li><a class="toc__link" href="#33-the-code-should-reflect-the-architecture">33. The Code Should Reflect the Architecture</a></li><li><a class="toc__link" href="#34-final-project-model">34. Final Project Model</a><ul><li class="toc__item--sub"><a class="toc__link" href="#layer-1--application-composition">Layer 1 — Application Composition</a></li><li class="toc__item--sub"><a class="toc__link" href="#layer-2--ui-composition">Layer 2 — UI Composition</a></li><li class="toc__item--sub"><a class="toc__link" href="#layer-3--primitive-construction">Layer 3 — Primitive Construction</a></li></ul></li><li><a class="toc__link" href="#35-final-example">35. Final Example</a></li><li><a class="toc__link" href="#36-final-principle">36. Final Principle</a></li></ol></nav></div><div class="post-body" lang="en"><blockquote>
+<p>Translates <code>architecture.md</code>’s roles into an actual folder/file layout. Read <code>architecture.md</code> first — this document assumes its definitions and only adds placement conventions on top.</p>
+</blockquote>
+<h3 id="1-purpose">1. Purpose</h3>
+<p>The previous architecture defines a web interface as:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Page</span></span>
+<span class="line"><span>└── View</span></span>
+<span class="line"><span>    ├── Component</span></span>
+<span class="line"><span>    ├── Decoration / Aligner</span></span>
+<span class="line"><span>    └── UI Elements</span></span></code></pre>
+<p>This document translates that conceptual model into an actual software project structure.</p>
+<p>The goal is not to create folders merely because the architecture contains certain terms.</p>
+<p>The goal is to make the project structure reflect the way the UI is actually constructed.</p>
+<p>The resulting project should make it easy to answer:</p>
+<ul>
+<li>Where does this Page live?</li>
+<li>What Views construct this Page?</li>
+<li>What Component provides the main functionality of this View?</li>
+<li>What Decorations support it?</li>
+<li>Which pieces are Aligners?</li>
+<li>Which pieces are primitive UI Elements?</li>
+<li>Where does the behavior/state belong?</li>
+<li>Which code is specific to a feature and which code is globally reusable?</li>
+</ul>
+<hr>
+<h2 id="2-the-main-project-model">2. The Main Project Model</h2>
+<p>A project can be organized around the following high-level structure:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>src/</span></span>
+<span class="line"><span>├── app/</span></span>
+<span class="line"><span>│   ├── pages/</span></span>
+<span class="line"><span>│   └── routes/</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── features/</span></span>
+<span class="line"><span>│   ├── search/</span></span>
+<span class="line"><span>│   ├── authentication/</span></span>
+<span class="line"><span>│   ├── profile/</span></span>
+<span class="line"><span>│   └── ...</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── ui/</span></span>
+<span class="line"><span>│   ├── elements/</span></span>
+<span class="line"><span>│   ├── decorations/</span></span>
+<span class="line"><span>│   └── ...</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── shared/</span></span>
+<span class="line"><span>│   ├── hooks/</span></span>
+<span class="line"><span>│   ├── utils/</span></span>
+<span class="line"><span>│   ├── services/</span></span>
+<span class="line"><span>│   ├── types/</span></span>
+<span class="line"><span>│   └── ...</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>└── ...</span></span></code></pre>
+<p>However, the important part is that <strong>feature ownership and UI construction roles are separate concepts</strong>.</p>
+<p>For example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>features/</span></span>
+<span class="line"><span>└── search/</span></span>
+<span class="line"><span>    ├── pages/</span></span>
+<span class="line"><span>    ├── views/</span></span>
+<span class="line"><span>    ├── components/</span></span>
+<span class="line"><span>    └── ...</span></span></code></pre>
+<p>A feature owns its domain-specific UI.</p>
+<p>Global primitives can remain in:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>ui/</span></span>
+<span class="line"><span>├── elements/</span></span>
+<span class="line"><span>├── decorations/</span></span>
+<span class="line"><span>└── ...</span></span></code></pre>
+<p>This creates two dimensions:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>                 PROJECT ORGANIZATION</span></span>
+<span class="line"><span>                         │</span></span>
+<span class="line"><span>          ┌──────────────┴──────────────┐</span></span>
+<span class="line"><span>          ↓                             ↓</span></span>
+<span class="line"><span>   DOMAIN OWNERSHIP              UI CONSTRUCTION ROLE</span></span>
+<span class="line"><span>          │                             │</span></span>
+<span class="line"><span>      Search                         View</span></span>
+<span class="line"><span>      Profile                     Component</span></span>
+<span class="line"><span>      Checkout                    Decoration</span></span>
+<span class="line"><span>      Authentication              UI Element</span></span></code></pre>
+<hr>
+<h2 id="3-recommended-complete-structure">3. Recommended Complete Structure</h2>
+<p>A larger application could look like this:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>src/</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── app/</span></span>
+<span class="line"><span>│   ├── routes/</span></span>
+<span class="line"><span>│   │   ├── index.tsx</span></span>
+<span class="line"><span>│   │   ├── search.tsx</span></span>
+<span class="line"><span>│   │   ├── profile.tsx</span></span>
+<span class="line"><span>│   │   └── settings.tsx</span></span>
+<span class="line"><span>│   │</span></span>
+<span class="line"><span>│   └── pages/</span></span>
+<span class="line"><span>│       ├── HomePage/</span></span>
+<span class="line"><span>│       ├── SearchPage/</span></span>
+<span class="line"><span>│       ├── ProfilePage/</span></span>
+<span class="line"><span>│       └── SettingsPage/</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── features/</span></span>
+<span class="line"><span>│   │</span></span>
+<span class="line"><span>│   ├── search/</span></span>
+<span class="line"><span>│   │   ├── views/</span></span>
+<span class="line"><span>│   │   │   ├── SearchView/</span></span>
+<span class="line"><span>│   │   │   └── SearchResultsView/</span></span>
+<span class="line"><span>│   │   │</span></span>
+<span class="line"><span>│   │   ├── components/</span></span>
+<span class="line"><span>│   │   │   ├── SearchInput/</span></span>
+<span class="line"><span>│   │   │   └── SearchResult/</span></span>
+<span class="line"><span>│   │   │</span></span>
+<span class="line"><span>│   │   ├── decorations/</span></span>
+<span class="line"><span>│   │   │   ├── SearchDescription/</span></span>
+<span class="line"><span>│   │   │   └── CommonKeywords/</span></span>
+<span class="line"><span>│   │   │</span></span>
+<span class="line"><span>│   │   ├── hooks/</span></span>
+<span class="line"><span>│   │   ├── services/</span></span>
+<span class="line"><span>│   │   └── types/</span></span>
+<span class="line"><span>│   │</span></span>
+<span class="line"><span>│   ├── authentication/</span></span>
+<span class="line"><span>│   │   ├── views/</span></span>
+<span class="line"><span>│   │   ├── components/</span></span>
+<span class="line"><span>│   │   ├── decorations/</span></span>
+<span class="line"><span>│   │   ├── hooks/</span></span>
+<span class="line"><span>│   │   └── services/</span></span>
+<span class="line"><span>│   │</span></span>
+<span class="line"><span>│   └── profile/</span></span>
+<span class="line"><span>│       ├── views/</span></span>
+<span class="line"><span>│       ├── components/</span></span>
+<span class="line"><span>│       ├── decorations/</span></span>
+<span class="line"><span>│       ├── hooks/</span></span>
+<span class="line"><span>│       └── services/</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── ui/</span></span>
+<span class="line"><span>│   │</span></span>
+<span class="line"><span>│   ├── elements/</span></span>
+<span class="line"><span>│   │   ├── Button/</span></span>
+<span class="line"><span>│   │   ├── Input/</span></span>
+<span class="line"><span>│   │   ├── Text/</span></span>
+<span class="line"><span>│   │   ├── Icon/</span></span>
+<span class="line"><span>│   │   ├── Chip/</span></span>
+<span class="line"><span>│   │   ├── Avatar/</span></span>
+<span class="line"><span>│   │   └── ...</span></span>
+<span class="line"><span>│   │</span></span>
+<span class="line"><span>│   ├── decorations/</span></span>
+<span class="line"><span>│   │   ├── Divider/</span></span>
+<span class="line"><span>│   │   ├── Label/</span></span>
+<span class="line"><span>│   │   ├── Hint/</span></span>
+<span class="line"><span>│   │   └── ...</span></span>
+<span class="line"><span>│   │</span></span>
+<span class="line"><span>│   └── layout/</span></span>
+<span class="line"><span>│       ├── Stack/</span></span>
+<span class="line"><span>│       ├── Row/</span></span>
+<span class="line"><span>│       ├── Column/</span></span>
+<span class="line"><span>│       └── ...</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── shared/</span></span>
+<span class="line"><span>│   ├── hooks/</span></span>
+<span class="line"><span>│   ├── utils/</span></span>
+<span class="line"><span>│   ├── services/</span></span>
+<span class="line"><span>│   ├── types/</span></span>
+<span class="line"><span>│   ├── constants/</span></span>
+<span class="line"><span>│   └── config/</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>└── ...</span></span></code></pre>
+<p>This is a <strong>scalable structure</strong>, not a requirement that every project must have every folder.</p>
+<p>A small project can use a much smaller version.</p>
+<hr>
+<h2 id="4-page-structure">4. Page Structure</h2>
+<p>A Page should primarily compose Views.</p>
+<p>For example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchPage/</span></span>
+<span class="line"><span>├── SearchPage.tsx</span></span>
+<span class="line"><span>└── index.ts</span></span></code></pre>
+<p>The implementation should remain simple:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> { SearchView } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">from</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> "@/features/search/views/SearchView"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> { SearchResultsView } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">from</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> "@/features/search/views/SearchResultsView"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">export</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> SearchPage</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">() {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">SearchView</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">SearchResultsView</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;/&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    );</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>Notice what the Page does <strong>not</strong> contain.</p>
+<p>It does not directly construct:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Input</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Button</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Icon</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Text</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Chip</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span></code></pre>
+<p>Instead, it composes meaningful Views.</p>
+<p>Conceptually:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchPage</span></span>
+<span class="line"><span>├── SearchView</span></span>
+<span class="line"><span>└── SearchResultsView</span></span></code></pre>
+<p>The Page therefore remains easy to understand.</p>
+<hr>
+<h2 id="5-view-structure">5. View Structure</h2>
+<p>A View represents a meaningful section.</p>
+<p>For example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchView/</span></span>
+<span class="line"><span>├── SearchView.tsx</span></span>
+<span class="line"><span>└── index.ts</span></span></code></pre>
+<p>The implementation could be:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> { SearchInput } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">from</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> "../../components/SearchInput"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> { SearchDescription } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">from</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> "../../decorations/SearchDescription"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> { CommonKeywords } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">from</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> "../../decorations/CommonKeywords"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">export</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> SearchView</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">() {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">section</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">SearchDescription</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">SearchInput</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">CommonKeywords</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">section</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    );</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>This is the important distinction:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchView</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── SearchDescription</span></span>
+<span class="line"><span>│      └── Decoration</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── SearchInput</span></span>
+<span class="line"><span>│      └── Component</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>└── CommonKeywords</span></span>
+<span class="line"><span>       └── Decoration</span></span></code></pre>
+<p>The code communicates the architectural structure directly.</p>
+<hr>
+<h2 id="6-component-structure">6. Component Structure</h2>
+<p>A Component contains meaningful functionality.</p>
+<p>For example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchInput/</span></span>
+<span class="line"><span>├── SearchInput.tsx</span></span>
+<span class="line"><span>├── SearchInput.types.ts</span></span>
+<span class="line"><span>├── SearchInput.test.tsx</span></span>
+<span class="line"><span>└── index.ts</span></span></code></pre>
+<p>Its implementation could be:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> { Input } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">from</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> "@/ui/elements/Input"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> { Icon } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">from</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> "@/ui/elements/Icon"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> { Button } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">from</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> "@/ui/elements/Button"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">export</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> SearchInput</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">() {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">div</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> className</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"search-input"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Icon</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> name</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"search"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Input</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">                placeholder</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"Search..."</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            /&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Button</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">                aria-label</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"Clear search"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">                &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Icon</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> name</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"close"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;/</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Button</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">div</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    );</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>Architecturally:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchInput</span></span>
+<span class="line"><span>└── Component</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    ├── Icon</span></span>
+<span class="line"><span>    │   └── UI Element / Leading Aligner</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    ├── Input</span></span>
+<span class="line"><span>    │   └── UI Element</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    └── Button</span></span>
+<span class="line"><span>        └── UI Element / Trailing Aligner</span></span></code></pre>
+<p>The important point is that the <code>SearchInput</code> is not merely another generic component.</p>
+<p>It represents the meaningful functionality:</p>
+<blockquote>
+<p><strong>Searching.</strong></p>
+</blockquote>
+<hr>
+<h2 id="7-decorations">7. Decorations</h2>
+<p>A Decoration can have its own implementation.</p>
+<p>For example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchDescription/</span></span>
+<span class="line"><span>├── SearchDescription.tsx</span></span>
+<span class="line"><span>└── index.ts</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> { Text } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">from</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> "@/ui/elements/Text"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">export</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> SearchDescription</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">() {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Text</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            Search for users, posts, or topics.</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;/</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Text</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    );</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>Its architectural role is:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchDescription</span></span>
+<span class="line"><span>└── Decoration</span></span>
+<span class="line"><span>    └── Text</span></span>
+<span class="line"><span>        └── UI Element</span></span></code></pre>
+<p>The fact that <code>SearchDescription</code> is implemented as a React component does not turn it into an architectural Component.</p>
+<p>It remains a Decoration because that is its role.</p>
+<hr>
+<h2 id="8-aligners-in-code">8. Aligners in Code</h2>
+<p>Aligners do not necessarily need a dedicated folder.</p>
+<p>Because:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Aligner ⊂ Decoration</span></span></code></pre>
+<p>an Aligner can simply live wherever the surrounding Decoration belongs.</p>
+<p>For example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchInput/</span></span>
+<span class="line"><span>├── SearchInput.tsx</span></span>
+<span class="line"><span>├── SearchIcon.tsx</span></span>
+<span class="line"><span>└── ClearButton.tsx</span></span></code></pre>
+<p>Conceptually:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchInput</span></span>
+<span class="line"><span>├── SearchIcon</span></span>
+<span class="line"><span>│   └── Leading Aligner</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── Input</span></span>
+<span class="line"><span>│   └── Main UI Element</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>└── ClearButton</span></span>
+<span class="line"><span>    └── Trailing Aligner</span></span></code></pre>
+<p>The implementation might be:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">export</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> SearchInput</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">() {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">div</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> className</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"relative"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">SearchIcon</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Input</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">ClearButton</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">div</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    );</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>The positioning is an implementation detail.</p>
+<p>The architectural meaning is:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchIcon  → supporting Decoration</span></span>
+<span class="line"><span>             → specifically a Leading Aligner</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>ClearButton → supporting functional Decoration/element</span></span>
+<span class="line"><span>             → specifically a Trailing Aligner</span></span></code></pre>
+<p>An Aligner does not need to be a special React abstraction.</p>
+<p>It is a <strong>role</strong>.</p>
+<hr>
+<h2 id="9-ui-element-structure">9. UI Element Structure</h2>
+<p>UI Elements are the primitive building blocks.</p>
+<p>For example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>ui/</span></span>
+<span class="line"><span>└── elements/</span></span>
+<span class="line"><span>    ├── Button/</span></span>
+<span class="line"><span>    │   ├── Button.tsx</span></span>
+<span class="line"><span>    │   ├── Button.types.ts</span></span>
+<span class="line"><span>    │   └── index.ts</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    ├── Input/</span></span>
+<span class="line"><span>    │   ├── Input.tsx</span></span>
+<span class="line"><span>    │   ├── Input.types.ts</span></span>
+<span class="line"><span>    │   └── index.ts</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    ├── Text/</span></span>
+<span class="line"><span>    │   ├── Text.tsx</span></span>
+<span class="line"><span>    │   └── index.ts</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    └── Icon/</span></span>
+<span class="line"><span>        ├── Icon.tsx</span></span>
+<span class="line"><span>        └── index.ts</span></span></code></pre>
+<p>For example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">export</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> interface</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> InputProps</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">    value</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">?:</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> string</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">    placeholder</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">?:</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> string</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">    onChange</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">?:</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">value</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> string</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=&gt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> void</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">export</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Input</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">({</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">    value</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">    placeholder</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">    onChange</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> InputProps</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">input</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">            value</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{value}</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">            placeholder</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{placeholder}</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">            onChange</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{(</span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">event</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=&gt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">                onChange</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">?.(event.target.value);</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            }}</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    );</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>This is a primitive.</p>
+<p>It does not know that it is being used for:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Search</span></span>
+<span class="line"><span>Login</span></span>
+<span class="line"><span>Registration</span></span>
+<span class="line"><span>Profile editing</span></span>
+<span class="line"><span>Checkout</span></span></code></pre>
+<p>That responsibility belongs to higher-level Components.</p>
+<blockquote>
+<p><strong>Note — placement refinement:</strong> the <code>ui/elements/</code> layout shown above is refined by a later document in this set, <a href="/amr-tech/blogs/pvc/extensions/specialised-component/"><code>../extensions/specialised-component.md</code></a> (Acknowledgment section), which splits this one folder into two tiers — <code>ui/base/</code> (the raw framework primitive, re-exported under this system’s own name, kept to one line) and <code>ui/adaptive/</code> (that same primitive plus the design system’s styling, variants, and states). A Component still imports from the adaptive tier only, never from base or the framework directly. See that document for the full folder layout and import-direction rule.</p>
+</blockquote>
+<hr>
+<h2 id="10-primitive-versus-purposeful-component">10. Primitive Versus Purposeful Component</h2>
+<p>This distinction is fundamental.</p>
+<p>Consider:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Input</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span></code></pre>
+<p>It is generic.</p>
+<p>Therefore:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Input</span></span>
+<span class="line"><span>→ UI Element</span></span></code></pre>
+<p>Now consider:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">SearchInput</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span></code></pre>
+<p>It represents a specific user purpose.</p>
+<p>Therefore:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchInput</span></span>
+<span class="line"><span>→ Component</span></span></code></pre>
+<p>And internally:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">SearchInput</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Input</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;/</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">SearchInput</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span></code></pre>
+<p>So:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Component</span></span>
+<span class="line"><span>└── UI Element</span></span></code></pre>
+<p>This creates a clean abstraction boundary.</p>
+<hr>
+<h2 id="11-a-more-realistic-search-feature">11. A More Realistic Search Feature</h2>
+<p>The complete feature could therefore look like:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>features/</span></span>
+<span class="line"><span>└── search/</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    ├── views/</span></span>
+<span class="line"><span>    │   ├── SearchView/</span></span>
+<span class="line"><span>    │   │   ├── SearchView.tsx</span></span>
+<span class="line"><span>    │   │   └── index.ts</span></span>
+<span class="line"><span>    │   │</span></span>
+<span class="line"><span>    │   └── SearchResultsView/</span></span>
+<span class="line"><span>    │       ├── SearchResultsView.tsx</span></span>
+<span class="line"><span>    │       └── index.ts</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    ├── components/</span></span>
+<span class="line"><span>    │   ├── SearchInput/</span></span>
+<span class="line"><span>    │   │   ├── SearchInput.tsx</span></span>
+<span class="line"><span>    │   │   ├── SearchInput.types.ts</span></span>
+<span class="line"><span>    │   │   └── index.ts</span></span>
+<span class="line"><span>    │   │</span></span>
+<span class="line"><span>    │   └── SearchResult/</span></span>
+<span class="line"><span>    │       ├── SearchResult.tsx</span></span>
+<span class="line"><span>    │       └── index.ts</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    ├── decorations/</span></span>
+<span class="line"><span>    │   ├── SearchDescription/</span></span>
+<span class="line"><span>    │   │   ├── SearchDescription.tsx</span></span>
+<span class="line"><span>    │   │   └── index.ts</span></span>
+<span class="line"><span>    │   │</span></span>
+<span class="line"><span>    │   └── CommonKeywords/</span></span>
+<span class="line"><span>    │       ├── CommonKeywords.tsx</span></span>
+<span class="line"><span>    │       └── index.ts</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    ├── hooks/</span></span>
+<span class="line"><span>    │   └── useSearch.ts</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    ├── services/</span></span>
+<span class="line"><span>    │   └── search.service.ts</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    └── types/</span></span>
+<span class="line"><span>        └── search.types.ts</span></span></code></pre>
+<p>This gives the feature a clear internal architecture.</p>
+<hr>
+<h2 id="12-complete-search-composition">12. Complete Search Composition</h2>
+<p>The resulting composition becomes:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchPage</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── SearchView</span></span>
+<span class="line"><span>│   │</span></span>
+<span class="line"><span>│   ├── SearchDescription</span></span>
+<span class="line"><span>│   │   └── Decoration</span></span>
+<span class="line"><span>│   │</span></span>
+<span class="line"><span>│   ├── SearchInput</span></span>
+<span class="line"><span>│   │   └── Component</span></span>
+<span class="line"><span>│   │       ├── SearchIcon</span></span>
+<span class="line"><span>│   │       ├── Input</span></span>
+<span class="line"><span>│   │       └── ClearButton</span></span>
+<span class="line"><span>│   │</span></span>
+<span class="line"><span>│   └── CommonKeywords</span></span>
+<span class="line"><span>│       └── Decoration</span></span>
+<span class="line"><span>│           └── Chip[]</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>└── SearchResultsView</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    └── SearchResult[]</span></span>
+<span class="line"><span>        └── Component</span></span></code></pre>
+<p>The Page, Views, Components, Decorations, and UI Elements all have different responsibilities.</p>
+<hr>
+<h2 id="13-state-and-business-logic">13. State and Business Logic</h2>
+<p>The architecture should not force state and business logic into the UI hierarchy.</p>
+<p>For example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchInput</span></span></code></pre>
+<p>should primarily represent the search interaction.</p>
+<p>The search logic can live in a hook:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>features/search/</span></span>
+<span class="line"><span>└── hooks/</span></span>
+<span class="line"><span>    └── useSearch.ts</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">export</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> useSearch</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">() {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    const</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> [</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">query</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">setQuery</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">] </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> useState</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">""</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> search</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">() {</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D">        // Search logic</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> clear</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">() {</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">        setQuery</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">""</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">);</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        query,</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        setQuery,</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        search,</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        clear,</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    };</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>The Component can then consume it:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">export</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> SearchInput</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">() {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    const</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">        query</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">        setQuery</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">        search</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">        clear</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> useSearch</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">div</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Input</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">                value</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{query}</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">                onChange</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{setQuery}</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            /&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Button</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> onClick</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{search}&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">                Search</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;/</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Button</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Button</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> onClick</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{clear}&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">                Clear</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;/</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Button</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">div</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    );</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>Therefore:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Component</span></span>
+<span class="line"><span>    ↓</span></span>
+<span class="line"><span>Hook</span></span>
+<span class="line"><span>    ↓</span></span>
+<span class="line"><span>Service / State / Data</span></span></code></pre>
+<p>The role-based UI architecture does not replace normal software architecture.</p>
+<p>It defines the <strong>UI composition layer</strong>.</p>
+<hr>
+<h2 id="14-modal-project-structure">14. Modal Project Structure</h2>
+<p>The same approach applies to a Modal.</p>
+<p>Suppose we have:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>ConfirmationModalView</span></span></code></pre>
+<p>A feature could contain:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>features/</span></span>
+<span class="line"><span>└── account/</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    ├── views/</span></span>
+<span class="line"><span>    │   └── ConfirmationModalView/</span></span>
+<span class="line"><span>    │       ├── ConfirmationModalView.tsx</span></span>
+<span class="line"><span>    │       └── index.ts</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    ├── components/</span></span>
+<span class="line"><span>    │   ├── ConfirmDeletion/</span></span>
+<span class="line"><span>    │   │   ├── ConfirmDeletion.tsx</span></span>
+<span class="line"><span>    │   │   └── index.ts</span></span>
+<span class="line"><span>    │   │</span></span>
+<span class="line"><span>    │   └── CancelDeletion/</span></span>
+<span class="line"><span>    │       ├── CancelDeletion.tsx</span></span>
+<span class="line"><span>    │       └── index.ts</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    └── ...</span></span></code></pre>
+<p>The View:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">export</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> ConfirmationModalView</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">() {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Modal</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">ConfirmationMessage</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">ConfirmDeletion</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">CancelDeletion</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;/</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Modal</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    );</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>Architecturally:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>ConfirmationModalView</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── ConfirmationMessage</span></span>
+<span class="line"><span>│   └── Decoration</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── ConfirmDeletion</span></span>
+<span class="line"><span>│   └── Component</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>└── CancelDeletion</span></span>
+<span class="line"><span>    └── Component</span></span></code></pre>
+<p>The outer <code>Modal</code> implementation may itself be a primitive UI/layout mechanism.</p>
+<p>The architectural object being presented to the user is still:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>ConfirmationModalView</span></span></code></pre>
+<hr>
+<h2 id="15-nested-views-in-code">15. Nested Views in Code</h2>
+<p>Because Views can contain Views, the code can naturally become:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">export</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> AccountSettingsView</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">() {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">section</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">AccountInformationView</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">SecurityView</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">DangerZoneView</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">section</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    );</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>Then:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">export</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> DangerZoneView</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">() {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">section</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">DangerZoneDescription</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">DeleteAccountView</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">section</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    );</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>And:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">export</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> DeleteAccountView</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">() {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">DeleteAccountComponent</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">ConfirmationModalView</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;/&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    );</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>The resulting structure is:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>AccountSettingsView</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── AccountInformationView</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── SecurityView</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>└── DangerZoneView</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    └── DeleteAccountView</span></span>
+<span class="line"><span>        │</span></span>
+<span class="line"><span>        ├── DeleteAccountComponent</span></span>
+<span class="line"><span>        │</span></span>
+<span class="line"><span>        └── ConfirmationModalView</span></span>
+<span class="line"><span>            │</span></span>
+<span class="line"><span>            ├── Decoration</span></span>
+<span class="line"><span>            ├── Confirm Component</span></span>
+<span class="line"><span>            └── Cancel Component</span></span></code></pre>
+<p>This is valid because the hierarchy follows the actual composition of the interface.</p>
+<hr>
+<h2 id="16-when-should-a-folder-be-created">16. When Should a Folder Be Created?</h2>
+<p>Not every architectural role needs its own folder.</p>
+<p>For example, this may be excessive:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchView/</span></span>
+<span class="line"><span>├── SearchView.tsx</span></span>
+<span class="line"><span>├── decorations/</span></span>
+<span class="line"><span>│   ├── SearchDescription/</span></span>
+<span class="line"><span>│   └── CommonKeywords/</span></span>
+<span class="line"><span>├── aligners/</span></span>
+<span class="line"><span>├── components/</span></span>
+<span class="line"><span>├── elements/</span></span>
+<span class="line"><span>└── ...</span></span></code></pre>
+<p>Instead, use the project-level structure:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>search/</span></span>
+<span class="line"><span>├── views/</span></span>
+<span class="line"><span>├── components/</span></span>
+<span class="line"><span>├── decorations/</span></span>
+<span class="line"><span>└── ...</span></span></code></pre>
+<p>The architecture describes <strong>roles</strong>.</p>
+<p>The filesystem should optimize for:</p>
+<ul>
+<li>discoverability</li>
+<li>ownership</li>
+<li>locality</li>
+<li>maintainability</li>
+<li>project size</li>
+</ul>
+<p>The folder structure should not become a bureaucratic copy of the conceptual diagram.</p>
+<hr>
+<h2 id="17-co-location-for-small-compositions">17. Co-Location for Small Compositions</h2>
+<p>For a small View, co-location can be better.</p>
+<p>For example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchView/</span></span>
+<span class="line"><span>├── SearchView.tsx</span></span>
+<span class="line"><span>├── SearchDescription.tsx</span></span>
+<span class="line"><span>├── CommonKeywords.tsx</span></span>
+<span class="line"><span>└── index.ts</span></span></code></pre>
+<p>while larger reusable Components remain separately organized:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>components/</span></span>
+<span class="line"><span>└── SearchInput/</span></span>
+<span class="line"><span>    ├── SearchInput.tsx</span></span>
+<span class="line"><span>    ├── SearchInput.types.ts</span></span>
+<span class="line"><span>    └── ...</span></span></code></pre>
+<p>This produces:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Small supporting pieces</span></span>
+<span class="line"><span>→ stay close to their View</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>Large/purposeful reusable pieces</span></span>
+<span class="line"><span>→ become explicit Components</span></span></code></pre>
+<p>This prevents excessive folder fragmentation.</p>
+<hr>
+<h2 id="18-component-extraction">18. Component Extraction</h2>
+<p>A View should not automatically extract every element into a Component.</p>
+<p>For example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">export</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> SearchView</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">() {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">section</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">h1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;Search&lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">h1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">p</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">                Search for users, posts, or topics.</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">p</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">SearchInput</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">CommonKeywords</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">section</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    );</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>There is no need to turn everything into:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchTitle</span></span>
+<span class="line"><span>SearchDescription</span></span>
+<span class="line"><span>SearchSectionContainer</span></span>
+<span class="line"><span>SearchWrapper</span></span>
+<span class="line"><span>SearchContent</span></span>
+<span class="line"><span>SearchLayout</span></span>
+<span class="line"><span>...</span></span></code></pre>
+<p>unless those abstractions have a real reason to exist.</p>
+<p>The architecture is intended to make the structure clearer, not to increase the number of files.</p>
+<hr>
+<h2 id="19-avoiding-the-everything-is-a-component-problem">19. Avoiding the “Everything Is a Component” Problem</h2>
+<p>A project using this architecture should avoid this:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>components/</span></span>
+<span class="line"><span>├── SearchPageComponent</span></span>
+<span class="line"><span>├── SearchViewComponent</span></span>
+<span class="line"><span>├── SearchInputComponent</span></span>
+<span class="line"><span>├── SearchTitleComponent</span></span>
+<span class="line"><span>├── SearchDescriptionComponent</span></span>
+<span class="line"><span>├── SearchKeywordsComponent</span></span>
+<span class="line"><span>├── SearchChipComponent</span></span>
+<span class="line"><span>└── ...</span></span></code></pre>
+<p>This structure hides the actual semantics.</p>
+<p>Instead:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>search/</span></span>
+<span class="line"><span>├── views/</span></span>
+<span class="line"><span>│   └── SearchView/</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── components/</span></span>
+<span class="line"><span>│   └── SearchInput/</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>└── decorations/</span></span>
+<span class="line"><span>    ├── SearchDescription/</span></span>
+<span class="line"><span>    └── CommonKeywords/</span></span></code></pre>
+<p>Now the filesystem itself communicates architectural intent.</p>
+<hr>
+<h2 id="20-the-uielements-layer">20. The <code>ui/elements</code> Layer</h2>
+<p>Global primitive elements should remain independent of business features.</p>
+<blockquote>
+<p><strong>Note — placement refinement:</strong> this section’s <code>ui/elements/</code> layout is refined by <a href="/amr-tech/blogs/pvc/extensions/specialised-component/"><code>../extensions/specialised-component.md</code></a> (Acknowledgment section), which splits it into <code>ui/base/</code> (the raw framework primitive, one line, framework named exactly once) and <code>ui/adaptive/</code> (base + the design system’s styling, variants, and states — still purpose-agnostic). Everything this section and the next say about primitives staying feature-agnostic applies to both tiers; what changes is only that Components import from <code>ui/adaptive/</code>, never from <code>ui/base/</code> or the framework directly.</p>
+</blockquote>
+<p>For example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>ui/</span></span>
+<span class="line"><span>└── elements/</span></span>
+<span class="line"><span>    ├── Button/</span></span>
+<span class="line"><span>    ├── Input/</span></span>
+<span class="line"><span>    ├── Text/</span></span>
+<span class="line"><span>    ├── Icon/</span></span>
+<span class="line"><span>    ├── Chip/</span></span>
+<span class="line"><span>    ├── Checkbox/</span></span>
+<span class="line"><span>    ├── Select/</span></span>
+<span class="line"><span>    └── Avatar/</span></span></code></pre>
+<p>These elements should generally avoid knowing about application-specific concepts.</p>
+<p>For example, this is a good primitive:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Button</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> disabled</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{disabled}&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    {children}</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;/</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Button</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span></code></pre>
+<p>while this is feature-specific:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">DeleteAccountButton</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span></code></pre>
+<p>The latter belongs to the relevant feature.</p>
+<hr>
+<h2 id="21-ui-elements-should-stay-generic">21. UI Elements Should Stay Generic</h2>
+<p>A primitive <code>Button</code> should not know about:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Delete Account</span></span>
+<span class="line"><span>Create Post</span></span>
+<span class="line"><span>Search</span></span>
+<span class="line"><span>Checkout</span></span>
+<span class="line"><span>Follow User</span></span>
+<span class="line"><span>Confirm Registration</span></span></code></pre>
+<p>It should know about general button behavior:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>disabled</span></span>
+<span class="line"><span>loading</span></span>
+<span class="line"><span>size</span></span>
+<span class="line"><span>variant</span></span>
+<span class="line"><span>type</span></span>
+<span class="line"><span>onClick</span></span>
+<span class="line"><span>children</span></span></code></pre>
+<p>Then purposeful Components compose it:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>DeleteAccount</span></span>
+<span class="line"><span>    ↓</span></span>
+<span class="line"><span>Button</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>SearchAction</span></span>
+<span class="line"><span>    ↓</span></span>
+<span class="line"><span>Button</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>ConfirmRegistration</span></span>
+<span class="line"><span>    ↓</span></span>
+<span class="line"><span>Button</span></span></code></pre>
+<p>This keeps the primitive layer stable while the application grows.</p>
+<hr>
+<h2 id="22-component-api-design">22. Component API Design</h2>
+<p>A purposeful Component should expose a meaningful API.</p>
+<p>For example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">SearchInput</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">    value</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{query}</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">    onChange</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{setQuery}</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">    onSearch</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{handleSearch}</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">/&gt;</span></span></code></pre>
+<p>rather than exposing every primitive implementation detail:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">SearchInput</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">    inputClassName</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"..."</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">    iconPosition</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"..."</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">    buttonPadding</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"..."</span></span>
+<span class="line"><span style="--shiki-light:#B31D28;--shiki-light-font-style:italic;--shiki-dark:#FDAEB7;--shiki-dark-font-style:italic">    ...</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">/&gt;</span></span></code></pre>
+<p>The Component should provide an API based on its purpose.</p>
+<p>Therefore:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Component API</span></span>
+<span class="line"><span>    ↓</span></span>
+<span class="line"><span>User purpose</span></span></code></pre>
+<p>rather than:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Component API</span></span>
+<span class="line"><span>    ↓</span></span>
+<span class="line"><span>Internal DOM/UI structure</span></span></code></pre>
+<hr>
+<h2 id="23-view-api-design">23. View API Design</h2>
+<p>A View should also expose a meaningful API.</p>
+<p>For example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">SearchView</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">    initialQuery</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"React"</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">    onSearch</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{handleSearch}</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">/&gt;</span></span></code></pre>
+<p>The View can internally coordinate:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchDescription</span></span>
+<span class="line"><span>SearchInput</span></span>
+<span class="line"><span>CommonKeywords</span></span></code></pre>
+<p>The parent Page does not need to know how those pieces are arranged.</p>
+<p>This creates an abstraction boundary:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Page</span></span>
+<span class="line"><span>   ↓</span></span>
+<span class="line"><span>SearchView API</span></span>
+<span class="line"><span>   ↓</span></span>
+<span class="line"><span>Internal View composition</span></span></code></pre>
+<hr>
+<h2 id="24-import-direction">24. Import Direction</h2>
+<p>The project should generally maintain a downward dependency direction.</p>
+<p>A useful conceptual direction is:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Page</span></span>
+<span class="line"><span> ↓</span></span>
+<span class="line"><span>View</span></span>
+<span class="line"><span> ↓</span></span>
+<span class="line"><span>Component</span></span>
+<span class="line"><span> ↓</span></span>
+<span class="line"><span>UI Element</span></span></code></pre>
+<p>Supporting layers can be consumed from the appropriate level:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>View</span></span>
+<span class="line"><span> ├── Component</span></span>
+<span class="line"><span> ├── Decoration</span></span>
+<span class="line"><span> └── UI Element</span></span></code></pre>
+<p>A UI Element should not import a feature-specific View.</p>
+<p>For example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>ui/elements/Button</span></span></code></pre>
+<p>should not depend on:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>features/account/views/DeleteAccountView</span></span></code></pre>
+<p>This would reverse the abstraction direction.</p>
+<hr>
+<h2 id="25-dependency-example">25. Dependency Example</h2>
+<p>Good:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchPage</span></span>
+<span class="line"><span>    ↓</span></span>
+<span class="line"><span>SearchView</span></span>
+<span class="line"><span>    ↓</span></span>
+<span class="line"><span>SearchInput</span></span>
+<span class="line"><span>    ↓</span></span>
+<span class="line"><span>Input</span></span></code></pre>
+<p>Bad:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Input</span></span>
+<span class="line"><span>    ↓</span></span>
+<span class="line"><span>SearchInput</span></span>
+<span class="line"><span>    ↓</span></span>
+<span class="line"><span>SearchView</span></span></code></pre>
+<p>The primitive layer should remain below the application-specific layer.</p>
+<p>Conceptually:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Application-specific</span></span>
+<span class="line"><span>        ↓</span></span>
+<span class="line"><span>Purpose-specific</span></span>
+<span class="line"><span>        ↓</span></span>
+<span class="line"><span>Primitive</span></span></code></pre>
+<hr>
+<h2 id="26-a-complete-small-application">26. A Complete Small Application</h2>
+<p>A small application using the architecture could begin with:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>src/</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── app/</span></span>
+<span class="line"><span>│   ├── routes/</span></span>
+<span class="line"><span>│   │   ├── index.tsx</span></span>
+<span class="line"><span>│   │   └── search.tsx</span></span>
+<span class="line"><span>│   │</span></span>
+<span class="line"><span>│   └── pages/</span></span>
+<span class="line"><span>│       ├── HomePage/</span></span>
+<span class="line"><span>│       │   └── HomePage.tsx</span></span>
+<span class="line"><span>│       │</span></span>
+<span class="line"><span>│       └── SearchPage/</span></span>
+<span class="line"><span>│           └── SearchPage.tsx</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── features/</span></span>
+<span class="line"><span>│   └── search/</span></span>
+<span class="line"><span>│       ├── views/</span></span>
+<span class="line"><span>│       │   └── SearchView/</span></span>
+<span class="line"><span>│       │       └── SearchView.tsx</span></span>
+<span class="line"><span>│       │</span></span>
+<span class="line"><span>│       ├── components/</span></span>
+<span class="line"><span>│       │   └── SearchInput/</span></span>
+<span class="line"><span>│       │       └── SearchInput.tsx</span></span>
+<span class="line"><span>│       │</span></span>
+<span class="line"><span>│       └── decorations/</span></span>
+<span class="line"><span>│           ├── SearchDescription/</span></span>
+<span class="line"><span>│           │   └── SearchDescription.tsx</span></span>
+<span class="line"><span>│           │</span></span>
+<span class="line"><span>│           └── CommonKeywords/</span></span>
+<span class="line"><span>│               └── CommonKeywords.tsx</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── ui/</span></span>
+<span class="line"><span>│   └── elements/</span></span>
+<span class="line"><span>│       ├── Button/</span></span>
+<span class="line"><span>│       │   └── Button.tsx</span></span>
+<span class="line"><span>│       ├── Input/</span></span>
+<span class="line"><span>│       │   └── Input.tsx</span></span>
+<span class="line"><span>│       ├── Text/</span></span>
+<span class="line"><span>│       │   └── Text.tsx</span></span>
+<span class="line"><span>│       ├── Icon/</span></span>
+<span class="line"><span>│       │   └── Icon.tsx</span></span>
+<span class="line"><span>│       └── Chip/</span></span>
+<span class="line"><span>│           └── Chip.tsx</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>└── shared/</span></span>
+<span class="line"><span>    └── ...</span></span></code></pre>
+<p>This is already enough to apply the architecture.</p>
+<p>There is no need to start with an enormous enterprise structure.</p>
+<hr>
+<h2 id="27-a-larger-application">27. A Larger Application</h2>
+<p>As the application grows:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>src/</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── app/</span></span>
+<span class="line"><span>│   ├── routes/</span></span>
+<span class="line"><span>│   ├── layouts/</span></span>
+<span class="line"><span>│   └── pages/</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── features/</span></span>
+<span class="line"><span>│   ├── authentication/</span></span>
+<span class="line"><span>│   ├── search/</span></span>
+<span class="line"><span>│   ├── profile/</span></span>
+<span class="line"><span>│   ├── posts/</span></span>
+<span class="line"><span>│   ├── comments/</span></span>
+<span class="line"><span>│   ├── notifications/</span></span>
+<span class="line"><span>│   ├── messaging/</span></span>
+<span class="line"><span>│   └── settings/</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── ui/</span></span>
+<span class="line"><span>│   ├── elements/</span></span>
+<span class="line"><span>│   ├── decorations/</span></span>
+<span class="line"><span>│   ├── layout/</span></span>
+<span class="line"><span>│   └── feedback/</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── shared/</span></span>
+<span class="line"><span>│   ├── hooks/</span></span>
+<span class="line"><span>│   ├── services/</span></span>
+<span class="line"><span>│   ├── utils/</span></span>
+<span class="line"><span>│   ├── types/</span></span>
+<span class="line"><span>│   └── constants/</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>└── infrastructure/</span></span>
+<span class="line"><span>    ├── api/</span></span>
+<span class="line"><span>    ├── database/</span></span>
+<span class="line"><span>    ├── authentication/</span></span>
+<span class="line"><span>    └── storage/</span></span></code></pre>
+<p>The UI architecture remains the same:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Page</span></span>
+<span class="line"><span> ↓</span></span>
+<span class="line"><span>View</span></span>
+<span class="line"><span> ↓</span></span>
+<span class="line"><span>Component</span></span>
+<span class="line"><span> ↓</span></span>
+<span class="line"><span>UI Element</span></span></code></pre>
+<p>while the rest of the application architecture can evolve independently.</p>
+<hr>
+<h2 id="28-recommended-naming">28. Recommended Naming</h2>
+<p>Names should communicate the architectural role when useful.</p>
+<p>Examples:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchPage</span></span>
+<span class="line"><span>SearchView</span></span>
+<span class="line"><span>SearchInput</span></span>
+<span class="line"><span>SearchDescription</span></span>
+<span class="line"><span>CommonKeywords</span></span>
+<span class="line"><span>Button</span></span>
+<span class="line"><span>Input</span></span>
+<span class="line"><span>Text</span></span></code></pre>
+<p>Avoid meaningless names such as:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Container1</span></span>
+<span class="line"><span>Section2</span></span>
+<span class="line"><span>ComponentA</span></span>
+<span class="line"><span>Wrapper</span></span>
+<span class="line"><span>Box</span></span>
+<span class="line"><span>Thing</span></span></code></pre>
+<p>A name should ideally communicate either:</p>
+<ul>
+<li>what the object represents, or</li>
+<li>what purpose it serves.</li>
+</ul>
+<hr>
+<h2 id="29-naming-views">29. Naming Views</h2>
+<p>Views should generally describe the meaningful section they represent.</p>
+<p>Good:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>ProfileHeaderView</span></span>
+<span class="line"><span>SearchView</span></span>
+<span class="line"><span>StatisticsView</span></span>
+<span class="line"><span>CommentsView</span></span>
+<span class="line"><span>CheckoutView</span></span>
+<span class="line"><span>ConfirmationModalView</span></span></code></pre>
+<p>Less useful:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>MainView</span></span>
+<span class="line"><span>SectionView</span></span>
+<span class="line"><span>ContentView</span></span>
+<span class="line"><span>ContainerView</span></span></code></pre>
+<p>unless those names genuinely describe the purpose.</p>
+<hr>
+<h2 id="30-naming-components">30. Naming Components</h2>
+<p>Components should describe their purpose.</p>
+<p>Good:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchInput</span></span>
+<span class="line"><span>PostComposer</span></span>
+<span class="line"><span>ProfileEditor</span></span>
+<span class="line"><span>PaymentForm</span></span>
+<span class="line"><span>CommentComposer</span></span>
+<span class="line"><span>ConfirmDeletion</span></span></code></pre>
+<p>The name should ideally answer:</p>
+<blockquote>
+<p><strong>What meaningful functionality does this provide?</strong></p>
+</blockquote>
+<hr>
+<h2 id="31-naming-decorations">31. Naming Decorations</h2>
+<p>Decorations should describe what they provide around the functionality.</p>
+<p>Good:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchDescription</span></span>
+<span class="line"><span>CommonKeywords</span></span>
+<span class="line"><span>ProfileStatus</span></span>
+<span class="line"><span>SectionTitle</span></span>
+<span class="line"><span>PasswordHint</span></span>
+<span class="line"><span>EmptyStateMessage</span></span></code></pre>
+<p>They should not be named <code>Component1</code> simply because they happen to be implemented as React components.</p>
+<hr>
+<h2 id="32-naming-aligners">32. Naming Aligners</h2>
+<p>Because Aligners are Decorations, their names do not necessarily need the word <code>Aligner</code>.</p>
+<p>For example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchIcon</span></span>
+<span class="line"><span>ClearButton</span></span>
+<span class="line"><span>PasswordVisibilityButton</span></span>
+<span class="line"><span>StatusBadge</span></span></code></pre>
+<p>Their role can be understood from their relationship:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchInput</span></span>
+<span class="line"><span>├── SearchIcon</span></span>
+<span class="line"><span>│   └── Leading Aligner</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>└── ClearButton</span></span>
+<span class="line"><span>    └── Trailing Aligner</span></span></code></pre>
+<p>The term <strong>Aligner</strong> is therefore primarily an architectural classification, not necessarily a naming convention.</p>
+<hr>
+<h2 id="33-the-code-should-reflect-the-architecture">33. The Code Should Reflect the Architecture</h2>
+<p>The final goal is that reading the code should reveal the composition.</p>
+<p>For example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">export</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> SearchView</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">() {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">section</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">SearchDescription</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">SearchInput</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">CommonKeywords</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">section</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    );</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>This immediately communicates:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchView</span></span>
+<span class="line"><span>├── supporting information</span></span>
+<span class="line"><span>├── primary functionality</span></span>
+<span class="line"><span>└── supporting options</span></span></code></pre>
+<p>And then:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">export</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> SearchInput</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">() {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">div</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">SearchIcon</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Input</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">ClearButton</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">div</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    );</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>communicates:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchInput</span></span>
+<span class="line"><span>├── leading support</span></span>
+<span class="line"><span>├── primitive input</span></span>
+<span class="line"><span>└── trailing action</span></span></code></pre>
+<p>The code itself therefore becomes a representation of the architectural model.</p>
+<hr>
+<h2 id="34-final-project-model">34. Final Project Model</h2>
+<p>The complete project can be understood through three layers.</p>
+<h3 id="layer-1--application-composition">Layer 1 — Application Composition</h3>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Routes</span></span>
+<span class="line"><span>   ↓</span></span>
+<span class="line"><span>Pages</span></span></code></pre>
+<h3 id="layer-2--ui-composition">Layer 2 — UI Composition</h3>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Pages</span></span>
+<span class="line"><span>   ↓</span></span>
+<span class="line"><span>Views</span></span>
+<span class="line"><span>   ↓</span></span>
+<span class="line"><span>Components</span></span>
+<span class="line"><span>Decorations / Aligners</span></span></code></pre>
+<h3 id="layer-3--primitive-construction">Layer 3 — Primitive Construction</h3>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Components / Decorations</span></span>
+<span class="line"><span>   ↓</span></span>
+<span class="line"><span>UI Elements</span></span></code></pre>
+<p>Together:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Application</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── Routes</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>└── Pages</span></span>
+<span class="line"><span>     │</span></span>
+<span class="line"><span>     └── Views</span></span>
+<span class="line"><span>          │</span></span>
+<span class="line"><span>          ├── Views</span></span>
+<span class="line"><span>          │</span></span>
+<span class="line"><span>          ├── Components</span></span>
+<span class="line"><span>          │    └── UI Elements</span></span>
+<span class="line"><span>          │</span></span>
+<span class="line"><span>          ├── Decorations</span></span>
+<span class="line"><span>          │    └── UI Elements</span></span>
+<span class="line"><span>          │</span></span>
+<span class="line"><span>          └── Aligners</span></span>
+<span class="line"><span>               └── UI Elements</span></span></code></pre>
+<hr>
+<h2 id="35-final-example">35. Final Example</h2>
+<p>A complete page might therefore look like:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>ProfilePage</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── ProfileHeaderView</span></span>
+<span class="line"><span>│   │</span></span>
+<span class="line"><span>│   ├── ProfileAvatar</span></span>
+<span class="line"><span>│   │   └── Component</span></span>
+<span class="line"><span>│   │</span></span>
+<span class="line"><span>│   ├── ProfileName</span></span>
+<span class="line"><span>│   │   └── Decoration</span></span>
+<span class="line"><span>│   │</span></span>
+<span class="line"><span>│   └── EditProfile</span></span>
+<span class="line"><span>│       └── Component</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── ProfileStatisticsView</span></span>
+<span class="line"><span>│   │</span></span>
+<span class="line"><span>│   ├── StatisticsTitle</span></span>
+<span class="line"><span>│   │   └── Decoration</span></span>
+<span class="line"><span>│   │</span></span>
+<span class="line"><span>│   └── Statistics</span></span>
+<span class="line"><span>│       └── Component</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>└── ProfileActionsView</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    ├── FollowUser</span></span>
+<span class="line"><span>    │   └── Component</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    └── MoreActions</span></span>
+<span class="line"><span>        └── Component</span></span></code></pre>
+<p>The corresponding project might be:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>features/</span></span>
+<span class="line"><span>└── profile/</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    ├── views/</span></span>
+<span class="line"><span>    │   ├── ProfileHeaderView/</span></span>
+<span class="line"><span>    │   ├── ProfileStatisticsView/</span></span>
+<span class="line"><span>    │   └── ProfileActionsView/</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    ├── components/</span></span>
+<span class="line"><span>    │   ├── ProfileAvatar/</span></span>
+<span class="line"><span>    │   ├── EditProfile/</span></span>
+<span class="line"><span>    │   ├── Statistics/</span></span>
+<span class="line"><span>    │   ├── FollowUser/</span></span>
+<span class="line"><span>    │   └── MoreActions/</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    ├── decorations/</span></span>
+<span class="line"><span>    │   ├── ProfileName/</span></span>
+<span class="line"><span>    │   └── StatisticsTitle/</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    ├── hooks/</span></span>
+<span class="line"><span>    ├── services/</span></span>
+<span class="line"><span>    └── types/</span></span></code></pre>
+<p>while the global primitive layer remains:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>ui/</span></span>
+<span class="line"><span>└── elements/</span></span>
+<span class="line"><span>    ├── Button/</span></span>
+<span class="line"><span>    ├── Input/</span></span>
+<span class="line"><span>    ├── Text/</span></span>
+<span class="line"><span>    ├── Icon/</span></span>
+<span class="line"><span>    ├── Avatar/</span></span>
+<span class="line"><span>    ├── Chip/</span></span>
+<span class="line"><span>    └── ...</span></span></code></pre>
+<p>The architecture therefore produces a project in which the <strong>filesystem, component tree, and conceptual UI structure can all tell the same story</strong>.</p>
+<hr>
+<h2 id="36-final-principle">36. Final Principle</h2>
+<p>The project structure should not be:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Everything</span></span>
+<span class="line"><span>└── components</span></span></code></pre>
+<p>Instead, it should distinguish:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Where the thing belongs</span></span>
+<span class="line"><span>        +</span></span>
+<span class="line"><span>What role the thing plays</span></span></code></pre>
+<p>A useful final mental model is:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>                 FEATURE / DOMAIN</span></span>
+<span class="line"><span>                       │</span></span>
+<span class="line"><span>              ┌────────┴────────┐</span></span>
+<span class="line"><span>              ↓                 ↓</span></span>
+<span class="line"><span>            PAGE              DATA</span></span>
+<span class="line"><span>              │</span></span>
+<span class="line"><span>              ↓</span></span>
+<span class="line"><span>            VIEW</span></span>
+<span class="line"><span>              │</span></span>
+<span class="line"><span>       ┌──────┼───────┐</span></span>
+<span class="line"><span>       ↓      ↓       ↓</span></span>
+<span class="line"><span> COMPONENT  DECOR.  VIEW</span></span>
+<span class="line"><span>    │          │</span></span>
+<span class="line"><span>    ↓          ↓</span></span>
+<span class="line"><span> UI ELEMENTS  UI ELEMENTS</span></span></code></pre>
+<p>The architecture therefore introduces a <strong>semantic UI construction layer</strong> without forcing the rest of the application to follow an artificial structure.</p>
+<p>The core rule remains:</p>
+<blockquote>
+<p><strong>Organize code according to both ownership and role: features determine where UI belongs, while Page → View → Component → UI Element describes how that UI is constructed.</strong></p>
+</blockquote>
+<p>And most importantly:</p>
+<blockquote>
+<p><strong>A React component is not automatically an architectural Component. The architectural role is determined by what the code represents and what responsibility it has within the UI composition.</strong></p>
+</blockquote>
+</div><nav class="post-nav" aria-label="More posts"><a class="post-nav__link" href="/amr-tech/blogs/pvc/base/architecture/"><span class="post-nav__label">← Previous</span><span>A Role-Based UI Construction Architecture for Web Applications</span></a><a class="post-nav__link post-nav__link--next" href="/amr-tech/blogs/pvc/extensions/"><span class="post-nav__label">Next →</span><span>The Extensions Layer</span></a></nav></article><aside class="toc-rail"><button class="toc-rail__toggle" type="button" data-toc-toggle aria-expanded="false" aria-controls="toc-panel"><svg class="toc-rail__chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M9 18l6-6-6-6"></path></svg><span>Contents</span></button><nav class="toc-rail__panel" id="toc-panel" aria-label="Table of contents"><nav class="toc" aria-label="Table of contents"><h2 class="toc__title">Table of Contents</h2><ol class="toc__list"><li><a class="toc__link" href="#2-the-main-project-model">2. The Main Project Model</a></li><li><a class="toc__link" href="#3-recommended-complete-structure">3. Recommended Complete Structure</a></li><li><a class="toc__link" href="#4-page-structure">4. Page Structure</a></li><li><a class="toc__link" href="#5-view-structure">5. View Structure</a></li><li><a class="toc__link" href="#6-component-structure">6. Component Structure</a></li><li><a class="toc__link" href="#7-decorations">7. Decorations</a></li><li><a class="toc__link" href="#8-aligners-in-code">8. Aligners in Code</a></li><li><a class="toc__link" href="#9-ui-element-structure">9. UI Element Structure</a></li><li><a class="toc__link" href="#10-primitive-versus-purposeful-component">10. Primitive Versus Purposeful Component</a></li><li><a class="toc__link" href="#11-a-more-realistic-search-feature">11. A More Realistic Search Feature</a></li><li><a class="toc__link" href="#12-complete-search-composition">12. Complete Search Composition</a></li><li><a class="toc__link" href="#13-state-and-business-logic">13. State and Business Logic</a></li><li><a class="toc__link" href="#14-modal-project-structure">14. Modal Project Structure</a></li><li><a class="toc__link" href="#15-nested-views-in-code">15. Nested Views in Code</a></li><li><a class="toc__link" href="#16-when-should-a-folder-be-created">16. When Should a Folder Be Created?</a></li><li><a class="toc__link" href="#17-co-location-for-small-compositions">17. Co-Location for Small Compositions</a></li><li><a class="toc__link" href="#18-component-extraction">18. Component Extraction</a></li><li><a class="toc__link" href="#19-avoiding-the-everything-is-a-component-problem">19. Avoiding the “Everything Is a Component” Problem</a></li><li><a class="toc__link" href="#20-the-uielements-layer">20. The ui/elements Layer</a></li><li><a class="toc__link" href="#21-ui-elements-should-stay-generic">21. UI Elements Should Stay Generic</a></li><li><a class="toc__link" href="#22-component-api-design">22. Component API Design</a></li><li><a class="toc__link" href="#23-view-api-design">23. View API Design</a></li><li><a class="toc__link" href="#24-import-direction">24. Import Direction</a></li><li><a class="toc__link" href="#25-dependency-example">25. Dependency Example</a></li><li><a class="toc__link" href="#26-a-complete-small-application">26. A Complete Small Application</a></li><li><a class="toc__link" href="#27-a-larger-application">27. A Larger Application</a></li><li><a class="toc__link" href="#28-recommended-naming">28. Recommended Naming</a></li><li><a class="toc__link" href="#29-naming-views">29. Naming Views</a></li><li><a class="toc__link" href="#30-naming-components">30. Naming Components</a></li><li><a class="toc__link" href="#31-naming-decorations">31. Naming Decorations</a></li><li><a class="toc__link" href="#32-naming-aligners">32. Naming Aligners</a></li><li><a class="toc__link" href="#33-the-code-should-reflect-the-architecture">33. The Code Should Reflect the Architecture</a></li><li><a class="toc__link" href="#34-final-project-model">34. Final Project Model</a><ul><li class="toc__item--sub"><a class="toc__link" href="#layer-1--application-composition">Layer 1 — Application Composition</a></li><li class="toc__item--sub"><a class="toc__link" href="#layer-2--ui-composition">Layer 2 — UI Composition</a></li><li class="toc__item--sub"><a class="toc__link" href="#layer-3--primitive-construction">Layer 3 — Primitive Construction</a></li></ul></li><li><a class="toc__link" href="#35-final-example">35. Final Example</a></li><li><a class="toc__link" href="#36-final-principle">36. Final Principle</a></li></ol></nav></nav></aside></div><script type="module" src="/amr-tech/_astro/BlogPost.astro_astro_type_script_index_0_lang.DJQIz5e0.js"></script><script type="module" src="/amr-tech/_astro/BlogPost.astro_astro_type_script_index_1_lang.DJQIz5e0.js"></script></main><footer class="site-footer"><div class="site-footer__inner"><span class="meta-label">© 2026 Amr</span><nav class="site-footer__links" aria-label="Footer"><a href="/amr-tech/blogs/">Blog</a><a href="/amr-tech/rss.xml">RSS</a><a href="/amr-tech/llms.txt">llms.txt</a></nav></div></footer></body></html>

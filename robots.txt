@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+sitemap: https://alaamer12.github.io/amr-tech/sitemap-index.xml

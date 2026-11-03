@@ -1,0 +1,440 @@
+<!DOCTYPE html><html lang="en" data-base="/amr-tech/"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Worked Examples — Amr</title><meta name="description" content="The complete PVC documentation set: five architectural roles (Page, View, Component, Decoration/Aligner, UI Element) distinct from any framework, project structure, State vs Condition, View &amp; Rendition, the three placement poles, Wrapper Components, the Settled-Behavior Axiom, and Specialised Components."><link rel="canonical" href="https://alaamer12.github.io/amr-tech/blogs/pvc/extensions/worked-examples/"><meta property="og:site_name" content="Amr"><meta property="og:title" content="Worked Examples — Amr"><meta property="og:type" content="article"><meta property="og:url" content="https://alaamer12.github.io/amr-tech/blogs/pvc/extensions/worked-examples/"><meta property="og:image" content="https://alaamer12.github.io/amr-tech/og-default.svg"><meta property="og:description" content="The complete PVC documentation set: five architectural roles (Page, View, Component, Decoration/Aligner, UI Element) distinct from any framework, project structure, State vs Condition, View &amp; Rendition, the three placement poles, Wrapper Components, the Settled-Behavior Axiom, and Specialised Components."><meta property="og:locale" content="en_US"><meta property="article:published_time" content="2026-11-03T00:26:47.000Z"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Worked Examples — Amr"><meta name="twitter:description" content="The complete PVC documentation set: five architectural roles (Page, View, Component, Decoration/Aligner, UI Element) distinct from any framework, project structure, State vs Condition, View &amp; Rendition, the three placement poles, Wrapper Components, the Settled-Behavior Axiom, and Specialised Components."><meta name="twitter:image" content="https://alaamer12.github.io/amr-tech/og-default.svg"><link rel="alternate" type="application/rss+xml" title="Amr" href="/amr-tech/rss.xml"><link rel="sitemap" type="application/xml" href="/amr-tech/sitemap-index.xml"><link rel="icon" type="image/svg+xml" href="/amr-tech/favicon.svg"><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/amr-tech/_astro/ClientRouter.astro_astro_type_script_index_0_lang.DXqcZz58.js"></script><script type="application/ld+json">[{"@context":"https://schema.org","@type":"BlogPosting","headline":"Worked Examples","description":"The complete PVC documentation set: five architectural roles (Page, View, Component, Decoration/Aligner, UI Element) distinct from any framework, project structure, State vs Condition, View & Rendition, the three placement poles, Wrapper Components, the Settled-Behavior Axiom, and Specialised Components.","url":"https://alaamer12.github.io/amr-tech/blogs/pvc/extensions/worked-examples/","image":"https://alaamer12.github.io/amr-tech/og-default.svg","datePublished":"2026-11-03T00:26:47.000Z","dateModified":"2026-11-03T00:26:47.000Z","inLanguage":"en","author":{"@type":"Person","name":"Amr"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://alaamer12.github.io/amr-tech//"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://alaamer12.github.io/amr-tech/blogs/"},{"@type":"ListItem","position":3,"name":"PVC — A Role-Based UI Construction Architecture","item":"https://alaamer12.github.io/amr-tech/blogs/pvc/"},{"@type":"ListItem","position":4,"name":"The Extensions Layer","item":"https://alaamer12.github.io/amr-tech/blogs/pvc/extensions/"},{"@type":"ListItem","position":5,"name":"Worked Examples","item":"https://alaamer12.github.io/amr-tech/blogs/pvc/extensions/worked-examples/"}]}]</script><link rel="stylesheet" href="/amr-tech/_astro/BaseLayout.BTeEYYcC.css"><style>@layer astro.images{:where([data-astro-image]){height:auto}:where([data-astro-image=full-width]){width:100%}:where([data-astro-image=constrained]){max-width:100%}[data-astro-image-fit=fill]{object-fit:fill}[data-astro-image-fit=contain]{object-fit:contain}[data-astro-image-fit=cover]{object-fit:cover}[data-astro-image-fit=scale-down]{object-fit:scale-down}[data-astro-image-pos=top]{object-position:top}[data-astro-image-pos=bottom]{object-position:bottom}[data-astro-image-pos=left]{object-position:left}[data-astro-image-pos=right]{object-position:right}[data-astro-image-pos=center]{object-position:center}[data-astro-image-pos=top-left]{object-position:top left}[data-astro-image-pos=top-right]{object-position:top right}[data-astro-image-pos=top-center]{object-position:top center}[data-astro-image-pos=bottom-left]{object-position:bottom left}[data-astro-image-pos=bottom-right]{object-position:bottom right}[data-astro-image-pos=bottom-center]{object-position:bottom center}[data-astro-image-pos=left-top]{object-position:left top}[data-astro-image-pos=left-bottom]{object-position:left bottom}[data-astro-image-pos=left-center]{object-position:left center}[data-astro-image-pos=right-top]{object-position:right top}[data-astro-image-pos=right-bottom]{object-position:right bottom}[data-astro-image-pos=right-center]{object-position:right center}[data-astro-image-pos=center-top]{object-position:center top}[data-astro-image-pos=center-bottom]{object-position:center bottom}[data-astro-image-pos=center-left]{object-position:center left}[data-astro-image-pos=center-right]{object-position:center right}}
+</style><style>[data-astro-transition-scope="astro-nfpogox7-1"] { view-transition-name: astro-nfpogox7-1; }@layer astro { ::view-transition-old(astro-nfpogox7-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(astro-nfpogox7-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(astro-nfpogox7-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(astro-nfpogox7-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-nfpogox7-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-nfpogox7-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-nfpogox7-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-nfpogox7-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-nfpogox7-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-nfpogox7-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-nfpogox7-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-nfpogox7-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head><body data-astro-transition-scope="astro-nfpogox7-1"><script data-astro-rerun>
+      (() => {
+        try {
+          const stored = localStorage.getItem('theme');
+          const dark = stored ? stored === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+        } catch {
+          document.documentElement.dataset.theme = 'light';
+        }
+        try {
+          document.documentElement.dataset.align = localStorage.getItem('align') || 'left';
+        } catch {
+          document.documentElement.dataset.align = 'left';
+        }
+      })();
+    </script><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><div class="site-header__inner"><a class="site-header__brand" href="/amr-tech/blogs/" aria-label="Amr home"><svg class="site-header__logo" width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="currentColor" opacity="0.08"></rect><path d="M9 22l7-12 7 12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="16" cy="24" r="1.6" fill="currentColor"></circle></svg>Amr</a><div class="align-toggle" role="group" aria-label="Content alignment"><button class="align-toggle__btn" type="button" data-align="left" aria-label="Align content left"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="15" y2="12"></line><line x1="3" y1="18" x2="18" y2="18"></line></svg></button><button class="align-toggle__btn" type="button" data-align="center" aria-label="Align content center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="6" y1="12" x2="18" y2="12"></line><line x1="4" y1="18" x2="20" y2="18"></line></svg></button><button class="align-toggle__btn" type="button" data-align="right" aria-label="Align content right"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="9" y1="12" x2="21" y2="12"></line><line x1="6" y1="18" x2="21" y2="18"></line></svg></button></div><script type="module">function e(){let e=[...document.querySelectorAll(`[data-align]`)];function t(t){document.documentElement.dataset.align=t;for(let n of e)n.classList.toggle(`align-toggle__btn--active`,n.dataset.align===t),n.setAttribute(`aria-pressed`,String(n.dataset.align===t));try{localStorage.setItem(`align`,t)}catch{}}for(let n of e)n.addEventListener(`click`,()=>t(n.dataset.align??`left`)),n.classList.toggle(`align-toggle__btn--active`,n.dataset.align===document.documentElement.dataset.align)}document.addEventListener(`astro:page-load`,e);</script><nav class="site-header__actions" aria-label="Main"><a class="site-header__icon-link" href="/amr-tech/rss.xml" aria-label="RSS feed"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9H4v-9zm0-5a14 14 0 0 1 14 14h-4A10 10 0 0 0 4 10V6zm2.5-2A16.5 16.5 0 0 1 22.5 21h-4A12.5 12.5 0 0 0 6.5 8.5v-4.5z" opacity="0"></path><circle cx="6.18" cy="17.82" r="2.18"></circle><path d="M4 4.05v3.06c9.39.3 12.56 3.4 12.89 12.89h3.06C19.7 9.2 14.8 4.3 4 4.05zm0 6.12v3.06c3.9.24 6.6 2.95 6.82 6.82h3.06C15.53 14.23 11.77 10.47 4 10.17z"></path></svg></a><button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-theme-toggle><svg class="theme-toggle__icon theme-toggle__icon--moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg><svg class="theme-toggle__icon theme-toggle__icon--sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></button><script type="module">var e=()=>matchMedia(`(prefers-reduced-motion: reduce)`).matches,t=!1;function n(e){let t=innerWidth,n=innerHeight,r=t/2,i=n/2;if(e){let t=e.getBoundingClientRect();r=t.left+t.width/2,i=t.top+t.height/2}let a=Math.hypot(Math.max(r,t-r),Math.max(i,n-i));return{cx:r,cy:i,maxRadius:a,vw:t,vh:n}}function r(e){let t=`${e.cx/e.vw*100}%`,n=`${e.cy/e.vh*100}%`,r=e.maxRadius/(Math.hypot(e.vw,e.vh)/Math.SQRT2)*100;return[`circle(0% at ${t} ${n})`,`circle(${r}% at ${t} ${n})`]}function i(e){let t=document.createElement(`div`);return t.className=`morph-ring`,t.style.left=`${e.cx-e.maxRadius}px`,t.style.top=`${e.cy-e.maxRadius}px`,t.style.width=t.style.height=`${e.maxRadius*2}px`,t.style.viewTransitionName=`ring`,document.body.appendChild(t),t}function a(e){document.documentElement.dataset.theme=e?`dark`:`light`;try{localStorage.setItem(`theme`,e?`dark`:`light`)}catch{}}function o(a,o,s){if(t)return;if(typeof document.startViewTransition!=`function`||e()){o();return}let c=n(a),l=r(c),u=document.documentElement,d=null;t=!0,u.dataset.morphing=``,u.style.setProperty(`--morph-dur`,`${s}ms`),u.style.setProperty(`--morph-clip-from`,l[0]);let f=document.startViewTransition(()=>{o(),d=i(c)});f.finished.finally(()=>{t=!1,d?.remove(),delete u.dataset.morphing,u.style.removeProperty(`--morph-dur`),u.style.removeProperty(`--morph-clip-from`)}),f.ready.then(()=>{u.animate({clipPath:l},{duration:s,easing:`ease-in-out`,fill:`forwards`,pseudoElement:`::view-transition-new(root)`})}).catch(()=>{})}function s(){let e=document.querySelector(`[data-theme-toggle]`);e&&e.addEventListener(`click`,()=>{let t=document.documentElement.dataset.theme!==`dark`;o(e,()=>a(t),400)})}document.addEventListener(`astro:page-load`,s);</script></nav></div></header><main class="page" id="main-content"><div class="reading-progress" aria-hidden="true"></div><script type="module">var e=document.documentElement,t=!1;function n(){t=!1;let n=document.querySelector(`.reading-progress`);if(!n)return;let r=e.scrollHeight-e.clientHeight;n.style.setProperty(`--progress`,r>0?(e.scrollTop/r).toFixed(4):`0`)}function r(){t||(t=!0,requestAnimationFrame(n))}addEventListener(`scroll`,r,{passive:!0}),addEventListener(`resize`,r,{passive:!0}),document.addEventListener(`astro:page-load`,n);</script><div class="post-shell"><article class="post-column" data-pagefind-body><div class="post-topbar"><a class="post-back" href="/amr-tech/blogs/">← Blog</a><button class="copy-page" type="button" data-copy-page data-md-url="/amr-tech/blogs/pvc/extensions/worked-examples.md"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span data-copy-label>Copy Page</span></button><script type="module">function e(){let e=document.querySelector(`[data-copy-page]`);if(!e)return;let t=e.querySelector(`[data-copy-label]`);e.addEventListener(`click`,async()=>{let n=e.getAttribute(`data-md-url`);t.textContent=`Copying…`;try{let e=await fetch(n).then(e=>{if(!e.ok)throw Error(`mirror missing`);return e.text()});await navigator.clipboard.writeText(e),t.textContent=`Copied ✓`}catch{t.textContent=`Copy failed`}setTimeout(()=>{t.textContent=`Copy Page`},2e3)})}document.addEventListener(`astro:page-load`,e);</script></div><header class="post-header"><div class="post-header__meta"><span class="meta-label">3 November 2026</span><span class="card__category">Architecture</span><span class="visually-hidden" data-pagefind-filter="category:Architecture"></span><span class="visually-hidden" data-pagefind-meta="date:3 November 2026"></span></div><h1 class="post-title post-header__title" lang="en" data-pagefind-meta="title">Worked Examples</h1><p class="post-lede post-header__lede" lang="en">The complete PVC documentation set: five architectural roles (Page, View, Component, Decoration/Aligner, UI Element) distinct from any framework, project structure, State vs Condition, View &amp; Rendition, the three placement poles, Wrapper Components, the Settled-Behavior Axiom, and Specialised Components.</p><div class="post-tags"><span class="post-tag">architecture</span><span class="post-tag">frontend</span><span class="post-tag">react</span><span class="post-tag">component-design</span><span class="post-tag">project-structure</span></div></header><nav class="tree-nav" aria-label="Post pages"><ul class="tree-nav__list"><li class="tree-nav__item tree-nav__item--depth-0"><a href="/amr-tech/blogs/pvc/">PVC — A Role-Based UI Construction Architecture</a></li><li class="tree-nav__item tree-nav__item--depth-1"><a href="/amr-tech/blogs/pvc/base/">The Base Layer</a></li><li class="tree-nav__item tree-nav__item--depth-2"><a href="/amr-tech/blogs/pvc/base/architecture/">A Role-Based UI Construction Architecture for Web Applications</a></li><li class="tree-nav__item tree-nav__item--depth-2"><a href="/amr-tech/blogs/pvc/base/project-structure/">Project Structure and Code Organization</a></li><li class="tree-nav__item tree-nav__item--depth-1"><a href="/amr-tech/blogs/pvc/extensions/">The Extensions Layer</a></li><li class="tree-nav__item tree-nav__item--depth-2"><a href="/amr-tech/blogs/pvc/extensions/state-vs-condition/">State vs Condition</a></li><li class="tree-nav__item tree-nav__item--depth-2"><a href="/amr-tech/blogs/pvc/extensions/view-and-rendition/">View &amp; Rendition</a></li><li class="tree-nav__item tree-nav__item--depth-2"><a href="/amr-tech/blogs/pvc/extensions/the-poles/">The Poles</a></li><li class="tree-nav__item tree-nav__item--depth-2 tree-nav__item--current"><a href="/amr-tech/blogs/pvc/extensions/worked-examples/" aria-current="page">Worked Examples</a></li><li class="tree-nav__item tree-nav__item--depth-2"><a href="/amr-tech/blogs/pvc/extensions/wrapper-component/">Wrapper Component</a></li><li class="tree-nav__item tree-nav__item--depth-2"><a href="/amr-tech/blogs/pvc/extensions/settled-behavior-axiom/">The Settled-Behavior Axiom</a></li><li class="tree-nav__item tree-nav__item--depth-2"><a href="/amr-tech/blogs/pvc/extensions/specialised-component/">Specialised Component</a></li></ul></nav><div class="toc-inline"><nav class="toc" aria-label="Table of contents"><h2 class="toc__title">Table of Contents</h2><ol class="toc__list"><li><a class="toc__link" href="#1-worked-example-1--global-local-via-componentrendition-symmetry">1. Worked Example 1 — Global-Local via Component/Rendition Symmetry</a></li><li><a class="toc__link" href="#2-worked-example-2--global-local-with-no-view-no-rendition-no-fact">2. Worked Example 2 — Global-Local With No View, No Rendition, No Fact</a></li><li><a class="toc__link" href="#3-worked-example-3--the-two-global-local-configurations-side-by-side">3. Worked Example 3 — The Two Global-Local Configurations, Side by Side</a></li><li><a class="toc__link" href="#4-the-full-composite-tree">4. The Full Composite Tree</a><ul><li class="toc__item--sub"><a class="toc__link" href="#the-rule-this-tree-demonstrates">The Rule This Tree Demonstrates</a></li></ul></li></ol></nav></div><div class="post-body" lang="en"><blockquote>
+<p>The single canonical home for every worked tree in this documentation set. <a href="/amr-tech/blogs/pvc/extensions/the-poles/">The Poles</a> states the tests and rules; this document shows them applied, in full, so no other document needs to redraw these trees. If you find the same <code>funds/</code>/<code>checkout/</code>/<code>search/</code> example elsewhere, that copy is stale — this file is the source of truth.</p>
+</blockquote>
+<p><em>Assumes the roles defined in <a href="/amr-tech/blogs/pvc/base/architecture/"><code>../base/architecture.md</code></a> and <a href="/amr-tech/blogs/pvc/base/project-structure/"><code>../base/project-structure.md</code></a>, and every concept from <a href="/amr-tech/blogs/pvc/extensions/state-vs-condition/">State vs Condition</a>, <a href="/amr-tech/blogs/pvc/extensions/view-and-rendition/">View &amp; Rendition</a>, <a href="/amr-tech/blogs/pvc/extensions/the-poles/">The Poles</a>, <a href="/amr-tech/blogs/pvc/extensions/wrapper-component/">Wrapper Component</a>, <a href="/amr-tech/blogs/pvc/extensions/settled-behavior-axiom/">The Settled-Behavior Axiom</a>, and <a href="/amr-tech/blogs/pvc/extensions/specialised-component/">Specialised Component</a> — every one of those concepts appears in the tree below.</em></p>
+<p><strong>No folder name below is fixed vocabulary — including <code>features/</code> itself.</strong> Every test in this system (§1’s <code>§3</code>/<code>§3.1</code> of <a href="/amr-tech/blogs/pvc/extensions/the-poles/">The Poles</a>, and the asymmetric State/Condition rule of <a href="/amr-tech/blogs/pvc/extensions/state-vs-condition/">State vs Condition</a>) checks <em>role</em> — is this a feature’s own tier, is this an app-wide layer, is this the current owner of an effect — never spelling. <code>features/</code> could just as validly be <code>capabilities/</code>, <code>modules/</code>, or <code>domains/</code>; <code>shared/</code> could be <code>common/</code> or <code>app-wide/</code>; <code>funds/</code> and <code>checkout/</code> are just two example feature names. The tree below uses one consistent set of names purely so the same worked examples stay recognizable across documents — swap any of them and nothing about the classification changes.</p>
+<hr>
+<h3 id="1-worked-example-1--global-local-via-componentrendition-symmetry">1. Worked Example 1 — Global-Local via Component/Rendition Symmetry</h3>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>features/funds/</span></span>
+<span class="line"><span>└── views/</span></span>
+<span class="line"><span>    └── FundCardView/</span></span>
+<span class="line"><span>        ├── FundCardView.tsx             ← View: consults the layout toggle fact, selects one Rendition</span></span>
+<span class="line"><span>        ├── FundCardListRendition.tsx    ← Rendition: renders _FundCard PLUS its own unique</span></span>
+<span class="line"><span>        │                                    List-only sub-pieces (e.g. an inline action row)</span></span>
+<span class="line"><span>        ├── FundCardGridRendition.tsx    ← Rendition: renders _FundCard PLUS its own unique</span></span>
+<span class="line"><span>        │                                    Grid-only sub-pieces (e.g. a compact badge overlay)</span></span>
+<span class="line"><span>        └── _FundCard.tsx                ← GLOBAL-LOCAL Component:</span></span>
+<span class="line"><span>                                              - the PARTIAL shared piece both Renditions build on —</span></span>
+<span class="line"><span>                                                not their entire body, just what genuinely overlaps</span></span>
+<span class="line"><span>                                              - consumed by both Renditions above</span></span>
+<span class="line"><span>                                              - has no meaning or use outside this View's</span></span>
+<span class="line"><span>                                                Rendition set — deleting either Rendition</span></span>
+<span class="line"><span>                                                leaves it with no reason to exist</span></span>
+<span class="line"><span>                                              - therefore neither Local (more than one</span></span>
+<span class="line"><span>                                                consumer) nor Global (no purpose outside</span></span>
+<span class="line"><span>                                                this closed family)</span></span></code></pre>
+<p><code>_FundCard</code> is deliberately <strong>partial</strong>, not the full rendered body of either Rendition. Each Rendition still owns and renders its own additional, unique sub-pieces alongside it:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D">// features/funds/views/FundCardView/_FundCard.tsx</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D">// — the genuinely shared part only: what List and Grid agree on, nothing more.</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> _FundCard</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">({ </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">fund</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> }</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> { </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">fund</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Fund</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> }) {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">FundName</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> name</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{fund.name} /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">FundMetrics</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> metrics</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{fund.metrics} /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;/&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    );</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D">// features/funds/views/FundCardView/_FundCardActions.tsx</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D">// — a Wrapper Component (see wrapper-component.md): AddToWatchlist, CompareFund, and</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D">// RemoveFund are independent, uncoordinated Components. This wrapper has no</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D">// responsibility of its own — it is pure structural grouping, not a Component.</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> _FundCardActions</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">({ </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">fund</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> }</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> { </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">fund</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Fund</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> }) {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">div</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> className</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"actions-row"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">AddToWatchlist</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> fund</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{fund} /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">CompareFund</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> fund</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{fund} /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">RemoveFund</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> fund</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{fund} /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">div</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    );</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D">// features/funds/views/FundCardView/FundCardListRendition.tsx</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> FundCardListRendition</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">({ </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">fund</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> }</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> { </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">fund</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Fund</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> }) {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">ListLayout</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">_FundCard</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> fund</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{fund} /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">_FundCardActions</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> fund</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{fund} /&gt;   {</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D">/* Wrapper Component, Local — no role of its own */</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;/</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">ListLayout</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    );</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D">// features/funds/views/FundCardView/FundCardGridRendition.tsx</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> FundCardGridRendition</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">({ </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">fund</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> }</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> { </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">fund</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Fund</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> }) {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">GridLayout</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">_FundCard</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> fund</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{fund} /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">FundCompactBadge</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> fund</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{fund} /&gt;   {</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D">/* Decoration/Aligner, Local — glanceable, one consumer */</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;/</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">GridLayout</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    );</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>This matters for the placement test in <a href="/amr-tech/blogs/pvc/extensions/the-poles/">The Poles</a> §3: <code>_FundCard</code> is Global-Local specifically because <em>only the overlapping part</em> was extracted. <code>_FundCardActions</code> and <code>FundCompactBadge</code> are not candidates for Global-Local at all — each has exactly one consumer, so each is ordinary <strong>Local</strong>, colocated with the Rendition that uses it. But “Local” is a placement pole, not a role — each still needs its own role classification, and this is where an early draft of this example went wrong: it named the actions grouping <code>FundInlineActions</code> and called the whole thing a Component. That was the exact trap <a href="/amr-tech/blogs/pvc/extensions/wrapper-component/">Wrapper Component</a> identifies — a plural, purposeful-sounding name smuggling in a single responsibility that the grouping doesn’t actually have. <code>AddToWatchlist</code>, <code>CompareFund</code>, and <code>RemoveFund</code> are each independently purposeful (real Components, by <a href="/amr-tech/blogs/pvc/base/architecture/"><code>../base/architecture.md</code></a> §7); the thing holding them together is not a fourth Component, it’s a <strong>Wrapper Component</strong> — structural grouping with no responsibility of its own, exactly because these three don’t coordinate.</p>
+<p><strong>A note on why these stay Local here, and where that changes.</strong> <code>AddToWatchlist</code>, <code>CompareFund</code>, <code>RemoveFund</code>, and <code>FundCompactBadge</code> are drawn in this example as files living <em>inside</em> <code>FundCardView/</code> — that placement puts them squarely under The Poles §3’s ordinary consumer test, and each has exactly one real consumer here. This is a different configuration from §3.1’s tier test, not a contradiction of it: if these same Components were instead placed one level up, at <code>features/funds/components/</code> and <code>features/funds/decorations/</code> — the feature-wide tiers — they would become <strong>Global-Local, locked to <code>funds/</code></strong>, by §3.1’s rule, regardless of how many Views currently consume them. Both configurations are valid; which one applies depends entirely on where the files are actually placed. <strong>§3 below</strong> (Worked Example 3) shows the tier-locked version side by side with this View-local version so the difference in placement, and only placement, is visible.</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>_FundCard             → Global-Local Component (shared, partial — The Poles §3's test)</span></span>
+<span class="line"><span>_FundCardActions      → Wrapper Component (Local — no role of its own; groups</span></span>
+<span class="line"><span>                         three independent Components, wrapper-component.md)</span></span>
+<span class="line"><span>├── AddToWatchlist    → Component (Local HERE — inside FundCardView/;</span></span>
+<span class="line"><span>                         would be Global-Local to funds/ if placed in</span></span>
+<span class="line"><span>                         funds/components/ instead, per The Poles §3.1)</span></span>
+<span class="line"><span>├── CompareFund       → Component (Local HERE — same caveat)</span></span>
+<span class="line"><span>└── RemoveFund        → Component (Local HERE — same caveat)</span></span>
+<span class="line"><span>FundCompactBadge      → Decoration / Aligner (Local HERE — same caveat,</span></span>
+<span class="line"><span>                         would be Global-Local to funds/ if placed in</span></span>
+<span class="line"><span>                         funds/decorations/ instead)</span></span></code></pre>
+<p>Global-Local applies only to the piece that genuinely has more than one consumer; over-extracting the whole Rendition body into the shared file would misrepresent parts that were never actually shared, and mislabeling a Local piece’s role would just as easily hide whether that piece needed its own placement question asked of it later, if a third Rendition ever appeared and needed the same button or badge.</p>
+<p>The underscore prefix on <code>_FundCard</code> is a naming convention, not a mechanical requirement — it signals to any reader browsing the folder that this is not an independently addressable export the way a promoted <code>ui/</code> primitive would be, the same way a Rendition is described as “not independently addressable” in <a href="/amr-tech/blogs/pvc/extensions/view-and-rendition/"><code>view-and-rendition.md</code></a> §2. Nothing enforces the underscore; it exists purely so that a reader scanning <code>FundCardView/</code> can tell, at a glance and without opening the file, which of the four files is the View, which two are its Renditions, and which one is scoped, shared internal implementation.</p>
+<hr>
+<h3 id="2-worked-example-2--global-local-with-no-view-no-rendition-no-fact">2. Worked Example 2 — Global-Local With No View, No Rendition, No Fact</h3>
+<p><a href="/amr-tech/blogs/pvc/extensions/the-poles/">The Poles</a> §4 draws a distinction worth proving rather than asserting: Global-Local is not a special consequence of Component/Rendition symmetry, it is a general placement test (§3) that happens to have been <em>discovered</em> through that symmetry. To prove that, here is a case where the test applies cleanly with neither a View, a Rendition, nor any fact-consulting hook anywhere in sight — just two ordinary sibling Components that happen to share a sub-piece.</p>
+<p>Suppose a checkout feature has two independent, unrelated Components — neither is a Rendition of the other, neither is selected by any View’s branch, they are simply two different purposeful units that both happen to need the same receipt-line formatting:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>features/checkout/</span></span>
+<span class="line"><span>├── components/</span></span>
+<span class="line"><span>│   ├── OrderSummary/</span></span>
+<span class="line"><span>│   │   └── OrderSummary.tsx         ← Component: shows the cart before payment</span></span>
+<span class="line"><span>│   ├── PaymentConfirmation/</span></span>
+<span class="line"><span>│   │   └── PaymentConfirmation.tsx  ← Component: shows the result after payment</span></span>
+<span class="line"><span>│   └── _ReceiptLine/</span></span>
+<span class="line"><span>│       └── _ReceiptLine.tsx         ← GLOBAL-LOCAL Component:</span></span>
+<span class="line"><span>│                                        - consumed by both OrderSummary and</span></span>
+<span class="line"><span>│                                          PaymentConfirmation above</span></span>
+<span class="line"><span>│                                        - has no reason to exist outside this</span></span>
+<span class="line"><span>│                                          closed pair — no other feature in the</span></span>
+<span class="line"><span>│                                          app has a use for "a checkout receipt line"</span></span>
+<span class="line"><span>│                                        - neither Local (two consumers) nor Global</span></span>
+<span class="line"><span>│                                          (meaningless outside this specific pair)</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D">// features/checkout/components/_ReceiptLine/_ReceiptLine.tsx</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> _ReceiptLine</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">({ </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">label</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">, </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">amount</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> }</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> { </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">label</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> string</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">; </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">amount</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> number</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> }) {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">div</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> className</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"receipt-line"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Text</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;{label}&lt;/</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Text</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Text</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;{</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">formatCurrency</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(amount)}&lt;/</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Text</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">div</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    );</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D">// features/checkout/components/OrderSummary/OrderSummary.tsx</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> OrderSummary</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">({ </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">items</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> }</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> { </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">items</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> CartItem</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">[] }) {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">section</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            {items.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">map</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">item</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =&gt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">                &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">_ReceiptLine</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> key</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{item.id} </span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">label</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{item.name} </span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">amount</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{item.price} /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            ))}</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">section</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    );</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D">// features/checkout/components/PaymentConfirmation/PaymentConfirmation.tsx</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> PaymentConfirmation</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">({ </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">charge</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> }</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> { </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">charge</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Charge</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> }) {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">section</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">_ReceiptLine</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> label</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"Total charged"</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> amount</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{charge.amount} /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">            &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">ConfirmationBadge</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> status</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{charge.status} /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        &lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">section</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    );</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>Nothing here consults a fact. Nothing selects between sibling outcomes. <code>OrderSummary</code> and <code>PaymentConfirmation</code> are two ordinary, independently-existing Components — there is no View above them making a choice, and no Rendition anywhere in this example. The Poles §3 test still applies exactly as written: delete both <code>OrderSummary</code> and <code>PaymentConfirmation</code>, and <code>_ReceiptLine</code> has no remaining consumer and no reason to exist — so it is Global-Local, placed at the nearest common ancestor of its two consumers (<code>checkout/components/</code>), exactly as The Poles §5’s folder rule prescribes, independent of any View/Rendition machinery.</p>
+<p>This confirms The Poles §4’s claim: Component/Rendition symmetry made the <em>first</em> Global-Local case easy to spot, but the pole itself is answerable by §3’s test alone, wherever two siblings share implementation with no purpose beyond each other.</p>
+<hr>
+<h3 id="3-worked-example-3--the-two-global-local-configurations-side-by-side">3. Worked Example 3 — The Two Global-Local Configurations, Side by Side</h3>
+<p>This is the same <code>funds/</code> feature as Worked Example 1 (§1 above), redrawn to show both Global-Local configurations at once — (a) inside one View’s own folder, governed by The Poles §3, and (b) at the feature’s own tier, governed by §3.1 — so the difference is visible in one tree rather than described only in prose.</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>features/funds/</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── views/</span></span>
+<span class="line"><span>│   └── FundCardView/</span></span>
+<span class="line"><span>│       ├── FundCardView.tsx              ← LOCAL to FundCardView/ (its one View)</span></span>
+<span class="line"><span>│       ├── FundCardListRendition.tsx     ← LOCAL to FundCardView/</span></span>
+<span class="line"><span>│       ├── FundCardGridRendition.tsx     ← LOCAL to FundCardView/</span></span>
+<span class="line"><span>│       ├── _FundCard.tsx                 ← (a) GLOBAL-LOCAL, §3's test: actually</span></span>
+<span class="line"><span>│       │                                     consumed by both Renditions in this</span></span>
+<span class="line"><span>│       │                                     exact folder — a real, countable family</span></span>
+<span class="line"><span>│       └── _FundCardActions.tsx          ← LOCAL to FundCardView/ (Wrapper Component,</span></span>
+<span class="line"><span>│                                              no role of its own — see wrapper-component.md)</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── components/                            ← (b) THIS TIER ITSELF is GLOBAL-LOCAL,</span></span>
+<span class="line"><span>│   ├── AddToWatchlist/                        locked to funds/, by §3.1 — every file</span></span>
+<span class="line"><span>│   ├── CompareFund/                           placed here is available to any current</span></span>
+<span class="line"><span>│   └── RemoveFund/                            or future View that funds/ ever has,</span></span>
+<span class="line"><span>│                                                regardless of how many use it today</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── decorations/                            ← (b) same tier-lock, locked to funds/</span></span>
+<span class="line"><span>│   └── FundCompactBadge/</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>└── hooks/                                  ← (b) same tier-lock, locked to funds/</span></span>
+<span class="line"><span>    └── useLayoutToggleCondition.ts</span></span></code></pre>
+<p><strong>Both configurations can legitimately coexist in the same feature, as shown here.</strong> <code>_FundCard</code> stays inside <code>FundCardView/</code> because it is genuinely scoped to that one View’s two Renditions and nothing else — promoting it to <code>funds/components/</code> would be wrong, since no other View in <code>funds/</code> has any use for it (it’s the partial shared body of one specific card, per §1 above). <code>AddToWatchlist</code>, <code>CompareFund</code>, <code>RemoveFund</code>, and <code>FundCompactBadge</code>, by contrast, are ordinary Components/Decorations with no inherent tie to <code>FundCardView</code> specifically — placing them at the <code>funds/</code> tier says “any View this feature ever grows may use these,” which is a design decision, not a consumer count.</p>
+<hr>
+<h3 id="4-the-full-composite-tree">4. The Full Composite Tree</h3>
+<p>The three examples above isolate one idea each. This section places all of them — plus <code>search/</code>’s ordinary State/Condition/View/Rendition usage, <code>search/</code>’s Specialised Component pairing, and the true Global layer (<code>ui/base/</code>, <code>ui/adaptive/</code>, <code>shared/</code>) — into one complete project tree, so every concept in this documentation set is visible in a single, consistent structure.</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>src/</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── app/</span></span>
+<span class="line"><span>│   ├── routes/</span></span>
+<span class="line"><span>│   │   ├── index.tsx</span></span>
+<span class="line"><span>│   │   ├── funds.tsx</span></span>
+<span class="line"><span>│   │   └── checkout.tsx</span></span>
+<span class="line"><span>│   │</span></span>
+<span class="line"><span>│   └── pages/</span></span>
+<span class="line"><span>│       ├── FundsPage/</span></span>
+<span class="line"><span>│       │   └── FundsPage.tsx                    ← PAGE: composes Views only, no primitive detail</span></span>
+<span class="line"><span>│       └── CheckoutPage/</span></span>
+<span class="line"><span>│           └── CheckoutPage.tsx                  ← PAGE</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── features/</span></span>
+<span class="line"><span>│   │</span></span>
+<span class="line"><span>│   ├── funds/                                                    ══════ WORKED EXAMPLE 1 &amp; 3 ══════</span></span>
+<span class="line"><span>│   │   │</span></span>
+<span class="line"><span>│   │   ├── views/</span></span>
+<span class="line"><span>│   │   │   └── FundCardView/</span></span>
+<span class="line"><span>│   │   │       ├── FundCardView.tsx              ← LOCAL to FundCardView/: consults</span></span>
+<span class="line"><span>│   │   │       │                                    useLayoutToggleCondition (read from the</span></span>
+<span class="line"><span>│   │   │       │                                    funds/ tier below), selects one Rendition</span></span>
+<span class="line"><span>│   │   │       │</span></span>
+<span class="line"><span>│   │   │       ├── FundCardListRendition.tsx     ← LOCAL to FundCardView/: pure props → markup</span></span>
+<span class="line"><span>│   │   │       ├── FundCardGridRendition.tsx      ← LOCAL to FundCardView/: pure props → markup</span></span>
+<span class="line"><span>│   │   │       │</span></span>
+<span class="line"><span>│   │   │       ├── _FundCard.tsx                 ← GLOBAL-LOCAL (a) — The Poles §3's test:</span></span>
+<span class="line"><span>│   │   │       │                                    actually consumed by BOTH Renditions in</span></span>
+<span class="line"><span>│   │   │       │                                    THIS SAME FOLDER; a real, countable family.</span></span>
+<span class="line"><span>│   │   │       │                                    Would have no reason to exist if either</span></span>
+<span class="line"><span>│   │   │       │                                    sibling were deleted. Underscore-prefixed</span></span>
+<span class="line"><span>│   │   │       │                                    because it sits directly beside the two</span></span>
+<span class="line"><span>│   │   │       │                                    files it's scoped to.</span></span>
+<span class="line"><span>│   │   │       │</span></span>
+<span class="line"><span>│   │   │       └── _FundCardActions.tsx          ← LOCAL to FundCardView/: WRAPPER COMPONENT,</span></span>
+<span class="line"><span>│   │   │                                            no responsibility of its own — groups 3</span></span>
+<span class="line"><span>│   │   │                                            independent Components below via pure</span></span>
+<span class="line"><span>│   │   │                                            structural forwarding, fanned out</span></span>
+<span class="line"><span>│   │   │                                            (wrapper-component.md)</span></span>
+<span class="line"><span>│   │   │</span></span>
+<span class="line"><span>│   │   ├── components/                           ← GLOBAL-LOCAL (b), LOCKED TO funds/ —</span></span>
+<span class="line"><span>│   │   │   │                                        The Poles §3.1's test: this tier was</span></span>
+<span class="line"><span>│   │   │   │                                        deliberately built as the shared Component</span></span>
+<span class="line"><span>│   │   │   │                                        pool for funds/. Everything here is</span></span>
+<span class="line"><span>│   │   │   │                                        available to any View funds/ has now or</span></span>
+<span class="line"><span>│   │   │   │                                        ever will have — the lock is a property of</span></span>
+<span class="line"><span>│   │   │   │                                        the TIER, not a tally of current importers.</span></span>
+<span class="line"><span>│   │   │   ├── AddToWatchlist/</span></span>
+<span class="line"><span>│   │   │   │     └── AddToWatchlist.tsx          ← consumed today by _FundCardActions;</span></span>
+<span class="line"><span>│   │   │   │                                        tier-locked to funds/ regardless</span></span>
+<span class="line"><span>│   │   │   ├── CompareFund/</span></span>
+<span class="line"><span>│   │   │   │     └── CompareFund.tsx</span></span>
+<span class="line"><span>│   │   │   └── RemoveFund/</span></span>
+<span class="line"><span>│   │   │         └── RemoveFund.tsx</span></span>
+<span class="line"><span>│   │   │</span></span>
+<span class="line"><span>│   │   ├── decorations/                          ← GLOBAL-LOCAL (b), LOCKED TO funds/</span></span>
+<span class="line"><span>│   │   │   └── FundCompactBadge/</span></span>
+<span class="line"><span>│   │   │         └── FundCompactBadge.tsx        ← glanceable, non-interactive, an Aligner</span></span>
+<span class="line"><span>│   │   │                                            relative to _FundCard; tier-locked to</span></span>
+<span class="line"><span>│   │   │                                            funds/, not just to GridRendition</span></span>
+<span class="line"><span>│   │   │</span></span>
+<span class="line"><span>│   │   └── hooks/                                ← GLOBAL-LOCAL (b), LOCKED TO funds/</span></span>
+<span class="line"><span>│   │       └── useLayoutToggleCondition.ts       ← CONDITION (fact only, never renders):</span></span>
+<span class="line"><span>│   │                                                 externally-driven toggle; read-only to</span></span>
+<span class="line"><span>│   │                                                 every consumer (state-vs-condition.md §5);</span></span>
+<span class="line"><span>│   │                                                 tier-locked to funds/, available to any</span></span>
+<span class="line"><span>│   │                                                 View this feature grows, not owned by</span></span>
+<span class="line"><span>│   │                                                 FundCardView specifically</span></span>
+<span class="line"><span>│   │</span></span>
+<span class="line"><span>│   ├── checkout/                                                 ══════ WORKED EXAMPLE 2 ══════</span></span>
+<span class="line"><span>│   │   └── components/                           ← GLOBAL-LOCAL (b), LOCKED TO checkout/ —</span></span>
+<span class="line"><span>│   │       │                                        a SEPARATE tier from funds/components/.</span></span>
+<span class="line"><span>│   │       │                                        Sharing the folder NAME "components/" is</span></span>
+<span class="line"><span>│   │       │                                        not sharing a family — nothing in funds/</span></span>
+<span class="line"><span>│   │       │                                        may import from here, and nothing here</span></span>
+<span class="line"><span>│   │       │                                        may import from funds/.</span></span>
+<span class="line"><span>│   │       │</span></span>
+<span class="line"><span>│   │       ├── OrderSummary/</span></span>
+<span class="line"><span>│   │       │     └── OrderSummary.tsx            ← consumes _ReceiptLine below</span></span>
+<span class="line"><span>│   │       ├── PaymentConfirmation/</span></span>
+<span class="line"><span>│   │       │     └── PaymentConfirmation.tsx     ← consumes _ReceiptLine below</span></span>
+<span class="line"><span>│   │       └── _ReceiptLine/</span></span>
+<span class="line"><span>│   │             └── _ReceiptLine.tsx            ← within this tier, ALSO independently</span></span>
+<span class="line"><span>│   │                                                 satisfies The Poles §3's narrower test</span></span>
+<span class="line"><span>│   │                                                 (actual consumers: OrderSummary +</span></span>
+<span class="line"><span>│   │                                                 PaymentConfirmation, both real, both</span></span>
+<span class="line"><span>│   │                                                 countable) — no View, no Rendition, no</span></span>
+<span class="line"><span>│   │                                                 fact anywhere in this example; proves</span></span>
+<span class="line"><span>│   │                                                 Global-Local's §3 test is general,</span></span>
+<span class="line"><span>│   │                                                 not dependent on Component/Rendition</span></span>
+<span class="line"><span>│   │                                                 symmetry (The Poles §4, and §2 above)</span></span>
+<span class="line"><span>│   │</span></span>
+<span class="line"><span>│   └── search/                                                    ══════ ORDINARY FEATURE ══════</span></span>
+<span class="line"><span>│       ├── views/</span></span>
+<span class="line"><span>│       │   └── SearchView/</span></span>
+<span class="line"><span>│       │       ├── SearchView.tsx                ← LOCAL to SearchView/: consults</span></span>
+<span class="line"><span>│       │       │                                    useNetworkCondition (READ, from shared/)</span></span>
+<span class="line"><span>│       │       │                                    + useSearchState (OWNED, from search/'s</span></span>
+<span class="line"><span>│       │       │                                    own tier below), selects a Rendition</span></span>
+<span class="line"><span>│       │       ├── SearchDisabledRendition.tsx    ← LOCAL to SearchView/ (offline branch)</span></span>
+<span class="line"><span>│       │       ├── SearchLoadingRendition.tsx     ← LOCAL to SearchView/ (loading branch;</span></span>
+<span class="line"><span>│       │       │                                    forwards to global ui/renditions/</span></span>
+<span class="line"><span>│       │       │                                    LoadingRendition — forwarding,</span></span>
+<span class="line"><span>│       │       │                                    not tier-locking; view-and-rendition.md §7.1)</span></span>
+<span class="line"><span>│       │       └── SearchErrorRendition.tsx       ← LOCAL to SearchView/ (error branch)</span></span>
+<span class="line"><span>│       │</span></span>
+<span class="line"><span>│       ├── components/                            ← GLOBAL-LOCAL (b), LOCKED TO search/</span></span>
+<span class="line"><span>│       │   └── SearchInput/</span></span>
+<span class="line"><span>│       │         ├── _SearchInput.tsx            ← Component, underscored: this</span></span>
+<span class="line"><span>│       │         │      ├── uses ui/adaptive: Icon   feature's search is SETTLED</span></span>
+<span class="line"><span>│       │         │      ├── uses ui/adaptive: Input   (settled-behavior-axiom.md) as</span></span>
+<span class="line"><span>│       │         │      └── uses ui/adaptive: Button  keystroke-firing; no standalone</span></span>
+<span class="line"><span>│       │         │                                    caller wants it undebounced, so it</span></span>
+<span class="line"><span>│       │         │                                    earns the underscore (same test as</span></span>
+<span class="line"><span>│       │         │                                    The Poles §3 — no consumer, no</span></span>
+<span class="line"><span>│       │         │                                    reason to import it alone)</span></span>
+<span class="line"><span>│       │         │</span></span>
+<span class="line"><span>│       │         └── DebouncedSearchInput.tsx    ← SPECIALISED COMPONENT</span></span>
+<span class="line"><span>│       │                                            (specialised-component.md): composes</span></span>
+<span class="line"><span>│       │                                            _SearchInput + shared/hooks/useDebounce.</span></span>
+<span class="line"><span>│       │                                            The ONLY way this feature's search</span></span>
+<span class="line"><span>│       │                                            input is ever consumed. Local — a</span></span>
+<span class="line"><span>│       │                                            one-off fusion, not Global-Local</span></span>
+<span class="line"><span>│       │                                            (no closed family, just one pairing).</span></span>
+<span class="line"><span>│       │</span></span>
+<span class="line"><span>│       ├── decorations/                           ← GLOBAL-LOCAL (b), LOCKED TO search/</span></span>
+<span class="line"><span>│       │   └── SearchDescription/</span></span>
+<span class="line"><span>│       │         └── SearchDescription.tsx</span></span>
+<span class="line"><span>│       │</span></span>
+<span class="line"><span>│       └── hooks/                                 ← GLOBAL-LOCAL (b), LOCKED TO search/</span></span>
+<span class="line"><span>│           └── useSearchState.ts                  ← STATE (fact only): caused + OWNED by</span></span>
+<span class="line"><span>│                                                      whichever View in search/ calls it;</span></span>
+<span class="line"><span>│                                                      tier-locked to search/, not buried</span></span>
+<span class="line"><span>│                                                      inside SearchView/ specifically</span></span>
+<span class="line"><span>│                                                      (state-vs-condition.md §5)</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── ui/                                                            ══════ TRUE GLOBAL LAYER ══════</span></span>
+<span class="line"><span>│   ├── base/                                       ← GLOBAL, no lock. The ONLY place the</span></span>
+<span class="line"><span>│   │   ├── Button.tsx                                 framework/platform primitive is allowed</span></span>
+<span class="line"><span>│   │   ├── Input.tsx                                  to exist, re-declared under PVC's own</span></span>
+<span class="line"><span>│   │   ├── Icon.tsx                                   name (specialised-component.md's</span></span>
+<span class="line"><span>│   │   ├── Text.tsx                                   acknowledgment). A one-line re-export</span></span>
+<span class="line"><span>│   │   └── Spinner.tsx                                is a complete, correct file here — do</span></span>
+<span class="line"><span>│   │                                                   not add props/logic to justify it.</span></span>
+<span class="line"><span>│   │</span></span>
+<span class="line"><span>│   ├── adaptive/                                    ← GLOBAL, no lock. base + the system's own</span></span>
+<span class="line"><span>│   │   ├── Button.tsx                                  skin: variants, tokens, states, generic</span></span>
+<span class="line"><span>│   │   ├── Input.tsx                                   decorators. Still purpose-agnostic, still</span></span>
+<span class="line"><span>│   │   ├── Icon.tsx                                    zero feature knowledge. Built ONLY from</span></span>
+<span class="line"><span>│   │   ├── Text.tsx                                    ui/base/ — never from the framework</span></span>
+<span class="line"><span>│   │   └── Spinner.tsx                                 directly (imports point downward, never</span></span>
+<span class="line"><span>│   │                                                   skip). Components (tier 3) are built</span></span>
+<span class="line"><span>│   │                                                   from THIS tier, not from ui/base/ directly.</span></span>
+<span class="line"><span>│   │</span></span>
+<span class="line"><span>│   └── renditions/</span></span>
+<span class="line"><span>│       └── LoadingRendition.tsx                  ← GLOBAL Rendition: reusable, purpose-agnostic,</span></span>
+<span class="line"><span>│                                                     pure props → markup (view-and-rendition.md §7.1)</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>└── shared/                                                        ══════ TRUE GLOBAL LAYER ══════</span></span>
+<span class="line"><span>    ├── conditions/                                ← GLOBAL, no lock. Note: "shared/" here is</span></span>
+<span class="line"><span>    │   ├── useNetworkCondition.ts                    just a folder NAME, not required vocabulary —</span></span>
+<span class="line"><span>    │   └── useMaintenanceCondition.ts                what makes these Global is that ANY feature</span></span>
+<span class="line"><span>    │                                                  may import them, not that they sit in a</span></span>
+<span class="line"><span>    │                                                  folder literally called "shared". A project</span></span>
+<span class="line"><span>    │                                                  could rename this folder `app-wide/` or</span></span>
+<span class="line"><span>    │                                                  `common/` with no change in meaning.</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    ├── views/</span></span>
+<span class="line"><span>    │   └── MaintenanceView/</span></span>
+<span class="line"><span>    │       ├── MaintenanceView.tsx                ← GLOBAL View: reads useMaintenanceCondition,</span></span>
+<span class="line"><span>    │       │                                         OWNS useMaintenanceEtaState (nested —</span></span>
+<span class="line"><span>    │       │                                         legitimate composition, state-vs-condition.md §5)</span></span>
+<span class="line"><span>    │       ├── hooks/</span></span>
+<span class="line"><span>    │       │     └── useMaintenanceEtaState.ts    ← STATE: owned by THIS View specifically —</span></span>
+<span class="line"><span>    │       │                                         LOCAL to MaintenanceView/, not tier-locked,</span></span>
+<span class="line"><span>    │       │                                         despite physically living under shared/.</span></span>
+<span class="line"><span>    │       │                                         (Ownership is decided by causation, not by</span></span>
+<span class="line"><span>    │       │                                         which ancestor folder a file sits under —</span></span>
+<span class="line"><span>    │       │                                         see state-vs-condition.md §5 and The Poles §4.)</span></span>
+<span class="line"><span>    │       ├── MaintenanceLoadingRendition.tsx    ← LOCAL to MaintenanceView/</span></span>
+<span class="line"><span>    │       ├── MaintenanceErrorRendition.tsx      ← LOCAL to MaintenanceView/</span></span>
+<span class="line"><span>    │       └── MaintenanceRendition.tsx           ← LOCAL to MaintenanceView/ (default/success case)</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    └── hooks/</span></span>
+<span class="line"><span>        ├── useAsyncState.ts                      ← GLOBAL, generic State — owns whatever</span></span>
+<span class="line"><span>        │                                              fetch it's given; local State hooks</span></span>
+<span class="line"><span>        │                                              (useSearchState) may thinly wrap it</span></span>
+<span class="line"><span>        │                                              (view-and-rendition.md §7.1 — forwarding)</span></span>
+<span class="line"><span>        └── useDebounce.ts                        ← GLOBAL, generic capability mechanism —</span></span>
+<span class="line"><span>                                                       owns a timer effect, but produces</span></span>
+<span class="line"><span>                                                       NEITHER State nor Condition (not a</span></span>
+<span class="line"><span>                                                       fact consulted by a View, just a</span></span>
+<span class="line"><span>                                                       mechanism a Component consumes to</span></span>
+<span class="line"><span>                                                       reshape timing). Reused by any</span></span>
+<span class="line"><span>                                                       Component that wants delayed-value</span></span>
+<span class="line"><span>                                                       behavior — e.g. DebouncedSearchInput</span></span>
+<span class="line"><span>                                                       above (specialised-component.md)</span></span></code></pre>
+<h4 id="the-rule-this-tree-demonstrates">The Rule This Tree Demonstrates</h4>
+<p>Two different, non-competing tests decide Global-Local, and this tree is built specifically so both are visible at once, in the same feature, without contradiction:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>The Poles §3  — INSIDE one View's own folder</span></span>
+<span class="line"><span>    → count actual, current, real consumers of this one specific file.</span></span>
+<span class="line"><span>    → Example: _FundCard.tsx, consumed by exactly the two Renditions</span></span>
+<span class="line"><span>      sitting in the same FundCardView/ folder. Countable. Real.</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>The Poles §3.1 — AT a feature's own components/decorations/hooks tier</span></span>
+<span class="line"><span>    → ask: was this folder deliberately built as the feature-wide pool?</span></span>
+<span class="line"><span>    → Example: funds/components/, funds/decorations/, funds/hooks/ —</span></span>
+<span class="line"><span>      locked to funds/ the moment something is placed there, regardless</span></span>
+<span class="line"><span>      of whether one View or ten Views currently import from it.</span></span></code></pre>
+<p><strong>What does NOT make something Global-Local:</strong></p>
+<ul>
+<li>Sitting at the same visual depth as a sibling feature (<code>funds/</code> and <code>checkout/</code> are siblings under <code>features/</code>, but nothing crosses between them — no lock exists between sibling features).</li>
+<li>Sharing a folder <em>name</em> with another feature’s tier (<code>funds/components/</code> and <code>checkout/components/</code> are two separate locks, not one shared pool).</li>
+<li>Having only one consumer <em>today</em> if placed in a feature’s own tier (§3.1 overrides consumer-counting at that specific level — the tier’s design intent decides, not a running tally).</li>
+<li>Being physically nested under a folder named <code>shared/</code> (only actual importability by any feature makes something Global — <code>shared/</code> is a naming convention here, not a mechanism; see the note beside <code>shared/conditions/</code> above).</li>
+</ul>
+<hr>
+<p><strong>Previous: <a href="/amr-tech/blogs/pvc/extensions/the-poles/">The Poles</a></strong> — the tests and rules every tree above is applying.
+<strong>See also: <a href="/amr-tech/blogs/pvc/extensions/wrapper-component/">wrapper-component.md</a>, <a href="/amr-tech/blogs/pvc/extensions/settled-behavior-axiom/">settled-behavior-axiom.md</a>, <a href="/amr-tech/blogs/pvc/extensions/specialised-component/">specialised-component.md</a></strong> — the concepts behind <code>_FundCardActions</code> and <code>DebouncedSearchInput</code> above.</p>
+</div><nav class="post-nav" aria-label="More posts"><a class="post-nav__link" href="/amr-tech/blogs/pvc/extensions/the-poles/"><span class="post-nav__label">← Previous</span><span>The Poles</span></a><a class="post-nav__link post-nav__link--next" href="/amr-tech/blogs/pvc/extensions/wrapper-component/"><span class="post-nav__label">Next →</span><span>Wrapper Component</span></a></nav></article><aside class="toc-rail"><button class="toc-rail__toggle" type="button" data-toc-toggle aria-expanded="false" aria-controls="toc-panel"><svg class="toc-rail__chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M9 18l6-6-6-6"></path></svg><span>Contents</span></button><nav class="toc-rail__panel" id="toc-panel" aria-label="Table of contents"><nav class="toc" aria-label="Table of contents"><h2 class="toc__title">Table of Contents</h2><ol class="toc__list"><li><a class="toc__link" href="#1-worked-example-1--global-local-via-componentrendition-symmetry">1. Worked Example 1 — Global-Local via Component/Rendition Symmetry</a></li><li><a class="toc__link" href="#2-worked-example-2--global-local-with-no-view-no-rendition-no-fact">2. Worked Example 2 — Global-Local With No View, No Rendition, No Fact</a></li><li><a class="toc__link" href="#3-worked-example-3--the-two-global-local-configurations-side-by-side">3. Worked Example 3 — The Two Global-Local Configurations, Side by Side</a></li><li><a class="toc__link" href="#4-the-full-composite-tree">4. The Full Composite Tree</a><ul><li class="toc__item--sub"><a class="toc__link" href="#the-rule-this-tree-demonstrates">The Rule This Tree Demonstrates</a></li></ul></li></ol></nav></nav></aside></div><script type="module" src="/amr-tech/_astro/BlogPost.astro_astro_type_script_index_0_lang.DJQIz5e0.js"></script><script type="module" src="/amr-tech/_astro/BlogPost.astro_astro_type_script_index_1_lang.DJQIz5e0.js"></script></main><footer class="site-footer"><div class="site-footer__inner"><span class="meta-label">© 2026 Amr</span><nav class="site-footer__links" aria-label="Footer"><a href="/amr-tech/blogs/">Blog</a><a href="/amr-tech/rss.xml">RSS</a><a href="/amr-tech/llms.txt">llms.txt</a></nav></div></footer></body></html>

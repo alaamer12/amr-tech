@@ -1,0 +1,20 @@
+# Amr
+
+> Engineering lessons from personal experiences — a blog by Amr.
+
+Each post lists all published versions. Append `.md` to any version URL for the raw markdown.
+
+## Posts
+
+- [PVC — A Role-Based UI Construction Architecture](https://alaamer12.github.io/amr-tech/blogs/pvc/): v1, 2026-11-03, Architecture
+  - [The Base Layer](https://alaamer12.github.io/amr-tech/blogs/pvc/base/)
+  - [A Role-Based UI Construction Architecture for Web Applications](https://alaamer12.github.io/amr-tech/blogs/pvc/base/architecture/)
+  - [Project Structure and Code Organization](https://alaamer12.github.io/amr-tech/blogs/pvc/base/project-structure/)
+  - [The Extensions Layer](https://alaamer12.github.io/amr-tech/blogs/pvc/extensions/)
+  - [State vs Condition](https://alaamer12.github.io/amr-tech/blogs/pvc/extensions/state-vs-condition/)
+  - [View & Rendition](https://alaamer12.github.io/amr-tech/blogs/pvc/extensions/view-and-rendition/)
+  - [The Poles](https://alaamer12.github.io/amr-tech/blogs/pvc/extensions/the-poles/)
+  - [Worked Examples](https://alaamer12.github.io/amr-tech/blogs/pvc/extensions/worked-examples/)
+  - [Wrapper Component](https://alaamer12.github.io/amr-tech/blogs/pvc/extensions/wrapper-component/)
+  - [The Settled-Behavior Axiom](https://alaamer12.github.io/amr-tech/blogs/pvc/extensions/settled-behavior-axiom/)
+  - [Specialised Component](https://alaamer12.github.io/amr-tech/blogs/pvc/extensions/specialised-component/)

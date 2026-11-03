@@ -1,0 +1,773 @@
+<!DOCTYPE html><html lang="en" data-base="/amr-tech/"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>A Role-Based UI Construction Architecture for Web Applications — Amr</title><meta name="description" content="The complete PVC documentation set: five architectural roles (Page, View, Component, Decoration/Aligner, UI Element) distinct from any framework, project structure, State vs Condition, View &amp; Rendition, the three placement poles, Wrapper Components, the Settled-Behavior Axiom, and Specialised Components."><link rel="canonical" href="https://alaamer12.github.io/amr-tech/blogs/pvc/base/architecture/"><meta property="og:site_name" content="Amr"><meta property="og:title" content="A Role-Based UI Construction Architecture for Web Applications — Amr"><meta property="og:type" content="article"><meta property="og:url" content="https://alaamer12.github.io/amr-tech/blogs/pvc/base/architecture/"><meta property="og:image" content="https://alaamer12.github.io/amr-tech/og-default.svg"><meta property="og:description" content="The complete PVC documentation set: five architectural roles (Page, View, Component, Decoration/Aligner, UI Element) distinct from any framework, project structure, State vs Condition, View &amp; Rendition, the three placement poles, Wrapper Components, the Settled-Behavior Axiom, and Specialised Components."><meta property="og:locale" content="en_US"><meta property="article:published_time" content="2026-11-03T00:26:47.000Z"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="A Role-Based UI Construction Architecture for Web Applications — Amr"><meta name="twitter:description" content="The complete PVC documentation set: five architectural roles (Page, View, Component, Decoration/Aligner, UI Element) distinct from any framework, project structure, State vs Condition, View &amp; Rendition, the three placement poles, Wrapper Components, the Settled-Behavior Axiom, and Specialised Components."><meta name="twitter:image" content="https://alaamer12.github.io/amr-tech/og-default.svg"><link rel="alternate" type="application/rss+xml" title="Amr" href="/amr-tech/rss.xml"><link rel="sitemap" type="application/xml" href="/amr-tech/sitemap-index.xml"><link rel="icon" type="image/svg+xml" href="/amr-tech/favicon.svg"><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/amr-tech/_astro/ClientRouter.astro_astro_type_script_index_0_lang.DXqcZz58.js"></script><script type="application/ld+json">[{"@context":"https://schema.org","@type":"BlogPosting","headline":"A Role-Based UI Construction Architecture for Web Applications","description":"The complete PVC documentation set: five architectural roles (Page, View, Component, Decoration/Aligner, UI Element) distinct from any framework, project structure, State vs Condition, View & Rendition, the three placement poles, Wrapper Components, the Settled-Behavior Axiom, and Specialised Components.","url":"https://alaamer12.github.io/amr-tech/blogs/pvc/base/architecture/","image":"https://alaamer12.github.io/amr-tech/og-default.svg","datePublished":"2026-11-03T00:26:47.000Z","dateModified":"2026-11-03T00:26:47.000Z","inLanguage":"en","author":{"@type":"Person","name":"Amr"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://alaamer12.github.io/amr-tech//"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://alaamer12.github.io/amr-tech/blogs/"},{"@type":"ListItem","position":3,"name":"PVC — A Role-Based UI Construction Architecture","item":"https://alaamer12.github.io/amr-tech/blogs/pvc/"},{"@type":"ListItem","position":4,"name":"The Base Layer","item":"https://alaamer12.github.io/amr-tech/blogs/pvc/base/"},{"@type":"ListItem","position":5,"name":"A Role-Based UI Construction Architecture for Web Applications","item":"https://alaamer12.github.io/amr-tech/blogs/pvc/base/architecture/"}]}]</script><link rel="stylesheet" href="/amr-tech/_astro/BaseLayout.BTeEYYcC.css"><style>@layer astro.images{:where([data-astro-image]){height:auto}:where([data-astro-image=full-width]){width:100%}:where([data-astro-image=constrained]){max-width:100%}[data-astro-image-fit=fill]{object-fit:fill}[data-astro-image-fit=contain]{object-fit:contain}[data-astro-image-fit=cover]{object-fit:cover}[data-astro-image-fit=scale-down]{object-fit:scale-down}[data-astro-image-pos=top]{object-position:top}[data-astro-image-pos=bottom]{object-position:bottom}[data-astro-image-pos=left]{object-position:left}[data-astro-image-pos=right]{object-position:right}[data-astro-image-pos=center]{object-position:center}[data-astro-image-pos=top-left]{object-position:top left}[data-astro-image-pos=top-right]{object-position:top right}[data-astro-image-pos=top-center]{object-position:top center}[data-astro-image-pos=bottom-left]{object-position:bottom left}[data-astro-image-pos=bottom-right]{object-position:bottom right}[data-astro-image-pos=bottom-center]{object-position:bottom center}[data-astro-image-pos=left-top]{object-position:left top}[data-astro-image-pos=left-bottom]{object-position:left bottom}[data-astro-image-pos=left-center]{object-position:left center}[data-astro-image-pos=right-top]{object-position:right top}[data-astro-image-pos=right-bottom]{object-position:right bottom}[data-astro-image-pos=right-center]{object-position:right center}[data-astro-image-pos=center-top]{object-position:center top}[data-astro-image-pos=center-bottom]{object-position:center bottom}[data-astro-image-pos=center-left]{object-position:center left}[data-astro-image-pos=center-right]{object-position:center right}}
+</style><style>[data-astro-transition-scope="astro-nfpogox7-1"] { view-transition-name: astro-nfpogox7-1; }@layer astro { ::view-transition-old(astro-nfpogox7-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(astro-nfpogox7-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(astro-nfpogox7-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(astro-nfpogox7-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-nfpogox7-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-nfpogox7-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-nfpogox7-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-nfpogox7-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-nfpogox7-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-nfpogox7-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-nfpogox7-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-nfpogox7-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head><body data-astro-transition-scope="astro-nfpogox7-1"><script data-astro-rerun>
+      (() => {
+        try {
+          const stored = localStorage.getItem('theme');
+          const dark = stored ? stored === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+        } catch {
+          document.documentElement.dataset.theme = 'light';
+        }
+        try {
+          document.documentElement.dataset.align = localStorage.getItem('align') || 'left';
+        } catch {
+          document.documentElement.dataset.align = 'left';
+        }
+      })();
+    </script><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><div class="site-header__inner"><a class="site-header__brand" href="/amr-tech/blogs/" aria-label="Amr home"><svg class="site-header__logo" width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="currentColor" opacity="0.08"></rect><path d="M9 22l7-12 7 12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="16" cy="24" r="1.6" fill="currentColor"></circle></svg>Amr</a><div class="align-toggle" role="group" aria-label="Content alignment"><button class="align-toggle__btn" type="button" data-align="left" aria-label="Align content left"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="15" y2="12"></line><line x1="3" y1="18" x2="18" y2="18"></line></svg></button><button class="align-toggle__btn" type="button" data-align="center" aria-label="Align content center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="6" y1="12" x2="18" y2="12"></line><line x1="4" y1="18" x2="20" y2="18"></line></svg></button><button class="align-toggle__btn" type="button" data-align="right" aria-label="Align content right"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="9" y1="12" x2="21" y2="12"></line><line x1="6" y1="18" x2="21" y2="18"></line></svg></button></div><script type="module">function e(){let e=[...document.querySelectorAll(`[data-align]`)];function t(t){document.documentElement.dataset.align=t;for(let n of e)n.classList.toggle(`align-toggle__btn--active`,n.dataset.align===t),n.setAttribute(`aria-pressed`,String(n.dataset.align===t));try{localStorage.setItem(`align`,t)}catch{}}for(let n of e)n.addEventListener(`click`,()=>t(n.dataset.align??`left`)),n.classList.toggle(`align-toggle__btn--active`,n.dataset.align===document.documentElement.dataset.align)}document.addEventListener(`astro:page-load`,e);</script><nav class="site-header__actions" aria-label="Main"><a class="site-header__icon-link" href="/amr-tech/rss.xml" aria-label="RSS feed"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9H4v-9zm0-5a14 14 0 0 1 14 14h-4A10 10 0 0 0 4 10V6zm2.5-2A16.5 16.5 0 0 1 22.5 21h-4A12.5 12.5 0 0 0 6.5 8.5v-4.5z" opacity="0"></path><circle cx="6.18" cy="17.82" r="2.18"></circle><path d="M4 4.05v3.06c9.39.3 12.56 3.4 12.89 12.89h3.06C19.7 9.2 14.8 4.3 4 4.05zm0 6.12v3.06c3.9.24 6.6 2.95 6.82 6.82h3.06C15.53 14.23 11.77 10.47 4 10.17z"></path></svg></a><button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-theme-toggle><svg class="theme-toggle__icon theme-toggle__icon--moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg><svg class="theme-toggle__icon theme-toggle__icon--sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></button><script type="module">var e=()=>matchMedia(`(prefers-reduced-motion: reduce)`).matches,t=!1;function n(e){let t=innerWidth,n=innerHeight,r=t/2,i=n/2;if(e){let t=e.getBoundingClientRect();r=t.left+t.width/2,i=t.top+t.height/2}let a=Math.hypot(Math.max(r,t-r),Math.max(i,n-i));return{cx:r,cy:i,maxRadius:a,vw:t,vh:n}}function r(e){let t=`${e.cx/e.vw*100}%`,n=`${e.cy/e.vh*100}%`,r=e.maxRadius/(Math.hypot(e.vw,e.vh)/Math.SQRT2)*100;return[`circle(0% at ${t} ${n})`,`circle(${r}% at ${t} ${n})`]}function i(e){let t=document.createElement(`div`);return t.className=`morph-ring`,t.style.left=`${e.cx-e.maxRadius}px`,t.style.top=`${e.cy-e.maxRadius}px`,t.style.width=t.style.height=`${e.maxRadius*2}px`,t.style.viewTransitionName=`ring`,document.body.appendChild(t),t}function a(e){document.documentElement.dataset.theme=e?`dark`:`light`;try{localStorage.setItem(`theme`,e?`dark`:`light`)}catch{}}function o(a,o,s){if(t)return;if(typeof document.startViewTransition!=`function`||e()){o();return}let c=n(a),l=r(c),u=document.documentElement,d=null;t=!0,u.dataset.morphing=``,u.style.setProperty(`--morph-dur`,`${s}ms`),u.style.setProperty(`--morph-clip-from`,l[0]);let f=document.startViewTransition(()=>{o(),d=i(c)});f.finished.finally(()=>{t=!1,d?.remove(),delete u.dataset.morphing,u.style.removeProperty(`--morph-dur`),u.style.removeProperty(`--morph-clip-from`)}),f.ready.then(()=>{u.animate({clipPath:l},{duration:s,easing:`ease-in-out`,fill:`forwards`,pseudoElement:`::view-transition-new(root)`})}).catch(()=>{})}function s(){let e=document.querySelector(`[data-theme-toggle]`);e&&e.addEventListener(`click`,()=>{let t=document.documentElement.dataset.theme!==`dark`;o(e,()=>a(t),400)})}document.addEventListener(`astro:page-load`,s);</script></nav></div></header><main class="page" id="main-content"><div class="reading-progress" aria-hidden="true"></div><script type="module">var e=document.documentElement,t=!1;function n(){t=!1;let n=document.querySelector(`.reading-progress`);if(!n)return;let r=e.scrollHeight-e.clientHeight;n.style.setProperty(`--progress`,r>0?(e.scrollTop/r).toFixed(4):`0`)}function r(){t||(t=!0,requestAnimationFrame(n))}addEventListener(`scroll`,r,{passive:!0}),addEventListener(`resize`,r,{passive:!0}),document.addEventListener(`astro:page-load`,n);</script><div class="post-shell"><article class="post-column" data-pagefind-body><div class="post-topbar"><a class="post-back" href="/amr-tech/blogs/">← Blog</a><button class="copy-page" type="button" data-copy-page data-md-url="/amr-tech/blogs/pvc/base/architecture.md"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span data-copy-label>Copy Page</span></button><script type="module">function e(){let e=document.querySelector(`[data-copy-page]`);if(!e)return;let t=e.querySelector(`[data-copy-label]`);e.addEventListener(`click`,async()=>{let n=e.getAttribute(`data-md-url`);t.textContent=`Copying…`;try{let e=await fetch(n).then(e=>{if(!e.ok)throw Error(`mirror missing`);return e.text()});await navigator.clipboard.writeText(e),t.textContent=`Copied ✓`}catch{t.textContent=`Copy failed`}setTimeout(()=>{t.textContent=`Copy Page`},2e3)})}document.addEventListener(`astro:page-load`,e);</script></div><header class="post-header"><div class="post-header__meta"><span class="meta-label">3 November 2026</span><span class="card__category">Architecture</span><span class="visually-hidden" data-pagefind-filter="category:Architecture"></span><span class="visually-hidden" data-pagefind-meta="date:3 November 2026"></span></div><h1 class="post-title post-header__title" lang="en" data-pagefind-meta="title">A Role-Based UI Construction Architecture for Web Applications</h1><p class="post-lede post-header__lede" lang="en">The complete PVC documentation set: five architectural roles (Page, View, Component, Decoration/Aligner, UI Element) distinct from any framework, project structure, State vs Condition, View &amp; Rendition, the three placement poles, Wrapper Components, the Settled-Behavior Axiom, and Specialised Components.</p><div class="post-tags"><span class="post-tag">architecture</span><span class="post-tag">frontend</span><span class="post-tag">react</span><span class="post-tag">component-design</span><span class="post-tag">project-structure</span></div></header><nav class="tree-nav" aria-label="Post pages"><ul class="tree-nav__list"><li class="tree-nav__item tree-nav__item--depth-0"><a href="/amr-tech/blogs/pvc/">PVC — A Role-Based UI Construction Architecture</a></li><li class="tree-nav__item tree-nav__item--depth-1"><a href="/amr-tech/blogs/pvc/base/">The Base Layer</a></li><li class="tree-nav__item tree-nav__item--depth-2 tree-nav__item--current"><a href="/amr-tech/blogs/pvc/base/architecture/" aria-current="page">A Role-Based UI Construction Architecture for Web Applications</a></li><li class="tree-nav__item tree-nav__item--depth-2"><a href="/amr-tech/blogs/pvc/base/project-structure/">Project Structure and Code Organization</a></li><li class="tree-nav__item tree-nav__item--depth-1"><a href="/amr-tech/blogs/pvc/extensions/">The Extensions Layer</a></li><li class="tree-nav__item tree-nav__item--depth-2"><a href="/amr-tech/blogs/pvc/extensions/state-vs-condition/">State vs Condition</a></li><li class="tree-nav__item tree-nav__item--depth-2"><a href="/amr-tech/blogs/pvc/extensions/view-and-rendition/">View &amp; Rendition</a></li><li class="tree-nav__item tree-nav__item--depth-2"><a href="/amr-tech/blogs/pvc/extensions/the-poles/">The Poles</a></li><li class="tree-nav__item tree-nav__item--depth-2"><a href="/amr-tech/blogs/pvc/extensions/worked-examples/">Worked Examples</a></li><li class="tree-nav__item tree-nav__item--depth-2"><a href="/amr-tech/blogs/pvc/extensions/wrapper-component/">Wrapper Component</a></li><li class="tree-nav__item tree-nav__item--depth-2"><a href="/amr-tech/blogs/pvc/extensions/settled-behavior-axiom/">The Settled-Behavior Axiom</a></li><li class="tree-nav__item tree-nav__item--depth-2"><a href="/amr-tech/blogs/pvc/extensions/specialised-component/">Specialised Component</a></li></ul></nav><div class="toc-inline"><nav class="toc" aria-label="Table of contents"><h2 class="toc__title">Table of Contents</h2><ol class="toc__list"><li><a class="toc__link" href="#2-the-problem-with-a-generic-component-model">2. The Problem With a Generic Component Model</a></li><li><a class="toc__link" href="#3-the-core-hierarchy">3. The Core Hierarchy</a></li><li><a class="toc__link" href="#4-page">4. Page</a></li><li><a class="toc__link" href="#5-view">5. View</a><ul><li class="toc__item--sub"><a class="toc__link" href="#views-are-composable">Views are composable</a></li></ul></li><li><a class="toc__link" href="#6-component">6. Component</a></li><li><a class="toc__link" href="#7-decorations">7. Decorations</a></li><li><a class="toc__link" href="#8-aligners">8. Aligners</a></li><li><a class="toc__link" href="#9-ui-elements">9. UI Elements</a></li><li><a class="toc__link" href="#10-example-search-view">10. Example: Search View</a></li><li><a class="toc__link" href="#11-example-modal-view">11. Example: Modal View</a></li><li><a class="toc__link" href="#12-contextual-classification">12. Contextual Classification</a></li><li><a class="toc__link" href="#13-role-over-implementation">13. Role Over Implementation</a></li><li><a class="toc__link" href="#14-recursive-composition">14. Recursive Composition</a></li><li><a class="toc__link" href="#15-page-construction">15. Page Construction</a></li><li><a class="toc__link" href="#16-separation-of-concerns">16. Separation of Concerns</a></li><li><a class="toc__link" href="#17-folder-organization">17. Folder Organization</a></li><li><a class="toc__link" href="#18-relationship-with-feature-based-architecture">18. Relationship With Feature-Based Architecture</a></li><li><a class="toc__link" href="#19-the-main-architectural-principle">19. The Main Architectural Principle</a></li><li><a class="toc__link" href="#20-design-principles">20. Design Principles</a><ul><li class="toc__item--sub"><a class="toc__link" href="#201-role-over-implementation">20.1 Role over implementation</a></li><li class="toc__item--sub"><a class="toc__link" href="#202-purpose-over-size">20.2 Purpose over size</a></li><li class="toc__item--sub"><a class="toc__link" href="#203-composition-over-rigid-hierarchy">20.3 Composition over rigid hierarchy</a></li><li class="toc__item--sub"><a class="toc__link" href="#204-context-matters">20.4 Context matters</a></li><li class="toc__item--sub"><a class="toc__link" href="#205-pages-should-remain-compositional">20.5 Pages should remain compositional</a></li><li class="toc__item--sub"><a class="toc__link" href="#206-views-should-have-a-clear-purpose">20.6 Views should have a clear purpose</a></li></ul></li><li><a class="toc__link" href="#21-benefits">21. Benefits</a></li><li><a class="toc__link" href="#22-a-compact-mental-model">22. A Compact Mental Model</a></li><li><a class="toc__link" href="#23-final-model">23. Final Model</a></li></ol></nav></div><div class="post-body" lang="en"><blockquote>
+<p>The foundational document of this doc set. Defines the four architectural roles — Page, View, Component, Decoration/Aligner, UI Element — as concepts distinct from implementation. Nothing here changes as the system evolves; everything in <code>../extensions/</code> is built on top of it. Read this before <code>project-structure.md</code> and before anything in <code>../extensions/</code>.</p>
+</blockquote>
+<h3 id="1-overview">1. Overview</h3>
+<p>Modern web applications are commonly organized around a simple hierarchy such as:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Page</span></span>
+<span class="line"><span>└── Components</span></span></code></pre>
+<p>As applications become larger, this is often extended into a feature-oriented structure:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Pages</span></span>
+<span class="line"><span>Features</span></span>
+<span class="line"><span>Components</span></span>
+<span class="line"><span>UI</span></span></code></pre>
+<p>This works well, but it can still leave an important question unanswered:</p>
+<blockquote>
+<p><strong>How is an individual page actually constructed?</strong></p>
+</blockquote>
+<p>A page is rarely just a collection of unrelated components. It is usually composed of meaningful sections, each with a primary purpose, supporting information, supporting actions, and primitive interface elements.</p>
+<p>This document proposes a <strong>role-based UI construction model</strong> in which a web page is constructed from <strong>Views</strong>, and each View is constructed from a primary <strong>Component</strong>, its <strong>Decorations/Aligners</strong>, and lower-level <strong>UI Elements</strong>.</p>
+<p>The proposed hierarchy is:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Application</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    └── Page</span></span>
+<span class="line"><span>         │</span></span>
+<span class="line"><span>         ├── View</span></span>
+<span class="line"><span>         │    ├── Component</span></span>
+<span class="line"><span>         │    ├── Decoration / Aligner</span></span>
+<span class="line"><span>         │    └── UI Elements</span></span>
+<span class="line"><span>         │</span></span>
+<span class="line"><span>         ├── View</span></span>
+<span class="line"><span>         │    └── ...</span></span>
+<span class="line"><span>         │</span></span>
+<span class="line"><span>         └── View</span></span>
+<span class="line"><span>              └── ...</span></span></code></pre>
+<p>The central principle is:</p>
+<blockquote>
+<p><strong>Pages compose Views. Views compose purposeful UI. UI Elements provide the primitive construction blocks.</strong></p>
+</blockquote>
+<hr>
+<h2 id="2-the-problem-with-a-generic-component-model">2. The Problem With a Generic Component Model</h2>
+<p>In React and other component-based frameworks, almost anything can technically be called a component.</p>
+<p>For example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Button</span></span>
+<span class="line"><span>SearchInput</span></span>
+<span class="line"><span>SearchSection</span></span>
+<span class="line"><span>Modal</span></span>
+<span class="line"><span>Dashboard</span></span>
+<span class="line"><span>Page</span></span></code></pre>
+<p>All of them can be implemented as React components.</p>
+<p>However, treating all of them as the same architectural concept loses useful information.</p>
+<p>Consider:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="jsx"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Dashboard</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Welcome</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Statistics</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">RecentActivity</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Goals</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;/</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">Dashboard</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span></code></pre>
+<p>The term <code>component</code> does not tell us what role each item plays.</p>
+<p>Are they:</p>
+<ul>
+<li>primitive controls?</li>
+<li>functional units?</li>
+<li>complete sections?</li>
+<li>supporting elements?</li>
+<li>entire compositions?</li>
+</ul>
+<p>The proposed model addresses this by separating <strong>implementation technology</strong> from <strong>architectural role</strong>.</p>
+<p>A React component is an implementation mechanism.</p>
+<p>A <code>View</code>, <code>Component</code>, <code>Decoration</code>, or <code>UI Element</code> is an <strong>architectural role</strong>.</p>
+<hr>
+<h2 id="3-the-core-hierarchy">3. The Core Hierarchy</h2>
+<p>The proposed model uses four primary concepts:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Page</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>View</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>Component</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>UI Element</span></span></code></pre>
+<p>with Decorations/Aligners supporting the View and its primary Component:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Page</span></span>
+<span class="line"><span>└── View</span></span>
+<span class="line"><span>    ├── Decorations / Aligners</span></span>
+<span class="line"><span>    ├── Component</span></span>
+<span class="line"><span>    └── UI Elements</span></span></code></pre>
+<p>These concepts are not necessarily a strict tree where every object must belong to exactly one category.</p>
+<p>They describe <strong>what something is doing within a particular composition</strong>.</p>
+<hr>
+<h2 id="4-page">4. Page</h2>
+<p>A <strong>Page</strong> represents an application-level screen or route.</p>
+<p>Its primary responsibility is composition.</p>
+<p>A Page should generally answer:</p>
+<blockquote>
+<p><strong>What major Views make up this screen?</strong></p>
+</blockquote>
+<p>For example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="jsx"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">DashboardPage</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">WelcomeView</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">StatisticsView</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">RecentActivityView</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">GoalsView</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    &lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">RecommendationsView</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> /&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;/</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">DashboardPage</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;</span></span></code></pre>
+<p>The Page should not need to know every primitive detail inside those Views.</p>
+<p>Conceptually:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Page = Composition of Views</span></span></code></pre>
+<p>A Page is therefore primarily a <strong>container and composition boundary</strong>.</p>
+<hr>
+<h2 id="5-view">5. View</h2>
+<p>A <strong>View</strong> is a meaningful, self-contained portion of a Page.</p>
+<p>It represents a focused piece of UI rather than an entire route.</p>
+<p>This is an intentional distinction from traditional architectural terminology such as MVC/MVVM, where “View” can refer to the entire user interface layer or screen.</p>
+<p>In this model:</p>
+<blockquote>
+<p><strong>A View is a meaningful section of a Page with its own visual and functional purpose.</strong></p>
+</blockquote>
+<p>For example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchPage</span></span>
+<span class="line"><span>└── SearchView</span></span></code></pre>
+<p>or:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>DashboardPage</span></span>
+<span class="line"><span>├── WelcomeView</span></span>
+<span class="line"><span>├── StatisticsView</span></span>
+<span class="line"><span>├── ActivityView</span></span>
+<span class="line"><span>└── GoalsView</span></span></code></pre>
+<p>A View may contain:</p>
+<ul>
+<li>a primary Component</li>
+<li>supporting Decorations</li>
+<li>Aligners</li>
+<li>UI Elements</li>
+<li>other Views</li>
+</ul>
+<p>The last point is important.</p>
+<h3 id="views-are-composable">Views are composable</h3>
+<p>A View can contain another View.</p>
+<p>For example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>DashboardView</span></span>
+<span class="line"><span>└── DeleteAccountView</span></span>
+<span class="line"><span>    └── ConfirmationModalView</span></span></code></pre>
+<p>This is completely valid.</p>
+<p>There is no rule that says:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Page</span></span>
+<span class="line"><span>└── View</span></span></code></pre>
+<p>must be the maximum depth.</p>
+<p>Instead:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>View</span></span>
+<span class="line"><span>└── View</span></span>
+<span class="line"><span>    └── View</span></span></code></pre>
+<p>is allowed whenever the UI naturally forms meaningful nested compositions.</p>
+<p>Therefore:</p>
+<blockquote>
+<p><strong>A View is defined by its purpose and composition, not by its depth in the hierarchy.</strong></p>
+</blockquote>
+<hr>
+<h2 id="6-component">6. Component</h2>
+<p>A <strong>Component</strong> is the primary purposeful or functional unit within a View.</p>
+<p>The key characteristic is not simply that it is reusable or implemented as a React component.</p>
+<p>Its important characteristic is:</p>
+<blockquote>
+<p><strong>It performs a meaningful action, interaction, or functional responsibility for the user.</strong></p>
+</blockquote>
+<p>For example, in a Search View:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchView</span></span>
+<span class="line"><span>└── SearchInput</span></span></code></pre>
+<p><code>SearchInput</code> is the primary Component because it is what the user actually uses to perform the search.</p>
+<p>Similarly:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>LoginView</span></span>
+<span class="line"><span>└── LoginForm</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>CheckoutView</span></span>
+<span class="line"><span>└── PaymentForm</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>ProfileView</span></span>
+<span class="line"><span>└── ProfileEditor</span></span></code></pre>
+<p>The Component is therefore the <strong>functional focus</strong> of the View.</p>
+<hr>
+<h2 id="7-decorations">7. Decorations</h2>
+<p><strong>Decorations</strong> are supporting elements that provide context, explanation, emphasis, or additional information around the primary functional content.</p>
+<p>Examples include:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Title</span></span>
+<span class="line"><span>Description</span></span>
+<span class="line"><span>Caption</span></span>
+<span class="line"><span>Hint</span></span>
+<span class="line"><span>Badge</span></span>
+<span class="line"><span>Section Label</span></span>
+<span class="line"><span>Illustration</span></span>
+<span class="line"><span>Supporting Text</span></span>
+<span class="line"><span>Divider</span></span>
+<span class="line"><span>Status Indicator</span></span></code></pre>
+<p>For example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchView</span></span>
+<span class="line"><span>├── Title</span></span>
+<span class="line"><span>├── Description</span></span>
+<span class="line"><span>├── SearchInput</span></span>
+<span class="line"><span>└── CommonKeywords</span></span></code></pre>
+<p>The title and description are not the primary interaction.</p>
+<p>They explain and contextualize the interaction.</p>
+<p>Therefore:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Title        → Decoration</span></span>
+<span class="line"><span>Description  → Decoration</span></span>
+<span class="line"><span>SearchInput  → Component</span></span></code></pre>
+<hr>
+<h2 id="8-aligners">8. Aligners</h2>
+<p><strong>Aligners are a specialized form of Decoration.</strong></p>
+<p>The term “aligner” describes their typical relationship to the primary Component.</p>
+<p>They commonly appear:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Leading</span></span>
+<span class="line"><span>Trailing</span></span>
+<span class="line"><span>Top</span></span>
+<span class="line"><span>Bottom</span></span></code></pre>
+<p>or otherwise support and visually align with the main Component.</p>
+<p>For example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchInput</span></span>
+<span class="line"><span>├── SearchIcon      → Leading Aligner</span></span>
+<span class="line"><span>└── ClearButton     → Trailing Aligner</span></span></code></pre>
+<p>Another example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>[ Icon ] [ Input field ] [ Clear ]</span></span>
+<span class="line"><span>   ↑          ↑             ↑</span></span>
+<span class="line"><span>leading    component     trailing</span></span>
+<span class="line"><span>aligner                   aligner</span></span></code></pre>
+<p>The important distinction is:</p>
+<blockquote>
+<p><strong>Decoration describes the general supporting role; Aligner describes a decoration’s positional/supporting relationship to the primary Component.</strong></p>
+</blockquote>
+<p>Therefore:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Decoration</span></span>
+<span class="line"><span>└── Aligner</span></span></code></pre>
+<p>rather than:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Decoration ≠ Aligner</span></span></code></pre>
+<p>An Aligner is a Decoration with a particularly meaningful positional role.</p>
+<hr>
+<h2 id="9-ui-elements">9. UI Elements</h2>
+<p><strong>UI Elements are the primitive construction tools of the interface.</strong></p>
+<p>They are the lowest-level reusable pieces from which purposeful Components and Decorations can be constructed.</p>
+<p>Examples:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Button</span></span>
+<span class="line"><span>Input</span></span>
+<span class="line"><span>Text</span></span>
+<span class="line"><span>Icon</span></span>
+<span class="line"><span>Chip</span></span>
+<span class="line"><span>Checkbox</span></span>
+<span class="line"><span>Radio</span></span>
+<span class="line"><span>Avatar</span></span>
+<span class="line"><span>Select</span></span>
+<span class="line"><span>Image</span></span>
+<span class="line"><span>Link</span></span></code></pre>
+<p>However, an important distinction exists between the <strong>primitive</strong> and the <strong>purposeful unit built from it</strong>.</p>
+<p>For example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>UI Elements</span></span>
+<span class="line"><span>├── Input</span></span>
+<span class="line"><span>├── Icon</span></span>
+<span class="line"><span>└── Button</span></span>
+<span class="line"><span>       ↓</span></span>
+<span class="line"><span>SearchInput Component</span></span></code></pre>
+<p>The raw <code>Input</code> is merely a primitive interface element.</p>
+<p><code>SearchInput</code> gives those primitives a meaningful user-facing purpose.</p>
+<p>Therefore:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Input       → UI Element</span></span>
+<span class="line"><span>SearchInput → Component</span></span></code></pre>
+<p>Likewise:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Button → UI Element</span></span>
+<span class="line"><span>ConfirmAccountDeletion → Component</span></span></code></pre>
+<p>The classification depends on the role and abstraction level.</p>
+<blockquote>
+<p><strong>Note — placement refinement:</strong> this section defines UI Element as one <em>role</em>. A later document in this set, <a href="/amr-tech/blogs/pvc/extensions/specialised-component/"><code>../extensions/specialised-component.md</code></a> (Acknowledgment section), refines <em>where</em> a UI Element is placed — splitting it into two tiers, <code>ui/base/</code> (the raw framework primitive, re-exported under this system’s own name) and <code>ui/adaptive/</code> (that same primitive plus the design system’s styling, variants, and states). Both tiers remain UI Element as defined here — the role does not change, only the placement granularity within it. See that document for the full reasoning and folder layout.</p>
+</blockquote>
+<hr>
+<h2 id="10-example-search-view">10. Example: Search View</h2>
+<p>Consider a search interface:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Search</span></span>
+<span class="line"><span>Search for users, posts, or topics...</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>[ 🔍 Search..................... ]</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>Common searches:</span></span>
+<span class="line"><span>[React] [Python] [JavaScript]</span></span></code></pre>
+<p>The architectural structure could be:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchView</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── Title</span></span>
+<span class="line"><span>│     └── Decoration</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── Description</span></span>
+<span class="line"><span>│     └── Decoration</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── SearchInput</span></span>
+<span class="line"><span>│     └── Component</span></span>
+<span class="line"><span>│          ├── SearchIcon</span></span>
+<span class="line"><span>│          │     └── UI Element / Leading Aligner</span></span>
+<span class="line"><span>│          │</span></span>
+<span class="line"><span>│          ├── Input</span></span>
+<span class="line"><span>│          │     └── UI Element</span></span>
+<span class="line"><span>│          │</span></span>
+<span class="line"><span>│          └── ClearButton</span></span>
+<span class="line"><span>│                └── UI Element / Trailing Aligner</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>└── CommonKeywords</span></span>
+<span class="line"><span>      └── Decoration</span></span>
+<span class="line"><span>           └── Chip</span></span>
+<span class="line"><span>                └── UI Element</span></span></code></pre>
+<p>The entire structure is one <strong>View</strong>.</p>
+<p>The SearchInput is its primary <strong>Component</strong>.</p>
+<p>The surrounding information is <strong>Decoration</strong>.</p>
+<p>The leading/trailing supporting pieces can be classified as <strong>Aligners</strong>.</p>
+<p>The primitive controls are <strong>UI Elements</strong>.</p>
+<hr>
+<h2 id="11-example-modal-view">11. Example: Modal View</h2>
+<p>This model becomes particularly useful with things that are traditionally called “components”, such as Modals.</p>
+<p>A Modal is commonly treated as a reusable Component:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Modal</span></span></code></pre>
+<p>However, in this architecture, a Modal can instead be understood as a <strong>View</strong> when it represents a complete focused interaction.</p>
+<p>For example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>ConfirmationModalView</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── ImportantConfirmationText</span></span>
+<span class="line"><span>│     └── Decoration / Aligner</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>└── Actions</span></span>
+<span class="line"><span>      ├── Confirm</span></span>
+<span class="line"><span>      │     └── Component</span></span>
+<span class="line"><span>      │</span></span>
+<span class="line"><span>      └── Cancel</span></span>
+<span class="line"><span>            └── Component</span></span></code></pre>
+<p>The entire Modal is a View because it is a meaningful composition containing:</p>
+<ul>
+<li>context</li>
+<li>a decision</li>
+<li>one or more purposeful actions</li>
+</ul>
+<p>The buttons are Components because they have meaningful user-facing purposes.</p>
+<p>Their underlying primitive button implementation may itself be a UI Element.</p>
+<p>Therefore:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>ConfirmationModalView</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── ConfirmationText</span></span>
+<span class="line"><span>│   └── Decoration</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── ConfirmAction</span></span>
+<span class="line"><span>│   └── Component</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>└── CancelAction</span></span>
+<span class="line"><span>    └── Component</span></span></code></pre>
+<p>This does <strong>not</strong> mean a Modal cannot technically be implemented as a React component.</p>
+<p>It simply means:</p>
+<blockquote>
+<p><strong>“React component” and “architectural Component” are not synonymous.</strong></p>
+</blockquote>
+<hr>
+<h2 id="12-contextual-classification">12. Contextual Classification</h2>
+<p>One of the most important principles of this architecture is that classification is <strong>contextual</strong>.</p>
+<p>An object does not necessarily have one permanent architectural classification everywhere.</p>
+<p>Instead, ask:</p>
+<blockquote>
+<p><strong>What role does this object play in this composition?</strong></p>
+</blockquote>
+<p>For example, a Button can be a primitive:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Button</span></span>
+<span class="line"><span>└── UI Element</span></span></code></pre>
+<p>But a purposeful action constructed around that primitive can be:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>ConfirmDeletion</span></span>
+<span class="line"><span>└── Component</span></span>
+<span class="line"><span>    └── Button</span></span>
+<span class="line"><span>        └── UI Element</span></span></code></pre>
+<p>Similarly, a Modal can be implemented using React components while architecturally being:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Modal</span></span>
+<span class="line"><span>└── View</span></span></code></pre>
+<p>This produces a crucial separation:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Implementation identity</span></span>
+<span class="line"><span>        ≠</span></span>
+<span class="line"><span>Architectural role</span></span></code></pre>
+<p>A React component is simply a technical implementation unit.</p>
+<p>The architecture classifies <strong>what that unit represents in the UI composition</strong>.</p>
+<hr>
+<h2 id="13-role-over-implementation">13. Role Over Implementation</h2>
+<p>The architecture therefore avoids a common mistake:</p>
+<blockquote>
+<p>Assuming that every React component should be called a Component architecturally.</p>
+</blockquote>
+<p>For example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="jsx"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> SearchView</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">() {}</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> ConfirmationModal</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">() {}</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> SearchInput</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">() {}</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Button</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">() {}</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Text</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">() {}</span></span></code></pre>
+<p>All five may be React components.</p>
+<p>Architecturally, however:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>SearchView</span></span>
+<span class="line"><span>    → View</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>ConfirmationModal</span></span>
+<span class="line"><span>    → View</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>SearchInput</span></span>
+<span class="line"><span>    → Component</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>Button</span></span>
+<span class="line"><span>    → UI Element</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>Text</span></span>
+<span class="line"><span>    → UI Element / Decoration depending on its role</span></span></code></pre>
+<p>This allows the architecture to describe the UI more accurately.</p>
+<hr>
+<h2 id="14-recursive-composition">14. Recursive Composition</h2>
+<p>The model is intentionally recursive.</p>
+<p>A View can contain another View:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Page</span></span>
+<span class="line"><span>└── View</span></span>
+<span class="line"><span>    ├── View</span></span>
+<span class="line"><span>    │   ├── Component</span></span>
+<span class="line"><span>    │   └── Decorations</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    └── Component</span></span></code></pre>
+<p>A Component can contain UI Elements:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Component</span></span>
+<span class="line"><span>├── Input</span></span>
+<span class="line"><span>├── Button</span></span>
+<span class="line"><span>└── Icon</span></span></code></pre>
+<p>A View can contain multiple Components:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>View</span></span>
+<span class="line"><span>├── Component</span></span>
+<span class="line"><span>├── Component</span></span>
+<span class="line"><span>└── Component</span></span></code></pre>
+<p>A View can also contain another View alongside Components:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>View</span></span>
+<span class="line"><span>├── NestedView</span></span>
+<span class="line"><span>├── Component</span></span>
+<span class="line"><span>└── Decoration</span></span></code></pre>
+<p>There is no requirement for every View to have exactly one Component.</p>
+<p>The concept of a “primary Component” describes the common case where the View has a central functional focus.</p>
+<hr>
+<h2 id="15-page-construction">15. Page Construction</h2>
+<p>With this model, Page construction becomes highly readable.</p>
+<p>For example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>ProfilePage</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── ProfileHeaderView</span></span>
+<span class="line"><span>├── ProfileInformationView</span></span>
+<span class="line"><span>├── StatisticsView</span></span>
+<span class="line"><span>├── PostsView</span></span>
+<span class="line"><span>└── AccountActionsView</span></span></code></pre>
+<p>The page communicates the <strong>major visual and functional sections</strong>.</p>
+<p>Each View then communicates its internal construction:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>ProfileInformationView</span></span>
+<span class="line"><span>│</span></span>
+<span class="line"><span>├── Title</span></span>
+<span class="line"><span>├── Description</span></span>
+<span class="line"><span>├── ProfileEditor</span></span>
+<span class="line"><span>└── SaveChangesAction</span></span></code></pre>
+<p>And the lower level:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>ProfileEditor</span></span>
+<span class="line"><span>├── Input</span></span>
+<span class="line"><span>├── Select</span></span>
+<span class="line"><span>├── Avatar</span></span>
+<span class="line"><span>└── Button</span></span></code></pre>
+<p>This creates multiple useful levels of abstraction:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Page</span></span>
+<span class="line"><span>    ↓</span></span>
+<span class="line"><span>Major UI section</span></span>
+<span class="line"><span>    ↓</span></span>
+<span class="line"><span>Purposeful interaction</span></span>
+<span class="line"><span>    ↓</span></span>
+<span class="line"><span>Primitive interface</span></span></code></pre>
+<hr>
+<h2 id="16-separation-of-concerns">16. Separation of Concerns</h2>
+<p>The model creates a natural separation of responsibilities.</p>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Primary responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Page</strong></td>
+<td>Compose the major sections of a route/screen</td>
+</tr>
+<tr>
+<td><strong>View</strong></td>
+<td>Represent a meaningful section of UI</td>
+</tr>
+<tr>
+<td><strong>Component</strong></td>
+<td>Provide a purposeful functional/interactive unit</td>
+</tr>
+<tr>
+<td><strong>Decoration</strong></td>
+<td>Provide supporting context, information, or presentation</td>
+</tr>
+<tr>
+<td><strong>Aligner</strong></td>
+<td>Provide supporting positional/structural decoration</td>
+</tr>
+<tr>
+<td><strong>UI Element</strong></td>
+<td>Provide primitive interface construction blocks</td>
+</tr>
+</tbody>
+</table>
+<p>This gives each level a clear question.</p>
+<h4 id="page">Page</h4>
+<blockquote>
+<p>What sections make up this screen?</p>
+</blockquote>
+<h4 id="view">View</h4>
+<blockquote>
+<p>What is this section about?</p>
+</blockquote>
+<h4 id="component">Component</h4>
+<blockquote>
+<p>What is the meaningful functionality here?</p>
+</blockquote>
+<h4 id="decoration">Decoration</h4>
+<blockquote>
+<p>What supports or explains that functionality?</p>
+</blockquote>
+<h4 id="aligner">Aligner</h4>
+<blockquote>
+<p>What supports or aligns with the primary functionality?</p>
+</blockquote>
+<h4 id="ui-element">UI Element</h4>
+<blockquote>
+<p>What primitive interface pieces are used to construct it?</p>
+</blockquote>
+<hr>
+<h2 id="17-folder-organization">17. Folder Organization</h2>
+<p>This model does not require one specific folder structure.</p>
+<p>It is primarily a <strong>construction and architectural model</strong>, not a mandatory filesystem convention.</p>
+<p>For example, a feature-oriented implementation could still be used:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>features/</span></span>
+<span class="line"><span>└── search/</span></span>
+<span class="line"><span>    ├── views/</span></span>
+<span class="line"><span>    │   └── SearchView/</span></span>
+<span class="line"><span>    ├── components/</span></span>
+<span class="line"><span>    │   └── SearchInput/</span></span>
+<span class="line"><span>    ├── decorations/</span></span>
+<span class="line"><span>    └── ui/</span></span></code></pre>
+<p>Alternatively, a View can keep its implementation close together:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>search/</span></span>
+<span class="line"><span>└── SearchView/</span></span>
+<span class="line"><span>    ├── SearchView.tsx</span></span>
+<span class="line"><span>    ├── SearchInput.tsx</span></span>
+<span class="line"><span>    ├── CommonKeywords.tsx</span></span>
+<span class="line"><span>    └── ...</span></span></code></pre>
+<p>The important thing is not the exact folders.</p>
+<p>The important thing is that developers understand the <strong>architectural role</strong> of each piece.</p>
+<hr>
+<h2 id="18-relationship-with-feature-based-architecture">18. Relationship With Feature-Based Architecture</h2>
+<p>This model does not replace Feature-Based Architecture.</p>
+<p>They operate at different dimensions.</p>
+<p>Feature architecture answers:</p>
+<blockquote>
+<p><strong>What domain or capability does this code belong to?</strong></p>
+</blockquote>
+<p>The proposed UI construction architecture answers:</p>
+<blockquote>
+<p><strong>What role does this UI piece play in constructing its View?</strong></p>
+</blockquote>
+<p>They can therefore work together:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Feature</span></span>
+<span class="line"><span>└── Search</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    ├── Pages</span></span>
+<span class="line"><span>    │   └── SearchPage</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    ├── Views</span></span>
+<span class="line"><span>    │   └── SearchView</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    ├── Components</span></span>
+<span class="line"><span>    │   └── SearchInput</span></span>
+<span class="line"><span>    │</span></span>
+<span class="line"><span>    └── UI</span></span>
+<span class="line"><span>        ├── Input</span></span>
+<span class="line"><span>        ├── Button</span></span>
+<span class="line"><span>        └── Chip</span></span></code></pre>
+<p>Feature organization provides <strong>ownership and domain boundaries</strong>.</p>
+<p>View-based construction provides <strong>UI composition semantics</strong>.</p>
+<hr>
+<h2 id="19-the-main-architectural-principle">19. The Main Architectural Principle</h2>
+<p>The architecture can be summarized as:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>PAGE</span></span>
+<span class="line"><span>  │</span></span>
+<span class="line"><span>  │ composed of</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>VIEWS</span></span>
+<span class="line"><span>  │</span></span>
+<span class="line"><span>  │ composed of</span></span>
+<span class="line"><span>  ├───────────────┐</span></span>
+<span class="line"><span>  ↓               ↓</span></span>
+<span class="line"><span>COMPONENTS    DECORATIONS</span></span>
+<span class="line"><span>  │               │</span></span>
+<span class="line"><span>  │               └── ALIGNERS</span></span>
+<span class="line"><span>  │</span></span>
+<span class="line"><span>  └───────────────┐</span></span>
+<span class="line"><span>                  ↓</span></span>
+<span class="line"><span>             UI ELEMENTS</span></span></code></pre>
+<p>Or in words:</p>
+<blockquote>
+<p><strong>A Page is a composition of Views. A View is a meaningful UI composition centered around purposeful functionality and supported by Decorations and Aligners. Components provide meaningful functional behavior, while UI Elements provide the primitive building blocks from which these structures are constructed.</strong></p>
+</blockquote>
+<hr>
+<h2 id="20-design-principles">20. Design Principles</h2>
+<p>The architecture follows several principles.</p>
+<h3 id="201-role-over-implementation">20.1 Role over implementation</h3>
+<p>Do not classify something merely by how it is implemented.</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>React Component</span></span>
+<span class="line"><span>        ≠</span></span>
+<span class="line"><span>Architectural Component</span></span></code></pre>
+<hr>
+<h3 id="202-purpose-over-size">20.2 Purpose over size</h3>
+<p>A Component is not a Component because it is large.</p>
+<p>A UI Element is not a UI Element because it is small.</p>
+<p>Classification comes from <strong>purpose and abstraction</strong>.</p>
+<hr>
+<h3 id="203-composition-over-rigid-hierarchy">20.3 Composition over rigid hierarchy</h3>
+<p>Views may contain Views.</p>
+<p>Components may contain other Components where appropriate.</p>
+<p>The architecture should follow the natural structure of the interface rather than enforcing artificial depth restrictions.</p>
+<hr>
+<h3 id="204-context-matters">20.4 Context matters</h3>
+<p>The same technical implementation can have different architectural roles in different contexts.</p>
+<p>Always ask:</p>
+<blockquote>
+<p><strong>What role does this thing play here?</strong></p>
+</blockquote>
+<hr>
+<h3 id="205-pages-should-remain-compositional">20.5 Pages should remain compositional</h3>
+<p>A Page should primarily communicate:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>"What makes up this screen?"</span></span></code></pre>
+<p>rather than:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>"How does every small piece of this screen work?"</span></span></code></pre>
+<hr>
+<h3 id="206-views-should-have-a-clear-purpose">20.6 Views should have a clear purpose</h3>
+<p>A View should represent something users can conceptually recognize as a section, interaction, state, or focused piece of the interface.</p>
+<p>Avoid creating Views merely because a group of elements happens to occupy a rectangle.</p>
+<hr>
+<h2 id="21-benefits">21. Benefits</h2>
+<p>This architecture provides several practical benefits.</p>
+<h4 id="better-readability">Better readability</h4>
+<p>A developer can understand a page at a glance:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>DashboardPage</span></span>
+<span class="line"><span>├── WelcomeView</span></span>
+<span class="line"><span>├── StatisticsView</span></span>
+<span class="line"><span>├── ActivityView</span></span>
+<span class="line"><span>└── GoalsView</span></span></code></pre>
+<h4 id="better-semantic-meaning">Better semantic meaning</h4>
+<p>Instead of calling everything a component, the architecture communicates why something exists.</p>
+<h4 id="better-separation">Better separation</h4>
+<p>Primitive UI controls do not become mixed with complete functional interactions.</p>
+<h4 id="better-composition">Better composition</h4>
+<p>Views become reusable composition units rather than only routes/pages.</p>
+<h4 id="better-scalability">Better scalability</h4>
+<p>Large pages can be decomposed without turning the entire application into an enormous collection of generic components.</p>
+<h4 id="better-communication">Better communication</h4>
+<p>Developers can say:</p>
+<blockquote>
+<p>“This is a View with a primary Component and two supporting Aligners.”</p>
+</blockquote>
+<p>instead of:</p>
+<blockquote>
+<p>“This is a component containing some components.”</p>
+</blockquote>
+<p>The former communicates substantially more information.</p>
+<hr>
+<h2 id="22-a-compact-mental-model">22. A Compact Mental Model</h2>
+<p>The entire architecture can be remembered through five questions:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>PAGE</span></span>
+<span class="line"><span>"What screen are we constructing?"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>VIEW</span></span>
+<span class="line"><span>"What meaningful section are we constructing?"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>COMPONENT</span></span>
+<span class="line"><span>"What purposeful functionality is the user interacting with?"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>DECORATION / ALIGNER</span></span>
+<span class="line"><span>"What supports, explains, or surrounds that functionality?"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>UI ELEMENT</span></span>
+<span class="line"><span>"What primitive interface pieces construct it?"</span></span></code></pre>
+<p>This results in a UI construction philosophy based not on the question:</p>
+<blockquote>
+<p><strong>“Is this a React component?”</strong></p>
+</blockquote>
+<p>but on:</p>
+<blockquote>
+<p><strong>“What role does this piece play in constructing the interface?”</strong></p>
+</blockquote>
+<p>That distinction is the foundation of the model.</p>
+<hr>
+<h2 id="23-final-model">23. Final Model</h2>
+<p>The proposed architecture can ultimately be represented as:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>                         PAGE</span></span>
+<span class="line"><span>                           │</span></span>
+<span class="line"><span>              ┌────────────┼────────────┐</span></span>
+<span class="line"><span>              ↓            ↓            ↓</span></span>
+<span class="line"><span>            VIEW         VIEW         VIEW</span></span>
+<span class="line"><span>              │            │            │</span></span>
+<span class="line"><span>        ┌─────┼─────┐      │      ┌─────┼─────┐</span></span>
+<span class="line"><span>        ↓     ↓     ↓      ↓      ↓     ↓     ↓</span></span>
+<span class="line"><span>   COMPONENT DECOR. ALIGNER COMPONENT DECOR. ALIGNER</span></span>
+<span class="line"><span>        │      │      │      │      │      │</span></span>
+<span class="line"><span>        └──────┴──────┴──────┴──────┴──────┘</span></span>
+<span class="line"><span>                           │</span></span>
+<span class="line"><span>                           ↓</span></span>
+<span class="line"><span>                     UI ELEMENTS</span></span></code></pre>
+<p>The architecture is therefore not simply:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Pages → Components</span></span></code></pre>
+<p>nor simply:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Pages → Features → Components</span></span></code></pre>
+<p>It introduces a <strong>semantic construction layer</strong>:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Pages</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>Views</span></span>
+<span class="line"><span>  ↓</span></span>
+<span class="line"><span>Purpose + Support + Primitives</span></span></code></pre>
+<p>The central idea is:</p>
+<blockquote>
+<p><strong>A web interface should be constructed according to the roles that its pieces play, rather than treating every rendered unit as the same kind of “component.”</strong></p>
+</blockquote>
+<p>This makes the Page the composition boundary, the View the meaningful UI boundary, the Component the purposeful functional boundary, Decorations/Aligners the supporting boundary, and UI Elements the primitive construction boundary.</p>
+<p>Project Structure and Code Organization</p>
+</div><nav class="post-nav" aria-label="More posts"><a class="post-nav__link" href="/amr-tech/blogs/pvc/base/"><span class="post-nav__label">← Previous</span><span>The Base Layer</span></a><a class="post-nav__link post-nav__link--next" href="/amr-tech/blogs/pvc/base/project-structure/"><span class="post-nav__label">Next →</span><span>Project Structure and Code Organization</span></a></nav></article><aside class="toc-rail"><button class="toc-rail__toggle" type="button" data-toc-toggle aria-expanded="false" aria-controls="toc-panel"><svg class="toc-rail__chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M9 18l6-6-6-6"></path></svg><span>Contents</span></button><nav class="toc-rail__panel" id="toc-panel" aria-label="Table of contents"><nav class="toc" aria-label="Table of contents"><h2 class="toc__title">Table of Contents</h2><ol class="toc__list"><li><a class="toc__link" href="#2-the-problem-with-a-generic-component-model">2. The Problem With a Generic Component Model</a></li><li><a class="toc__link" href="#3-the-core-hierarchy">3. The Core Hierarchy</a></li><li><a class="toc__link" href="#4-page">4. Page</a></li><li><a class="toc__link" href="#5-view">5. View</a><ul><li class="toc__item--sub"><a class="toc__link" href="#views-are-composable">Views are composable</a></li></ul></li><li><a class="toc__link" href="#6-component">6. Component</a></li><li><a class="toc__link" href="#7-decorations">7. Decorations</a></li><li><a class="toc__link" href="#8-aligners">8. Aligners</a></li><li><a class="toc__link" href="#9-ui-elements">9. UI Elements</a></li><li><a class="toc__link" href="#10-example-search-view">10. Example: Search View</a></li><li><a class="toc__link" href="#11-example-modal-view">11. Example: Modal View</a></li><li><a class="toc__link" href="#12-contextual-classification">12. Contextual Classification</a></li><li><a class="toc__link" href="#13-role-over-implementation">13. Role Over Implementation</a></li><li><a class="toc__link" href="#14-recursive-composition">14. Recursive Composition</a></li><li><a class="toc__link" href="#15-page-construction">15. Page Construction</a></li><li><a class="toc__link" href="#16-separation-of-concerns">16. Separation of Concerns</a></li><li><a class="toc__link" href="#17-folder-organization">17. Folder Organization</a></li><li><a class="toc__link" href="#18-relationship-with-feature-based-architecture">18. Relationship With Feature-Based Architecture</a></li><li><a class="toc__link" href="#19-the-main-architectural-principle">19. The Main Architectural Principle</a></li><li><a class="toc__link" href="#20-design-principles">20. Design Principles</a><ul><li class="toc__item--sub"><a class="toc__link" href="#201-role-over-implementation">20.1 Role over implementation</a></li><li class="toc__item--sub"><a class="toc__link" href="#202-purpose-over-size">20.2 Purpose over size</a></li><li class="toc__item--sub"><a class="toc__link" href="#203-composition-over-rigid-hierarchy">20.3 Composition over rigid hierarchy</a></li><li class="toc__item--sub"><a class="toc__link" href="#204-context-matters">20.4 Context matters</a></li><li class="toc__item--sub"><a class="toc__link" href="#205-pages-should-remain-compositional">20.5 Pages should remain compositional</a></li><li class="toc__item--sub"><a class="toc__link" href="#206-views-should-have-a-clear-purpose">20.6 Views should have a clear purpose</a></li></ul></li><li><a class="toc__link" href="#21-benefits">21. Benefits</a></li><li><a class="toc__link" href="#22-a-compact-mental-model">22. A Compact Mental Model</a></li><li><a class="toc__link" href="#23-final-model">23. Final Model</a></li></ol></nav></nav></aside></div><script type="module" src="/amr-tech/_astro/BlogPost.astro_astro_type_script_index_0_lang.DJQIz5e0.js"></script><script type="module" src="/amr-tech/_astro/BlogPost.astro_astro_type_script_index_1_lang.DJQIz5e0.js"></script></main><footer class="site-footer"><div class="site-footer__inner"><span class="meta-label">© 2026 Amr</span><nav class="site-footer__links" aria-label="Footer"><a href="/amr-tech/blogs/">Blog</a><a href="/amr-tech/rss.xml">RSS</a><a href="/amr-tech/llms.txt">llms.txt</a></nav></div></footer></body></html>
