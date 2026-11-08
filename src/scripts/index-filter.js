@@ -41,7 +41,7 @@ function bindIndexFilter() {
   
   async function loadIndex() {
     if (pagefind) return pagefind;
-    pagefind = await import(`${base}pagefind/pagefind.js`);
+    pagefind = await import(/* @vite-ignore */ `${base}pagefind/pagefind.js`);
     await pagefind.options({
       baseUrl: base,
       excerptLength: 10,

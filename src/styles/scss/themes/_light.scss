@@ -1,3 +1,4 @@
+@use 'sass:list';
 @use '../abstracts/variables' as v;
 
 // Role tokens for the light theme. This file (and _dark.scss) is the only
@@ -33,6 +34,6 @@
 :root,
 [data-theme='light'] {
   @for $i from 1 through 8 {
-    --series-#{$i}: #{nth(v.$series-light, $i)};
+    --series-#{$i}: #{list.nth(v.$series-light, $i)};
   }
 }
