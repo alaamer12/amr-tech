@@ -17,7 +17,7 @@ This document demonstrates two ways to implement them:
 - **Plain TypeScript:** Using ordinary types, functions, promises, and exceptions.
 - **Effect:** Using Effect's typed error channel, `Option`, fallback operators, and failure-handling mechanisms.
 
-The examples use Effect v3 APIs.
+The examples use Effect v4 APIs, released in [Effect 4.0](https://effect.website/blog/releases/effect/40). Effect v4 has a dependency-free core, and it renames several error-handling functions. The Effect examples below follow the v4 names, and the references at the end link to the v4 migration guide, the changelog, and the breaking-change notes.
 
 ---
 
@@ -79,17 +79,29 @@ function getUser(id: string): Shot<User> {
 }
 ```
 
-Usage:
+Checking the result with `=== null` works, but a small helper reads more clearly. An `absence()` helper reports whether a value is missing:
+
+```ts
+function absence<T>(value: T | null | undefined): value is null | undefined {
+  return value === null || value === undefined;
+}
+```
+
+Now the calling code becomes:
 
 ```ts
 const user = getUser("123");
 
-if (user === null) {
+if (absence(user)) {
   console.log("User not found");
 } else {
   console.log(user.name);
 }
 ```
+
+TypeScript narrows `user` to `User` in the `else` branch, so no extra check is needed.
+
+Using `absence()` keeps the check readable and pairs well with `Shot<T>`.
 
 For asynchronous operations, the same idea can be represented with `Promise<T | null>`.
 
@@ -511,14 +523,14 @@ The caller does not need to handle the telemetry failure, and the main operation
 
 ### With Effect
 
-Effect provides `Effect.catchAll()` to handle typed failures.
+Effect provides `Effect.catch()` to handle typed failures. In Effect v4, `Effect.catchAll()` was renamed to `Effect.catch()`.
 
 ```ts
 function trackWithdrawal(
   event: WithdrawalEvent
 ): Effect.Effect<void> {
 
-  return Effect.catchAll(
+  return Effect.catch(
     telemetry.send(event),
     error =>
       Effect.logWarning(
@@ -544,7 +556,7 @@ Effect.runPromise(program);
 
 | Plain TypeScript | Effect |
 |---|---|
-| `try/catch` | `Effect.catchAll()` |
+| `try/catch` | `Effect.catch()` |
 | Handle the error locally | Recover from the typed error locally |
 | `logger.warn()` | `Effect.logWarning()` |
 | Function can resolve normally after failure | Effect can complete successfully after recovery |
@@ -553,7 +565,7 @@ Effect.runPromise(program);
 
 Failures should remain observable through logging, monitoring, or another suitable mechanism.
 
-Also, `Effect.catchAll()` handles typed failures, not defects. If you intentionally need to recover from defects too, Effect provides `Effect.catchAllCause()`. This should be used carefully.
+Also, `Effect.catch()` handles typed failures, not defects. In Effect v4, if the cause also contains a defect, such as a finalizer that dies after the effect failed, the handler does not run. If you intentionally need to recover from defects too, use `Effect.catchDefect()` or `Effect.catchCause()`, which replaces v3's `Effect.catchAllCause()`. This should be used carefully.
 
 ---
 
@@ -565,7 +577,7 @@ Also, `Effect.catchAll()` handles typed failures, not defects. If you intentiona
 | **Ladder** | Ordered functions + fallback helper | `Effect.firstSuccessOf()` |
 | **Estimation** | `Estimate<T>` | `Effect<Estimate<T>, E>` |
 | **Throw** | `throw` / exceptions | Defects, such as `Effect.die()` |
-| **Neither** | `try/catch` + local handling | `Effect.catchAll()` |
+| **Neither** | `try/catch` + local handling | `Effect.catch()` |
 
 The main difference is that plain TypeScript relies on ordinary language features and conventions, while Effect provides dedicated abstractions for representing and composing computations.
 
@@ -661,7 +673,8 @@ The objective is not to introduce a library for every function. It is to make ea
 
 ## References
 
-- [Effect v3 — Creating Effects](https://effect.website/docs/v3/getting-started/creating-effects/)
-- [Effect v3 — Fallback](https://effect.website/docs/v3/error-management/fallback/)
-- [Effect v3 — Expected Errors](https://effect.website/docs/v3/error-management/expected-errors/)
-- [Effect v3 — Running Effects](https://effect.website/docs/v3/getting-started/running-effects/)
+- [Effect 4.0 release post](https://effect.website/blog/releases/effect/40)
+- [Effect v4 documentation — Getting Started](https://effect.website/docs/v4/getting-started/)
+- [Effect v3 to v4 migration guide (MIGRATION.md)](https://github.com/Effect-TS/effect/blob/main/MIGRATION.md)
+- [Error handling: `catch*` renamings](https://github.com/Effect-TS/effect/blob/main/migration/error-handling.md)
+- [Effect changelog (packages/effect/CHANGELOG.md)](https://github.com/Effect-TS/effect/blob/main/packages/effect/CHANGELOG.md)
