@@ -16,7 +16,7 @@ A post folder containing `index.md` (or `README.md`) at its top level is a **tre
 - each page's first H1 is lifted as its title (layout renders exactly one h1); reading order via optional `order:` frontmatter, fallback alphabetical;
 - the listing shows one card (root metadata, summed reading time); TreeNav page map, ToC rail, breadcrumbs, JSON-LD, canonical, sitemap, RSS, llms.txt, `.md` mirrors, and Pagefind all treat pages as first-class indexable URLs;
 - two files resolving to the same URL fail the build (same philosophy as the duplicate-content guard);
-- trees and `vN.md` versioning don't mix (index.md presence wins).
+- a top-level tree and `vN.md` versioning don't mix (index.md presence wins). The exception is a per-version tree at `<slug>/vN/index.md`, see [version-trees.md](./version-trees.md).
 
 ## Alternatives rejected
 

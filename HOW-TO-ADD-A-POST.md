@@ -20,7 +20,24 @@ src/content/blogs/pvc/v2.md         →  /blogs/pvc/v2/
 src/content/blogs/pvc/v3.md         →  /blogs/pvc/       ← highest vN is latest
 ```
 
-To publish version 4, drop `v4.md` in the folder. **No flags, no config** — highest number wins. Don't keep non-`vN.md` files inside a versioned folder: they would be published as separate nested posts.
+To publish version 4, drop `v4.md` in the folder. **No flags, no config** — highest number wins. Don't keep non-`vN.md` files directly inside a versioned folder: they would be published as separate nested posts. If a version needs several pages, see the version tree below.
+
+### 2b. Version tree (several pages under one version)
+
+```
+src/content/blogs/strategies/v1.md                       →  /blogs/strategies/v1/
+src/content/blogs/strategies/v2/index.md                  →  /blogs/strategies/          ← latest version root
+src/content/blogs/strategies/v2/five-strategies.md       →  /blogs/strategies/five-strategies/
+```
+
+A folder `<slug>/vN/` that contains its own `index.md` (or `README.md`) is a **tree for that version only**. Use it when one version needs child pages, such as a guide attached to v2. Rules:
+
+- Put the version's root in `vN/index.md` instead of `vN.md`. A version is either a plain `vN.md` or a `vN/` tree, never both.
+- Every `.md` file below `vN/` becomes a page of that version. Paths are relative to `vN/`.
+- The latest version uses the bare slug (`/blogs/<slug>/<rel>/`). Older versions use `/blogs/<slug>/vN/<rel>/`.
+- Relative links between pages of the same version tree are rewritten at build time.
+- Two roots for one version (`vN/index.md` plus `vN/README.md`), or two entries with the same version number, **fail the build**.
+- Known gaps (see `docs/decisions/version-trees.md`): the TreeNav page map, breadcrumbs, and ToC rail are not yet shown on version-tree pages, and the `index` redirect and `?version=` aliases are not emitted for them. The pages themselves build and link correctly.
 
 ### 3. Tree post (a folder-shaped document set)
 
@@ -44,7 +61,7 @@ Rules:
 - **Shared cover:** a tree child page with `thumbnail: tree` reuses the tree root's thumbnail, so the whole document set shares one image. Using `tree` on the root page fails the build.
 - **Tag chips link to the list:** each tag shown at the top of a post links to `/blogs/?tag=<tag>`, which filters the blog index to posts that carry that tag. Tags are matched exactly, so keep the spelling consistent across posts.
 - The listing card shows the post once, with total reading time summed across all pages.
-- A tree post and `vN.md` versioning don't mix: if the folder has `index.md`, everything inside (including any `vN.md`) is treated as pages.
+- A top-level tree post and `vN.md` versioning don't mix: if the folder itself has `index.md`, everything inside (including any `vN.md`) is treated as pages. To give one version its own pages, use a version tree (`vN/index.md`) instead, see section 2b.
 - Two files resolving to the same URL (e.g. `base/index.md` + `base/README.md`) **fail the build**, same as duplicated content.
 
 ## Frontmatter (all optional, unknown keys fail the build)
