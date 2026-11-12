@@ -8,6 +8,7 @@ function bindIndexFilter() {
   const base = document.documentElement.dataset.base ?? '/';
   
   let category = '';
+  const tag = new URLSearchParams(location.search).get('tag') ?? '';
   let matchingUrls = null;
   let pagefind = null;
   
@@ -25,10 +26,11 @@ function bindIndexFilter() {
     let visibleCount = 0;
     for (const card of cards) {
       const catOk = !category || card.dataset.category === category;
+      const tagOk = !tag || (card.dataset.tags ?? '').split('|').includes(tag);
       const href = card.querySelector('.card__title')?.getAttribute('href');
       const queryOk = !matchingUrls || (href && matchingUrls.has(norm(href)));
-      card.style.display = catOk && queryOk ? '' : 'none';
-      if (catOk && queryOk) visibleCount++;
+      card.style.display = catOk && tagOk && queryOk ? '' : 'none';
+      if (catOk && tagOk && queryOk) visibleCount++;
     }
     if (status) {
       status.textContent = matchingUrls
@@ -127,6 +129,8 @@ function bindIndexFilter() {
       input?.select();
     }
   });
+
+  apply();
 }
 if (!window.__bindIndexFilter_bound) {
   window.__bindIndexFilter_bound = true;

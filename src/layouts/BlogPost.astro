@@ -1,6 +1,6 @@
 ---
 import { render } from 'astro:content';
-import { getImage } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import BaseLayout from './BaseLayout.astro';
 import ToC from '../components/ToC.astro';
 import VersionBox from '../components/VersionBox.astro';
@@ -19,7 +19,7 @@ const { Content, headings } = await render(entry);
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 let ogImage = new URL(`${base}og-default.svg`, Astro.site).href;
-const fallbackMeta = data.thumbnail ?? meta.thumbnailMeta;
+const fallbackMeta = meta.thumbnailMeta;
 if (fallbackMeta) {
   const img = await getImage({ src: fallbackMeta });
   ogImage = new URL(img.src, Astro.site).href;
@@ -68,6 +68,8 @@ const latestVersion = versionNums[versionNums.length - 1];
 const lede = page ? post.data.description ?? null : data.description;
 const headerCategory = page ? post.data.category : data.category;
 const headerTags = page ? (post.data.tags ?? []) : data.tags;
+const coverMeta = meta.thumbnailMeta;
+const coverUrl = coverMeta ? null : meta.thumbnailUrl;
 ---
 
 <BaseLayout
@@ -119,11 +121,22 @@ const headerTags = page ? (post.data.tags ?? []) : data.tags;
       {headerTags.length > 0 && (
         <div class="post-tags">
           {headerTags.map((t) => (
-            <span class="post-tag">{t}</span>
+            <a class="post-tag" href={`${base}blogs/?tag=${encodeURIComponent(t)}`}>{t}</a>
           ))}
         </div>
       )}
     </header>
+
+    {coverMeta && (
+      <figure class="post-cover">
+        <Image class="post-cover__image" src={coverMeta} alt="" width={1280} height={720} loading="eager" />
+      </figure>
+    )}
+    {!coverMeta && coverUrl && (
+      <figure class="post-cover">
+        <img class="post-cover__image" src={coverUrl} alt="" width={1280} height={720} loading="eager" />
+      </figure>
+    )}
 
     {post.isTree && <TreeNav post={post} current={page ? page.urlPath : ''} />}
 

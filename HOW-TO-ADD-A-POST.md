@@ -40,6 +40,9 @@ Rules:
 - **Reading order** is `order: N` in each page's frontmatter (lowest first; unordered pages sort alphabetically after). The root index page always comes first.
 - **Page titles** come from each file's first H1 (it is lifted out of the body and rendered as the page title), or from `title:` in frontmatter if you prefer. The root index page follows the same rule.
 - Every tree page gets: the TreeNav page map, ToC rail, reading progress, copy-as-markdown, JSON-LD with full breadcrumb depth, its own canonical URL, sitemap entry, search index, and a raw `.md` mirror at its URL + `.md`.
+- **Per-page images:** any tree page can set its own `thumbnail: ./media/img.png` frontmatter; it appears as the cover at the top of that page and as its OG image.
+- **Shared cover:** a tree child page with `thumbnail: tree` reuses the tree root's thumbnail, so the whole document set shares one image. Using `tree` on the root page fails the build.
+- **Tag chips link to the list:** each tag shown at the top of a post links to `/blogs/?tag=<tag>`, which filters the blog index to posts that carry that tag. Tags are matched exactly, so keep the spelling consistent across posts.
 - The listing card shows the post once, with total reading time summed across all pages.
 - A tree post and `vN.md` versioning don't mix: if the folder has `index.md`, everything inside (including any `vN.md`) is treated as pages.
 - Two files resolving to the same URL (e.g. `base/index.md` + `base/README.md`) **fail the build**, same as duplicated content.
@@ -54,7 +57,8 @@ date: 2026-10-20       # publish date; fallback: git created date, then build da
 category: string       # free-form; omitted = no chip; chip bar auto-builds itself
 tags: [a, b]           # searchable metadata, not shown as chips
 draft: true            # dev-only; excluded from prod build, sitemap, RSS, llms.txt, search
-thumbnail: ./media/img.png   # repo-relative image; used as OG image (see fallback)
+thumbnail: ./media/img.png   # repo-relative image; cover on the page + OG image (see fallback)
+# thumbnail: tree           # tree child pages only: reuse the tree root's thumbnail
 lang: en               # per-post language tag (en/ar/any) — styling only, no i18n routing
 ---
 ```
@@ -64,6 +68,16 @@ lang: en               # per-post language tag (en/ar/any) — styling only, no 
 1. `thumbnail` frontmatter wins.
 2. Else the first `/amr-tech/media/…` image referenced in the post body.
 3. Else the site default (`og-default.svg`). Note: social platforms render raster images best — set `thumbnail` when the post matters.
+
+### Post cover (the image shown at the top of the article)
+
+The same resolved thumbnail is used for the listing card, the cover banner at the top of the post (16:9, themed border), and the OG image. It is resolved in this order:
+
+1. The page's own `thumbnail` frontmatter (an image path).
+2. For tree child pages only, `thumbnail: tree` reuses the tree root's cover.
+3. Else the first image referenced in the body.
+
+Tree child pages without any of these show no cover.
 
 ### Title resolution (deterministic)
 

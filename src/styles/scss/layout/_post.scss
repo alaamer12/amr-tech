@@ -81,6 +81,24 @@
   padding-block: v.$spacing-lg v.$spacing-lg;
 }
 
+.post-cover {
+  margin: 0 0 v.$spacing-lg;
+  padding: v.$spacing-2xs;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: v.$radius-lg;
+  overflow: hidden;
+}
+
+.post-cover__image {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: v.$radius-md;
+}
+
 .post-header__meta {
   display: flex;
   align-items: baseline;
@@ -102,10 +120,31 @@
 
 .post-tag {
   @include m.mono-label;
+  @include m.focus-visible;
 
+  display: inline-block;
+  text-decoration: none;
+  color: var(--text-muted);
   border: 1px solid var(--border);
   border-radius: v.$radius-pill;
   padding: 0 v.$spacing-sm;
+  background: transparent;
+  transition:
+    color v.$transition-fast,
+    border-color v.$transition-fast,
+    background-color v.$transition-fast,
+    transform v.$transition-fast;
+
+  &:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background-color: var(--surface);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
 }
 
 // Flex rows follow the text justification too.

@@ -160,7 +160,7 @@ export async function getPosts() {
       date: resolveDate(entry, buildDate),
       excerpt: excerptOf(entry),
       readingMinutes: Math.max(1, Math.round(words / 230)),
-      thumbnailMeta: img.meta ?? null,
+      thumbnailMeta: (typeof entry.data.thumbnail === 'object' ? entry.data.thumbnail : null) ?? img.meta ?? null,
       thumbnailUrl: img.url ?? null,
     };
   };
@@ -203,6 +203,15 @@ export async function getPosts() {
         const ob = b.entry.data.order ?? 9999;
         return oa - ob || a.urlPath.localeCompare(b.urlPath);
       });
+    if (root.entry.data.thumbnail === 'tree') {
+      throw new Error(`INVALID THUMBNAIL — "${root.id}" is the tree root and cannot use "thumbnail: tree".`);
+    }
+    for (const p of children) {
+      if (p.entry.data.thumbnail === 'tree') {
+        p.thumbnailMeta = root.thumbnailMeta;
+        p.thumbnailUrl = root.thumbnailUrl;
+      }
+    }
     const tree = [root, ...children];
     const total = tree.reduce((sum, p) => sum + p.readingMinutes, 0);
     root.readingMinutes = total;

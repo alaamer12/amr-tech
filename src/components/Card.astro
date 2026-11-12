@@ -5,13 +5,13 @@ const base = import.meta.env.BASE_URL;
 const { post } = Astro.props;
 const { slug, latest, versions, data } = post;
 const url = `${base}blogs/${slug}/`;
-const thumbMeta = data.thumbnail ?? latest.thumbnailMeta;
+const thumbMeta = latest.thumbnailMeta;
 const thumbUrl = thumbMeta ? null : latest.thumbnailUrl;
 const dateStr = latest.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 const versionUrl = (v) => v.version === latest.version ? url : `${base}blogs/${slug}/v${v.version}/`;
 ---
 
-<div class="card" data-category={data.category ?? ''}>
+<div class="card" data-category={data.category ?? ''} data-tags={(data.tags ?? []).join('|')}>
   {thumbMeta && (
     <Image class="card__thumbnail" src={thumbMeta} alt="" width={640} height={360} loading="lazy" />
   )}

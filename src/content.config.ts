@@ -18,7 +18,7 @@ const blogs = defineCollection({
         tags: z.array(z.string()).default([]),
         draft: z.boolean().default(false),
         order: z.number().optional(),
-        thumbnail: image().optional(),
+        thumbnail: z.union([image(), z.literal('tree')]).optional(),
         lang: z.string().default('en'),
       })
       .strict(),
