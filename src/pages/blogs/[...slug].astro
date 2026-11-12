@@ -56,6 +56,20 @@ export async function getStaticPaths() {
 
     const latestVersion = post.versions[post.versions.length - 1];
     for (const version of post.versions) {
+      if (version.tree) {
+        const isLatest = version.version === latestVersion.version;
+        const prefix = isLatest ? post.slug : `${post.slug}/v${version.version}`;
+        version.tree.forEach((page, j) => {
+          const treePrev = j > 0 ? version.tree[j - 1] : null;
+          const treeNext = j < version.tree.length - 1 ? version.tree[j + 1] : null;
+          const pagePath = page.urlPath ? `${prefix}/${page.urlPath}` : prefix;
+          paths.push({
+            params: { slug: pagePath },
+            props: { post, version, page, treePrev, treeNext, related, alias: false, indexRedirect: false },
+          });
+        });
+        continue;
+      }
       const isLatest = version.version === latestVersion.version;
       paths.push({
         params: { slug: isLatest ? post.slug : `${post.slug}/v${version.version}` },

@@ -24,13 +24,28 @@ function scan() {
     }
   };
   if (fs.existsSync(BLOGS_DIR)) walk(BLOGS_DIR, '');
-  index = { ids, treeSlugs };
+  const versionTreeKeys = new Set(); // "<slug>/vN" folders holding their own index
+  const latestOf = new Map(); // slug -> highest version number
+  for (const id of ids) {
+    const v = id.match(/^([^/]+)\/v(\d+)(?:\/|$)/);
+    if (v) latestOf.set(v[1], Math.max(latestOf.get(v[1]) ?? 0, Number(v[2])));
+    const k = id.match(/^([^/]+\/v\d+)\/(index|readme)$/i);
+    if (k) versionTreeKeys.add(k[1]);
+  }
+  index = { ids, treeSlugs, versionTreeKeys, latestOf };
   return index;
 }
 
 // id -> public route path segment (no base, no leading/trailing slash here)
-function routeFor(id, { ids, treeSlugs }) {
+function routeFor(id, { ids, treeSlugs, versionTreeKeys, latestOf }) {
   const stripped = id.replace(/\.md$/, '');
+  const vt = stripped.match(/^([^/]+\/v(\d+))(?:\/(.*))?$/);
+  if (vt && versionTreeKeys.has(vt[1])) {
+    const slug = vt[1].replace(/\/v\d+$/, '');
+    const prefix = Number(vt[2]) === latestOf.get(slug) ? slug : vt[1];
+    const rel = (vt[3] ?? '').replace(/(?:^|\/)(index|readme)$/i, '');
+    return rel ? `${prefix}/${rel}/` : `${prefix}/`;
+  }
   const slash = stripped.indexOf('/');
   const top = slash === -1 ? stripped : stripped.slice(0, slash);
   if (slash !== -1 && treeSlugs.has(top)) {
@@ -73,7 +88,7 @@ export function createTreeLinksPlugin(base) {
         let target = path.posix.normalize(path.posix.join(ownDir, isDir ? filePart || '.' : filePart));
         while (target.startsWith('../')) target = target.slice(3);
         if (!target || target === '.' || target.startsWith('..')) return;
-        const { ids, treeSlugs } = scan();
+        const { ids, treeSlugs, versionTreeKeys, latestOf } = scan();
         let route = null;
         if (isDir) {
           if (treeSlugs.has(target) || [...ids].some((i) => i.startsWith(`${target}/`))) {
@@ -88,7 +103,7 @@ export function createTreeLinksPlugin(base) {
           }
           const cand = ids.has(bare) ? bare : null;
           if (!cand) return;
-          route = routeFor(cand, { ids, treeSlugs });
+          route = routeFor(cand, { ids, treeSlugs, versionTreeKeys, latestOf });
         }
         if (!route) return;
         ctx.setProperty(node, 'url', `${base}blogs/${route}${fragment ? `#${fragment}` : ''}`);

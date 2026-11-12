@@ -127,6 +127,11 @@ export function firstImageOf(entry) {
   return {};
 }
 
+// A page inside a version tree is addressed relative to its version folder (`<slug>/vN`).
+function relativeTreePath(id, key) {
+  return id.slice(key.length + 1).replace(/\.md$/, '').replace(/(?:^|\/)(index|readme)$/i, '');
+}
+
 export async function getPosts() {
   const entries = await getCollection('blogs', ({ data }) => !(import.meta.env.PROD && data.draft));
   assertNoDuplicates(entries);
@@ -146,6 +151,20 @@ export async function getPosts() {
         );
       }
       treeRoots.set(slug, entry.id);
+    }
+  }
+
+  // A version folder (`<slug>/vN/`) with its own index.md is a tree for that version only.
+  const versionTreeRoots = new Map(); // "<slug>/vN" -> entry id of its folder index
+  for (const entry of entries) {
+    const m = entry.id.match(/^(.+\/v\d+)\/(index|readme)$/i);
+    if (m) {
+      if (versionTreeRoots.has(m[1])) {
+        throw new Error(
+          `DUPLICATED FOLDER INDEX — "${m[1]}/" has both "${versionTreeRoots.get(m[1])}" and "${entry.id}". Keep one.`,
+        );
+      }
+      versionTreeRoots.set(m[1], entry.id);
     }
   }
 
@@ -169,6 +188,16 @@ export async function getPosts() {
   const trees = new Map(); // slug -> page metas (incl. root)
 
   for (const entry of entries) {
+    const vKey = [...versionTreeRoots.keys()].find((k) => entry.id.startsWith(`${k}/`));
+    if (vKey) {
+      if (!trees.has(vKey)) trees.set(vKey, []);
+      const urlPath = relativeTreePath(entry.id, vKey);
+      const meta = metaOf(entry, parseId(vKey).version);
+      meta.urlPath = urlPath;
+      meta.depth = urlPath === '' ? 0 : urlPath.split('/').length;
+      trees.get(vKey).push(meta);
+      continue;
+    }
     const tSlug = treeSlugOf(entry.id);
     if (tSlug && treeRoots.has(tSlug)) {
       if (!trees.has(tSlug)) trees.set(tSlug, []);
@@ -223,11 +252,23 @@ export async function getPosts() {
         if (ancestor) p.crumbs.push({ title: ancestor.title, urlPath: ancestor.urlPath });
       }
     }
+    if (versionTreeRoots.has(slug)) {
+      root.tree = tree;
+      const vSlug = parseId(slug).slug;
+      if (!bySlug.has(vSlug)) bySlug.set(vSlug, []);
+      bySlug.get(vSlug).push(root);
+      continue;
+    }
     posts.push({ slug, versions: [root], latest: root, tree, isTree: true, data: root.entry.data, entry: root.entry });
   }
 
   for (const [slug, versions] of bySlug) {
     versions.sort((a, b) => a.version - b.version);
+    for (let i = 1; i < versions.length; i++) {
+      if (versions[i].version === versions[i - 1].version) {
+        throw new Error(`DUPLICATED VERSION — "${slug}" has two entries for v${versions[i].version}. Keep one.`);
+      }
+    }
     const latest = versions[versions.length - 1];
     posts.push({ slug, versions, latest, isTree: false, data: latest.entry.data, entry: latest.entry });
   }
