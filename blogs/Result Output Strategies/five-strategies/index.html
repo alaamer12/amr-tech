@@ -1,0 +1,677 @@
+<!DOCTYPE html><html lang="en" data-base="/amr-tech/"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Implementing the Five Function Outcome Strategies in TypeScript — Amr</title><meta name="description" content="The five function outcome strategies describe different ways a function can produce a value or handle an unsuccessful operation:"><link rel="canonical" href="https://alaamer12.github.io/amr-tech/blogs/Result%20Output%20Strategies/five-strategies/"><meta property="og:site_name" content="Amr"><meta property="og:title" content="Implementing the Five Function Outcome Strategies in TypeScript — Amr"><meta property="og:type" content="article"><meta property="og:url" content="https://alaamer12.github.io/amr-tech/blogs/Result%20Output%20Strategies/five-strategies/"><meta property="og:image" content="https://alaamer12.github.io/amr-tech/og-default.svg"><meta property="og:description" content="The five function outcome strategies describe different ways a function can produce a value or handle an unsuccessful operation:"><meta property="og:locale" content="en_US"><meta property="article:published_time" content="2026-11-12T15:17:07.000Z"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Implementing the Five Function Outcome Strategies in TypeScript — Amr"><meta name="twitter:description" content="The five function outcome strategies describe different ways a function can produce a value or handle an unsuccessful operation:"><meta name="twitter:image" content="https://alaamer12.github.io/amr-tech/og-default.svg"><link rel="alternate" type="application/rss+xml" title="Amr" href="/amr-tech/rss.xml"><link rel="sitemap" type="application/xml" href="/amr-tech/sitemap-index.xml"><link rel="icon" type="image/svg+xml" href="/amr-tech/favicon.svg"><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/amr-tech/_astro/ClientRouter.astro_astro_type_script_index_0_lang.DXqcZz58.js"></script><script type="application/ld+json">[{"@context":"https://schema.org","@type":"BlogPosting","headline":"Implementing the Five Function Outcome Strategies in TypeScript","description":"The five function outcome strategies describe different ways a function can produce a value or handle an unsuccessful operation:","url":"https://alaamer12.github.io/amr-tech/blogs/Result%20Output%20Strategies/five-strategies/","image":"https://alaamer12.github.io/amr-tech/og-default.svg","datePublished":"2026-11-12T15:17:07.000Z","dateModified":"2026-11-12T15:17:07.000Z","inLanguage":"en","author":{"@type":"Person","name":"Amr"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://alaamer12.github.io/amr-tech//"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://alaamer12.github.io/amr-tech/blogs/"},{"@type":"ListItem","position":3,"name":"Function Outcome Strategies","item":"https://alaamer12.github.io/amr-tech/blogs/Result%20Output%20Strategies/"},{"@type":"ListItem","position":4,"name":"Implementing the Five Function Outcome Strategies in TypeScript","item":"https://alaamer12.github.io/amr-tech/blogs/Result%20Output%20Strategies/five-strategies/"}]}]</script><link rel="stylesheet" href="/amr-tech/_astro/BaseLayout.Dh59fUqf.css"><style>@layer astro.images{:where([data-astro-image]){height:auto}:where([data-astro-image=full-width]){width:100%}:where([data-astro-image=constrained]){max-width:100%}[data-astro-image-fit=fill]{object-fit:fill}[data-astro-image-fit=contain]{object-fit:contain}[data-astro-image-fit=cover]{object-fit:cover}[data-astro-image-fit=scale-down]{object-fit:scale-down}[data-astro-image-pos=top]{object-position:top}[data-astro-image-pos=bottom]{object-position:bottom}[data-astro-image-pos=left]{object-position:left}[data-astro-image-pos=right]{object-position:right}[data-astro-image-pos=center]{object-position:center}[data-astro-image-pos=top-left]{object-position:top left}[data-astro-image-pos=top-right]{object-position:top right}[data-astro-image-pos=top-center]{object-position:top center}[data-astro-image-pos=bottom-left]{object-position:bottom left}[data-astro-image-pos=bottom-right]{object-position:bottom right}[data-astro-image-pos=bottom-center]{object-position:bottom center}[data-astro-image-pos=left-top]{object-position:left top}[data-astro-image-pos=left-bottom]{object-position:left bottom}[data-astro-image-pos=left-center]{object-position:left center}[data-astro-image-pos=right-top]{object-position:right top}[data-astro-image-pos=right-bottom]{object-position:right bottom}[data-astro-image-pos=right-center]{object-position:right center}[data-astro-image-pos=center-top]{object-position:center top}[data-astro-image-pos=center-bottom]{object-position:center bottom}[data-astro-image-pos=center-left]{object-position:center left}[data-astro-image-pos=center-right]{object-position:center right}}
+</style><style>[data-astro-transition-scope="astro-nfpogox7-1"] { view-transition-name: astro-nfpogox7-1; }@layer astro { ::view-transition-old(astro-nfpogox7-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(astro-nfpogox7-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(astro-nfpogox7-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(astro-nfpogox7-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-nfpogox7-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-nfpogox7-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-nfpogox7-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-nfpogox7-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-nfpogox7-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-nfpogox7-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-nfpogox7-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-nfpogox7-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head><body data-astro-transition-scope="astro-nfpogox7-1"><script data-astro-rerun>
+      (() => {
+        try {
+          const stored = localStorage.getItem('theme');
+          const dark = stored ? stored === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+        } catch {
+          document.documentElement.dataset.theme = 'light';
+        }
+        try {
+          document.documentElement.dataset.align = localStorage.getItem('align') || 'left';
+        } catch {
+          document.documentElement.dataset.align = 'left';
+        }
+      })();
+    </script><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><div class="site-header__inner"><a class="site-header__brand" href="/amr-tech/blogs/" aria-label="Amr home"><svg class="site-header__logo" width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="currentColor" opacity="0.08"></rect><path d="M9 22l7-12 7 12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="16" cy="24" r="1.6" fill="currentColor"></circle></svg>Amr</a><div class="align-toggle" role="group" aria-label="Content alignment"><button class="align-toggle__btn" type="button" data-align="left" aria-label="Align content left"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="15" y2="12"></line><line x1="3" y1="18" x2="18" y2="18"></line></svg></button><button class="align-toggle__btn" type="button" data-align="center" aria-label="Align content center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="6" y1="12" x2="18" y2="12"></line><line x1="4" y1="18" x2="20" y2="18"></line></svg></button><button class="align-toggle__btn" type="button" data-align="right" aria-label="Align content right"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="9" y1="12" x2="21" y2="12"></line><line x1="6" y1="18" x2="21" y2="18"></line></svg></button></div><script type="module">function e(){let e=[...document.querySelectorAll(`[data-align]`)];function t(t){document.documentElement.dataset.align=t;for(let n of e)n.classList.toggle(`align-toggle__btn--active`,n.dataset.align===t),n.setAttribute(`aria-pressed`,String(n.dataset.align===t));try{localStorage.setItem(`align`,t)}catch{}}for(let n of e)n.addEventListener(`click`,()=>t(n.dataset.align??`left`)),n.classList.toggle(`align-toggle__btn--active`,n.dataset.align===document.documentElement.dataset.align)}document.addEventListener(`astro:page-load`,e);</script><nav class="site-header__actions" aria-label="Main"><a class="site-header__icon-link" href="/amr-tech/rss.xml" aria-label="RSS feed"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9H4v-9zm0-5a14 14 0 0 1 14 14h-4A10 10 0 0 0 4 10V6zm2.5-2A16.5 16.5 0 0 1 22.5 21h-4A12.5 12.5 0 0 0 6.5 8.5v-4.5z" opacity="0"></path><circle cx="6.18" cy="17.82" r="2.18"></circle><path d="M4 4.05v3.06c9.39.3 12.56 3.4 12.89 12.89h3.06C19.7 9.2 14.8 4.3 4 4.05zm0 6.12v3.06c3.9.24 6.6 2.95 6.82 6.82h3.06C15.53 14.23 11.77 10.47 4 10.17z"></path></svg></a><button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-theme-toggle><svg class="theme-toggle__icon theme-toggle__icon--moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg><svg class="theme-toggle__icon theme-toggle__icon--sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></button><script type="module">var e=()=>matchMedia(`(prefers-reduced-motion: reduce)`).matches,t=!1;function n(e){let t=innerWidth,n=innerHeight,r=t/2,i=n/2;if(e){let t=e.getBoundingClientRect();r=t.left+t.width/2,i=t.top+t.height/2}let a=Math.hypot(Math.max(r,t-r),Math.max(i,n-i));return{cx:r,cy:i,maxRadius:a,vw:t,vh:n}}function r(e){let t=`${e.cx/e.vw*100}%`,n=`${e.cy/e.vh*100}%`,r=e.maxRadius/(Math.hypot(e.vw,e.vh)/Math.SQRT2)*100;return[`circle(0% at ${t} ${n})`,`circle(${r}% at ${t} ${n})`]}function i(e){let t=document.createElement(`div`);return t.className=`morph-ring`,t.style.left=`${e.cx-e.maxRadius}px`,t.style.top=`${e.cy-e.maxRadius}px`,t.style.width=t.style.height=`${e.maxRadius*2}px`,t.style.viewTransitionName=`ring`,document.body.appendChild(t),t}function a(e){document.documentElement.dataset.theme=e?`dark`:`light`;try{localStorage.setItem(`theme`,e?`dark`:`light`)}catch{}}function o(a,o,s){if(t)return;if(typeof document.startViewTransition!=`function`||e()){o();return}let c=n(a),l=r(c),u=document.documentElement,d=null;t=!0,u.dataset.morphing=``,u.style.setProperty(`--morph-dur`,`${s}ms`),u.style.setProperty(`--morph-clip-from`,l[0]);let f=document.startViewTransition(()=>{o(),d=i(c)});f.finished.finally(()=>{t=!1,d?.remove(),delete u.dataset.morphing,u.style.removeProperty(`--morph-dur`),u.style.removeProperty(`--morph-clip-from`)}),f.ready.then(()=>{u.animate({clipPath:l},{duration:s,easing:`ease-in-out`,fill:`forwards`,pseudoElement:`::view-transition-new(root)`})}).catch(()=>{})}function s(){let e=document.querySelector(`[data-theme-toggle]`);e&&e.addEventListener(`click`,()=>{let t=document.documentElement.dataset.theme!==`dark`;o(e,()=>a(t),400)})}document.addEventListener(`astro:page-load`,s);</script></nav></div></header><main class="page" id="main-content"><div class="reading-progress" aria-hidden="true"></div><script type="module">var e=document.documentElement,t=!1;function n(){t=!1;let n=document.querySelector(`.reading-progress`);if(!n)return;let r=e.scrollHeight-e.clientHeight;n.style.setProperty(`--progress`,r>0?(e.scrollTop/r).toFixed(4):`0`)}function r(){t||(t=!0,requestAnimationFrame(n))}addEventListener(`scroll`,r,{passive:!0}),addEventListener(`resize`,r,{passive:!0}),document.addEventListener(`astro:page-load`,n);</script><div class="post-shell"><article class="post-column" data-pagefind-body><div class="post-topbar"><a class="post-back" href="/amr-tech/blogs/">← Blog</a><button class="copy-page" type="button" data-copy-page data-md-url="/amr-tech/blogs/Result Output Strategies/v2/five-strategies.md"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span data-copy-label>Copy Page</span></button><script type="module">function e(){let e=document.querySelector(`[data-copy-page]`);if(!e)return;let t=e.querySelector(`[data-copy-label]`);e.addEventListener(`click`,async()=>{let n=e.getAttribute(`data-md-url`);t.textContent=`Copying…`;try{let e=await fetch(n).then(e=>{if(!e.ok)throw Error(`mirror missing`);return e.text()});await navigator.clipboard.writeText(e),t.textContent=`Copied ✓`}catch{t.textContent=`Copy failed`}setTimeout(()=>{t.textContent=`Copy Page`},2e3)})}document.addEventListener(`astro:page-load`,e);</script></div><header class="post-header"><div class="post-header__meta"><span class="meta-label">12 November 2026</span><span class="visually-hidden" data-pagefind-filter="category:uncategorized"></span><span class="visually-hidden" data-pagefind-meta="date:12 November 2026"></span></div><h1 class="post-title post-header__title" lang="en" data-pagefind-meta="title">Implementing the Five Function Outcome Strategies in TypeScript</h1></header><div class="toc-inline"><nav class="toc" aria-label="Table of contents"><h2 class="toc__title">Table of Contents</h2><ol class="toc__list"><li><a class="toc__link" href="#1-introduction">1. Introduction</a></li><li><a class="toc__link" href="#2-shared-types">2. Shared Types</a></li><li><a class="toc__link" href="#3-shot">3. Shot</a><ul><li class="toc__item--sub"><a class="toc__link" href="#definition">Definition</a></li><li class="toc__item--sub"><a class="toc__link" href="#plain-typescript">Plain TypeScript</a></li><li class="toc__item--sub"><a class="toc__link" href="#with-effect">With Effect</a></li><li class="toc__item--sub"><a class="toc__link" href="#comparison">Comparison</a></li></ul></li><li><a class="toc__link" href="#4-ladder">4. Ladder</a><ul><li class="toc__item--sub"><a class="toc__link" href="#definition-1">Definition</a></li><li class="toc__item--sub"><a class="toc__link" href="#plain-typescript-1">Plain TypeScript</a></li><li class="toc__item--sub"><a class="toc__link" href="#with-effect-1">With Effect</a></li><li class="toc__item--sub"><a class="toc__link" href="#comparison-1">Comparison</a></li></ul></li><li><a class="toc__link" href="#5-estimation">5. Estimation</a><ul><li class="toc__item--sub"><a class="toc__link" href="#definition-2">Definition</a></li><li class="toc__item--sub"><a class="toc__link" href="#plain-typescript-2">Plain TypeScript</a></li><li class="toc__item--sub"><a class="toc__link" href="#with-effect-2">With Effect</a></li><li class="toc__item--sub"><a class="toc__link" href="#comparison-2">Comparison</a></li></ul></li><li><a class="toc__link" href="#6-throw">6. Throw</a><ul><li class="toc__item--sub"><a class="toc__link" href="#definition-3">Definition</a></li><li class="toc__item--sub"><a class="toc__link" href="#plain-typescript-3">Plain TypeScript</a></li><li class="toc__item--sub"><a class="toc__link" href="#with-effect-3">With Effect</a></li><li class="toc__item--sub"><a class="toc__link" href="#comparison-3">Comparison</a></li></ul></li><li><a class="toc__link" href="#7-neither">7. Neither</a><ul><li class="toc__item--sub"><a class="toc__link" href="#definition-4">Definition</a></li><li class="toc__item--sub"><a class="toc__link" href="#plain-typescript-4">Plain TypeScript</a></li><li class="toc__item--sub"><a class="toc__link" href="#with-effect-4">With Effect</a></li><li class="toc__item--sub"><a class="toc__link" href="#comparison-4">Comparison</a></li></ul></li><li><a class="toc__link" href="#8-complete-comparison">8. Complete Comparison</a></li><li><a class="toc__link" href="#9-important-design-considerations">9. Important Design Considerations</a><ul><li class="toc__item--sub"><a class="toc__link" href="#91-not-every-strategy-needs-a-special-type">9.1 Not Every Strategy Needs a Special Type</a></li><li class="toc__item--sub"><a class="toc__link" href="#92-expected-failures-and-exceptional-failures-are-different">9.2 Expected Failures and Exceptional Failures Are Different</a></li><li class="toc__item--sub"><a class="toc__link" href="#93-the-strategies-can-be-combined">9.3 The Strategies Can Be Combined</a></li></ul></li><li><a class="toc__link" href="#10-final-summary">10. Final Summary</a></li><li><a class="toc__link" href="#references">References</a></li></ol></nav></div><div class="post-body" lang="en"><h2 id="1-introduction">1. Introduction</h2>
+<p>The five function outcome strategies describe different ways a function can produce a value or handle an unsuccessful operation:</p>
+<ol>
+<li><strong>Shot</strong> — Attempt to produce one specific value.</li>
+<li><strong>Ladder</strong> — Try alternative approaches until one produces an acceptable value.</li>
+<li><strong>Estimation</strong> — Produce an estimated value with appropriate uncertainty information.</li>
+<li><strong>Throw</strong> — Propagate an exceptional failure.</li>
+<li><strong>Neither</strong> — Handle a non-critical failure locally without interrupting the main execution flow.</li>
+</ol>
+<p>These strategies are architectural concepts, not built-in TypeScript or Effect features.</p>
+<p>This document demonstrates two ways to implement them:</p>
+<ul>
+<li><strong>Plain TypeScript:</strong> Using ordinary types, functions, promises, and exceptions.</li>
+<li><strong>Effect:</strong> Using Effect’s typed error channel, <code>Option</code>, fallback operators, and failure-handling mechanisms.</li>
+</ul>
+<p>The examples use Effect v4 APIs, released in <a href="https://effect.website/blog/releases/effect/40">Effect 4.0</a>. Effect v4 has a dependency-free core, and it renames several error-handling functions. The Effect examples below follow the v4 names, and the references at the end link to the v4 migration guide, the changelog, and the breaking-change notes.</p>
+<hr>
+<h2 id="2-shared-types">2. Shared Types</h2>
+<p>Before implementing the strategies, let’s define the types used throughout the examples.</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">interface</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> User</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  id</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> string</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  name</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> string</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">interface</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Picture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  url</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> string</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">interface</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Estimate</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">T</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt; {</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  value</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> T</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  confidence</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> number</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">interface</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Config</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  databaseUrl</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> string</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>For Effect examples, import:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">import</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> { Effect, Option } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">from</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> "effect"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span></code></pre>
+<hr>
+<h2 id="3-shot">3. Shot</h2>
+<h3 id="definition">Definition</h3>
+<p>Shot makes one attempt to produce a specific intended value.</p>
+<p>It either produces the requested value or communicates that no useful value could be obtained. It does not try alternative approaches.</p>
+<h3 id="plain-typescript">Plain TypeScript</h3>
+<p>A simple implementation can use <code>null</code> to represent the absence of a value.</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">type</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Shot</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">T</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt; </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> T</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> |</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> null</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> getUser</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">id</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> string</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">)</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Shot</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">User</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt; {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> user</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> users.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">find</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">user</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =&gt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> user.id </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">===</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> id);</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  if</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">!</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">user) {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    return</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> null</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> user;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>Checking the result with <code>=== null</code> works, but a small helper reads more clearly. An <code>absence()</code> helper reports whether a value is missing:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> absence</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">T</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;(</span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">value</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> T</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> |</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> null</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> |</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> undefined</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">)</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70"> value</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> is</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> null</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> |</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> undefined</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> value </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">===</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> null</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> ||</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> value </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">===</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> undefined</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>Now the calling code becomes:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> user</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> getUser</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"123"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">if</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">absence</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(user)) {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  console.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">log</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"User not found"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">);</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">} </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">else</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  console.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">log</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(user.name);</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>TypeScript narrows <code>user</code> to <code>User</code> in the <code>else</code> branch, so no extra check is needed.</p>
+<p>Using <code>absence()</code> keeps the check readable and pairs well with <code>Shot&lt;T&gt;</code>.</p>
+<p>For asynchronous operations, the same idea can be represented with <code>Promise&lt;T | null&gt;</code>.</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">async</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> getUser</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">id</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> string</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">)</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Promise</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">Shot</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">User</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;&gt; {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> user</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> await</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> database.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">findUser</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(id);</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> user </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">??</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> null</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<h3 id="with-effect">With Effect</h3>
+<p>Effect provides <code>Option</code> to represent a value that may or may not exist.</p>
+<p>We can also keep technical failures separate from ordinary absence.</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">class</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> DatabaseError</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> extends</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Error</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> getUser</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">id</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> string</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">)</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Effect</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">Effect</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">  Option</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">Option</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">User</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;,</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">  DatabaseError</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt; {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Effect.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">tryPromise</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">({</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">    try</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: () </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=&gt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> database.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">findUser</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(id),</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">    catch</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: () </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=&gt;</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> new</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> DatabaseError</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"Could not access database"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  }).</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">pipe</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    Effect.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">map</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">user</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =&gt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Option.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">fromNullable</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(user))</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  );</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>Usage:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> program</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> getUser</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"123"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">).</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">pipe</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  Effect.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">map</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    Option.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">match</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">({</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">      onNone</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: () </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=&gt;</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> "User not found"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">      onSome</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">user</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =&gt;</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> `Hello, ${</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">user</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">.</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">name</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">}`</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    })</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  )</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">Effect.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">runPromise</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(program).</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">then</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(console.log);</span></span></code></pre>
+<h3 id="comparison">Comparison</h3>
+<table>
+<thead>
+<tr>
+<th>Plain TypeScript</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>T | null</code></td>
+<td><code>Option.Option&lt;T&gt;</code></td>
+</tr>
+<tr>
+<td><code>Promise&lt;T | null&gt;</code> for asynchronous work</td>
+<td><code>Effect.Effect&lt;Option.Option&lt;T&gt;, E&gt;</code></td>
+</tr>
+<tr>
+<td><code>null</code> represents absence</td>
+<td><code>Option.none()</code> represents absence</td>
+</tr>
+<tr>
+<td>Exceptions or rejected promises represent technical failures</td>
+<td>Typed error channel represents technical failures</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Important:</strong> Absence and technical failure are different outcomes. A user not existing is not the same as the database being unavailable.</p>
+<hr>
+<h2 id="4-ladder">4. Ladder</h2>
+<h3 id="definition-1">Definition</h3>
+<p>Ladder attempts to produce the best available value by following an ordered hierarchy of alternatives.</p>
+<p>If one approach cannot produce an acceptable result, the function moves to the next alternative.</p>
+<p>It stops when it obtains a successful result or exhausts all alternatives.</p>
+<h3 id="plain-typescript-1">Plain TypeScript</h3>
+<p>We can create a reusable helper that accepts an ordered list of asynchronous strategies.</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">class</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> PictureUnavailable</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> extends</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Error</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">type</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Ladder</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">T</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt; </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> T</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> |</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> null</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">async</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> firstSuccess</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">T</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;(</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  strategies</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (() </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=&gt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Promise</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">T</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;)[]</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">)</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Promise</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">Ladder</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">T</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;&gt; {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  for</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> strategy</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> of</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> strategies) {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    try</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">      return</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> await</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> strategy</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">();</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">catch</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (error) {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">      if</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">!</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(error </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">instanceof</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> PictureUnavailable</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">)) {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">        throw</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> error;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">      }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  return</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> null</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>Now we can implement our profile picture example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">async</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> getProfilePicture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  user</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> User</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">)</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Promise</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">Ladder</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">Picture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;&gt; {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  return</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> firstSuccess</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">([</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    () </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=&gt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> getCustomPicture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(user),</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    () </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=&gt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> getSocialPicture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(user),</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    () </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=&gt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> getGooglePicture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(user),</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    () </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=&gt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> getGravatarPicture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(user),</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    () </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=&gt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> getDefaultPicture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">()</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  ]);</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>The execution order is:</p>
+<ol>
+<li>Try the custom picture.</li>
+<li>If unavailable, try the social picture.</li>
+<li>If unavailable, try the Google picture.</li>
+<li>If unavailable, try Gravatar.</li>
+<li>If unavailable, try the default picture.</li>
+<li>If every source is unavailable, return <code>null</code>.</li>
+</ol>
+<p>The helper only treats <code>PictureUnavailable</code> as a reason to try another source. Unexpected failures are allowed to propagate.</p>
+<h3 id="with-effect-1">With Effect</h3>
+<p>Effect provides <code>Effect.firstSuccessOf()</code> to execute multiple effects sequentially and return the first successful result.</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">class</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> PictureUnavailableError</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> extends</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Error</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> getProfilePicture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  user</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> User</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">)</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Effect</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">Effect</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">Picture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">, </span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">PictureUnavailableError</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt; {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Effect.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">firstSuccessOf</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">([</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">    getCustomPicture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(user),</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">    getSocialPicture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(user),</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">    getGooglePicture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(user),</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">    getGravatarPicture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(user),</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">    getDefaultPicture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">()</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  ]);</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>The implementation is much shorter because Effect handles the fallback process.</p>
+<p>If every source fails with the expected typed error, <code>Effect.firstSuccessOf()</code> propagates the last error.</p>
+<p>If we want the function to return <code>Option.none()</code> instead, we can use <code>Effect.option()</code>:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> getProfilePicture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  user</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> User</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">)</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Effect</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">Effect</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">Option</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">Option</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">Picture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;&gt; {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Effect.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">firstSuccessOf</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">([</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">    getCustomPicture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(user),</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">    getSocialPicture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(user),</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">    getGooglePicture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(user),</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">    getGravatarPicture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(user),</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">    getDefaultPicture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">()</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  ]).</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">pipe</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    Effect.option</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  );</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>Here, all typed failures are converted into <code>Option.none()</code>. This is appropriate when those failures all mean that an acceptable picture could not be obtained.</p>
+<p>Unexpected defects are not converted into <code>Option.none()</code>.</p>
+<h3 id="comparison-1">Comparison</h3>
+<table>
+<thead>
+<tr>
+<th>Plain TypeScript</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A loop over ordered functions</td>
+<td><code>Effect.firstSuccessOf()</code></td>
+</tr>
+<tr>
+<td><code>try/catch</code> handles expected unavailable results</td>
+<td>Typed errors trigger fallback</td>
+</tr>
+<tr>
+<td>Returns <code>null</code> after exhausting alternatives</td>
+<td>Fails with the last error, or returns <code>Option.none()</code> with <code>Effect.option()</code></td>
+</tr>
+<tr>
+<td>Requires a custom fallback helper</td>
+<td>Provides a built-in fallback operator</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Important:</strong> A Ladder must have a meaningful priority order. A fallback is not automatically acceptable just because it is available.</p>
+<p>For example, returning outdated financial information instead of current information could be misleading.</p>
+<hr>
+<h2 id="5-estimation">5. Estimation</h2>
+<h3 id="definition-2">Definition</h3>
+<p>Estimation produces an approximate or predicted value when an exact value is unavailable or cannot reasonably be obtained.</p>
+<p>The result may include confidence, probability, uncertainty, or prediction intervals.</p>
+<h3 id="plain-typescript-2">Plain TypeScript</h3>
+<p>We can represent an estimate using a generic type.</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">type</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Estimate</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">T</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt; </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  value</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> T</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  confidence</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> number</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">};</span></span></code></pre>
+<p>Example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> estimateDeliveryDate</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  order</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Order</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">)</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Estimate</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">Date</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt; {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> prediction</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> deliveryModel.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">predict</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(order);</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    value: prediction.date,</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    confidence: prediction.confidence</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  };</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>Usage:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> result</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> estimateDeliveryDate</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(order);</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">console.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">log</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(result.value);</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">console.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">log</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(result.confidence);</span></span></code></pre>
+<p>The function returns a predicted delivery date along with information about the prediction’s confidence.</p>
+<h3 id="with-effect-2">With Effect</h3>
+<p>Effect can return the same estimate while also representing failures that may occur during prediction.</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">class</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> EstimationError</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> extends</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Error</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> estimateDeliveryDate</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  order</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Order</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">)</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Effect</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">Effect</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">Estimate</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">Date</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;, </span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">EstimationError</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt; {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Effect.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">try</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">({</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">    try</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: () </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=&gt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">      const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> prediction</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> deliveryModel.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">predict</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(order);</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">      return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        value: prediction.date,</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        confidence: prediction.confidence</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">      };</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    },</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">    catch</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: () </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=&gt;</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> new</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> EstimationError</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"Could not estimate delivery date"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  });</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>Usage:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> program</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> estimateDeliveryDate</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(order);</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">Effect.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">runPromise</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(program).</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">then</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(console.log);</span></span></code></pre>
+<p>The successful output is still an <code>Estimate&lt;Date&gt;</code>, but Effect also describes the possible estimation failure in its type.</p>
+<h3 id="comparison-2">Comparison</h3>
+<table>
+<thead>
+<tr>
+<th>Plain TypeScript</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Estimate&lt;T&gt;</code></td>
+<td><code>Estimate&lt;T&gt;</code></td>
+</tr>
+<tr>
+<td><code>Promise&lt;Estimate&lt;T&gt;&gt;</code> for asynchronous prediction</td>
+<td><code>Effect.Effect&lt;Estimate&lt;T&gt;, E&gt;</code></td>
+</tr>
+<tr>
+<td>Exceptions or rejected promises represent failures</td>
+<td>Typed errors represent failures</td>
+</tr>
+<tr>
+<td>Confidence is part of the returned value</td>
+<td>Confidence is part of the returned value</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Important:</strong> Probability and confidence are not automatically interchangeable. A confidence score between 0 and 1 does not necessarily represent a statistically valid probability.</p>
+<hr>
+<h2 id="6-throw">6. Throw</h2>
+<h3 id="definition-3">Definition</h3>
+<p>Throw propagates an exceptional failure instead of treating it as an ordinary output.</p>
+<p>It is appropriate when an operation cannot continue according to its contract and the failure should be handled by a higher-level boundary.</p>
+<h3 id="plain-typescript-3">Plain TypeScript</h3>
+<p>JavaScript and TypeScript provide <code>throw</code> directly.</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> loadConfig</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">()</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Config</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> databaseUrl</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> process.env.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">DATABASE_URL</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  if</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">!</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">databaseUrl) {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    throw</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> new</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Error</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"DATABASE_URL is required"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">);</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    databaseUrl</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  };</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>The function either returns the required configuration or throws an exception.</p>
+<p>The caller can handle it at an appropriate boundary:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">try</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> config</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> loadConfig</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">  startApplication</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(config);</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">} </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">catch</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (error) {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  console.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">error</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"Application startup failed"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">, error);</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>Notice that the return type is simply <code>Config</code>. TypeScript does not encode the possibility of a thrown exception in this return type.</p>
+<h3 id="with-effect-3">With Effect</h3>
+<p>Effect distinguishes between expected typed failures and defects.</p>
+<p>A defect represents an unexpected failure that is not part of the normal typed error channel.</p>
+<p>We can use <code>Effect.sync()</code> to describe synchronous work that might throw.</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> loadConfig</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">()</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Effect</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">Effect</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">Config</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt; {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Effect.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">sync</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(() </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=&gt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> databaseUrl</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> process.env.</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">DATABASE_URL</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    if</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">!</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">databaseUrl) {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">      throw</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> new</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Error</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"DATABASE_URL is required"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">);</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">      databaseUrl</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    };</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  });</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>The thrown exception is captured as a defect by Effect rather than becoming a typed error.</p>
+<p>Usage:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> program</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> loadConfig</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">Effect.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">runPromise</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(program).</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">catch</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(console.error);</span></span></code></pre>
+<p>The defect can also be inspected through Effect’s failure-handling mechanisms.</p>
+<h3 id="comparison-3">Comparison</h3>
+<table>
+<thead>
+<tr>
+<th>Plain TypeScript</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>throw new Error(...)</code></td>
+<td>A defect, for example through <code>Effect.sync()</code> or <code>Effect.die()</code></td>
+</tr>
+<tr>
+<td>Exception propagates through the call stack</td>
+<td>Defect propagates through the Effect runtime</td>
+</tr>
+<tr>
+<td>Return type does not describe thrown exceptions</td>
+<td>Defects are represented in Effect’s <code>Cause</code>, not its typed error parameter</td>
+</tr>
+<tr>
+<td>Catch at an appropriate boundary</td>
+<td>Handle or inspect failures at an appropriate Effect boundary</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Important:</strong> <code>Effect.fail()</code> and <code>Effect.die()</code> are not interchangeable.</p>
+<ul>
+<li><code>Effect.fail(error)</code> represents an expected, typed failure.</li>
+<li><code>Effect.die(defect)</code> represents an unexpected defect.</li>
+</ul>
+<p>If you want the failure to be part of the function’s declared error type, use a typed error instead of a defect.</p>
+<hr>
+<h2 id="7-neither">7. Neither</h2>
+<h3 id="definition-4">Definition</h3>
+<p>Neither describes a best-effort operation whose failure must not interrupt the main execution flow.</p>
+<p>The function handles the failure locally, preserves observability where appropriate, and continues.</p>
+<p>It is useful for non-critical side effects such as telemetry and optional analytics.</p>
+<h3 id="plain-typescript-4">Plain TypeScript</h3>
+<p>We can use <code>try/catch</code> to contain the failure.</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">async</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> trackWithdrawal</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  event</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> WithdrawalEvent</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">)</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Promise</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">void</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt; {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  try</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    await</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> telemetry.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">send</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(event);</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">catch</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (error) {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    logger.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">warn</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">      {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        code: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"TEL-001"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">,</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        cause: </span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">String</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(error)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">      },</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">      "Telemetry delivery failed"</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    );</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>If telemetry fails, the error is handled locally.</p>
+<p>The caller does not need to handle the telemetry failure, and the main operation can continue.</p>
+<h3 id="with-effect-4">With Effect</h3>
+<p>Effect provides <code>Effect.catch()</code> to handle typed failures. In Effect v4, <code>Effect.catchAll()</code> was renamed to <code>Effect.catch()</code>.</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> trackWithdrawal</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  event</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> WithdrawalEvent</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">)</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Effect</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">Effect</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">void</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt; {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Effect.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">catch</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    telemetry.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">send</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(event),</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">    error</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">      Effect.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">logWarning</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">        `Telemetry delivery failed: ${</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">String</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">(</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">error</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">)</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">}`</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">      )</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  );</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>The failure is handled locally by logging a warning.</p>
+<p>The resulting Effect no longer has the original typed error in its error channel.</p>
+<p>Usage:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> program</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> trackWithdrawal</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(event);</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">Effect.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">runPromise</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(program);</span></span></code></pre>
+<h3 id="comparison-4">Comparison</h3>
+<table>
+<thead>
+<tr>
+<th>Plain TypeScript</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>try/catch</code></td>
+<td><code>Effect.catch()</code></td>
+</tr>
+<tr>
+<td>Handle the error locally</td>
+<td>Recover from the typed error locally</td>
+</tr>
+<tr>
+<td><code>logger.warn()</code></td>
+<td><code>Effect.logWarning()</code></td>
+</tr>
+<tr>
+<td>Function can resolve normally after failure</td>
+<td>Effect can complete successfully after recovery</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Important:</strong> Neither does not mean silently ignoring failures.</p>
+<p>Failures should remain observable through logging, monitoring, or another suitable mechanism.</p>
+<p>Also, <code>Effect.catch()</code> handles typed failures, not defects. In Effect v4, if the cause also contains a defect, such as a finalizer that dies after the effect failed, the handler does not run. If you intentionally need to recover from defects too, use <code>Effect.catchDefect()</code> or <code>Effect.catchCause()</code>, which replaces v3’s <code>Effect.catchAllCause()</code>. This should be used carefully.</p>
+<hr>
+<h2 id="8-complete-comparison">8. Complete Comparison</h2>
+<table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>Plain TypeScript</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Shot</strong></td>
+<td><code>T | null</code></td>
+<td><code>Option.Option&lt;T&gt;</code></td>
+</tr>
+<tr>
+<td><strong>Ladder</strong></td>
+<td>Ordered functions + fallback helper</td>
+<td><code>Effect.firstSuccessOf()</code></td>
+</tr>
+<tr>
+<td><strong>Estimation</strong></td>
+<td><code>Estimate&lt;T&gt;</code></td>
+<td><code>Effect&lt;Estimate&lt;T&gt;, E&gt;</code></td>
+</tr>
+<tr>
+<td><strong>Throw</strong></td>
+<td><code>throw</code> / exceptions</td>
+<td>Defects, such as <code>Effect.die()</code></td>
+</tr>
+<tr>
+<td><strong>Neither</strong></td>
+<td><code>try/catch</code> + local handling</td>
+<td><code>Effect.catch()</code></td>
+</tr>
+</tbody>
+</table>
+<p>The main difference is that plain TypeScript relies on ordinary language features and conventions, while Effect provides dedicated abstractions for representing and composing computations.</p>
+<hr>
+<h2 id="9-important-design-considerations">9. Important Design Considerations</h2>
+<h3 id="91-not-every-strategy-needs-a-special-type">9.1 Not Every Strategy Needs a Special Type</h3>
+<p>Some strategies have a natural type representation:</p>
+<ul>
+<li>Shot can use <code>T | null</code> or <code>Option&lt;T&gt;</code>.</li>
+<li>Estimation can use a generic <code>Estimate&lt;T&gt;</code> structure.</li>
+</ul>
+<p>Other strategies describe behavior rather than a return type:</p>
+<ul>
+<li>Ladder describes how alternatives are attempted.</li>
+<li>Throw describes how exceptional failures propagate.</li>
+<li>Neither describes how failures are contained locally.</li>
+</ul>
+<p>For example:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">type</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Throw</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">T</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt; </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> T</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">type</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Neither</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">T</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt; </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> T</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span></code></pre>
+<p>These aliases do not enforce throwing or failure containment. They are effectively the same type.</p>
+<p>The behavior must be implemented through the function itself.</p>
+<h3 id="92-expected-failures-and-exceptional-failures-are-different">9.2 Expected Failures and Exceptional Failures Are Different</h3>
+<p>An unsuccessful operation does not always mean an exception should be thrown.</p>
+<p>Consider these examples:</p>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Appropriate strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A requested user does not exist</td>
+<td>Shot</td>
+</tr>
+<tr>
+<td>A preferred image source is unavailable</td>
+<td>Ladder</td>
+</tr>
+<tr>
+<td>A delivery date must be predicted</td>
+<td>Estimation</td>
+</tr>
+<tr>
+<td>Required application configuration is missing</td>
+<td>Throw</td>
+</tr>
+<tr>
+<td>Optional telemetry cannot be delivered</td>
+<td>Neither</td>
+</tr>
+</tbody>
+</table>
+<p>Choose the strategy based on the operation’s contract, not simply on whether something went wrong.</p>
+<h3 id="93-the-strategies-can-be-combined">9.3 The Strategies Can Be Combined</h3>
+<p>The five strategies are not mutually exclusive.</p>
+<p>For example, a Ladder can contain several Shot operations:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="ts"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">async</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> getProfilePicture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  user</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> User</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">)</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Promise</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">Picture</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> |</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> null</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt; {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  return</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> firstSuccess</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">([</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    () </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=&gt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> getCustomPicture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(user),</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    () </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=&gt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> getSocialPicture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(user),</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    () </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=&gt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> getGooglePicture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(user)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  ]);</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>Each individual retrieval is a Shot, while the overall function is a Ladder.</p>
+<p>Similarly, an optional background process can use Ladder to try multiple providers and Neither to contain the failure if every provider is unavailable.</p>
+<hr>
+<h2 id="10-final-summary">10. Final Summary</h2>
+<p>The five strategies describe different decisions about function behavior:</p>
+<ol>
+<li><strong>Shot:</strong> Make one attempt to produce the intended value.</li>
+<li><strong>Ladder:</strong> Try ordered alternatives until one succeeds.</li>
+<li><strong>Estimation:</strong> Produce an approximate value with uncertainty information.</li>
+<li><strong>Throw:</strong> Propagate an exceptional failure.</li>
+<li><strong>Neither:</strong> Contain a non-critical failure locally.</li>
+</ol>
+<p>Both plain TypeScript and Effect can implement all five strategies.</p>
+<p>The choice between them depends on the application’s needs:</p>
+<ul>
+<li>Plain TypeScript is sufficient for many straightforward functions.</li>
+<li>Effect becomes useful when you need explicit error types, composable asynchronous operations, controlled failure propagation, and reusable recovery mechanisms.</li>
+</ul>
+<p>The objective is not to introduce a library for every function. It is to make each function’s behavior intentional, predictable, and clear to its callers.</p>
+<hr>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://effect.website/blog/releases/effect/40">Effect 4.0 release post</a></li>
+<li><a href="https://effect.website/docs/v4/getting-started/">Effect v4 documentation — Getting Started</a></li>
+<li><a href="https://github.com/Effect-TS/effect/blob/main/MIGRATION.md">Effect v3 to v4 migration guide (MIGRATION.md)</a></li>
+<li><a href="https://github.com/Effect-TS/effect/blob/main/migration/error-handling.md">Error handling: <code>catch*</code> renamings</a></li>
+<li><a href="https://github.com/Effect-TS/effect/blob/main/packages/effect/CHANGELOG.md">Effect changelog (packages/effect/CHANGELOG.md)</a></li>
+</ul>
+</div><nav class="post-nav" aria-label="More posts"><a class="post-nav__link" href="/amr-tech/blogs/Result Output Strategies/"><span class="post-nav__label">← Previous</span><span>Function Outcome Strategies</span></a></nav></article><details class="version-box"><summary class="version-box__toggle"><span class="version-box__marker">v2</span><span>2 versions</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 15l-6-6-6 6"></path></svg></summary><div class="version-box__menu"><a class="version-box__item" href="/amr-tech/blogs/Result Output Strategies/v1/"><span class="version-box__marker">v1</span><span>Result Output Strategies</span></a><a class="version-box__item is-current" href="/amr-tech/blogs/Result Output Strategies/"><span class="version-box__marker">v2</span><span>Function Outcome Strategies</span></a></div></details><aside class="toc-rail"><button class="toc-rail__toggle" type="button" data-toc-toggle aria-expanded="false" aria-controls="toc-panel"><svg class="toc-rail__chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M9 18l6-6-6-6"></path></svg><span>Contents</span></button><nav class="toc-rail__panel" id="toc-panel" aria-label="Table of contents"><nav class="toc" aria-label="Table of contents"><h2 class="toc__title">Table of Contents</h2><ol class="toc__list"><li><a class="toc__link" href="#1-introduction">1. Introduction</a></li><li><a class="toc__link" href="#2-shared-types">2. Shared Types</a></li><li><a class="toc__link" href="#3-shot">3. Shot</a><ul><li class="toc__item--sub"><a class="toc__link" href="#definition">Definition</a></li><li class="toc__item--sub"><a class="toc__link" href="#plain-typescript">Plain TypeScript</a></li><li class="toc__item--sub"><a class="toc__link" href="#with-effect">With Effect</a></li><li class="toc__item--sub"><a class="toc__link" href="#comparison">Comparison</a></li></ul></li><li><a class="toc__link" href="#4-ladder">4. Ladder</a><ul><li class="toc__item--sub"><a class="toc__link" href="#definition-1">Definition</a></li><li class="toc__item--sub"><a class="toc__link" href="#plain-typescript-1">Plain TypeScript</a></li><li class="toc__item--sub"><a class="toc__link" href="#with-effect-1">With Effect</a></li><li class="toc__item--sub"><a class="toc__link" href="#comparison-1">Comparison</a></li></ul></li><li><a class="toc__link" href="#5-estimation">5. Estimation</a><ul><li class="toc__item--sub"><a class="toc__link" href="#definition-2">Definition</a></li><li class="toc__item--sub"><a class="toc__link" href="#plain-typescript-2">Plain TypeScript</a></li><li class="toc__item--sub"><a class="toc__link" href="#with-effect-2">With Effect</a></li><li class="toc__item--sub"><a class="toc__link" href="#comparison-2">Comparison</a></li></ul></li><li><a class="toc__link" href="#6-throw">6. Throw</a><ul><li class="toc__item--sub"><a class="toc__link" href="#definition-3">Definition</a></li><li class="toc__item--sub"><a class="toc__link" href="#plain-typescript-3">Plain TypeScript</a></li><li class="toc__item--sub"><a class="toc__link" href="#with-effect-3">With Effect</a></li><li class="toc__item--sub"><a class="toc__link" href="#comparison-3">Comparison</a></li></ul></li><li><a class="toc__link" href="#7-neither">7. Neither</a><ul><li class="toc__item--sub"><a class="toc__link" href="#definition-4">Definition</a></li><li class="toc__item--sub"><a class="toc__link" href="#plain-typescript-4">Plain TypeScript</a></li><li class="toc__item--sub"><a class="toc__link" href="#with-effect-4">With Effect</a></li><li class="toc__item--sub"><a class="toc__link" href="#comparison-4">Comparison</a></li></ul></li><li><a class="toc__link" href="#8-complete-comparison">8. Complete Comparison</a></li><li><a class="toc__link" href="#9-important-design-considerations">9. Important Design Considerations</a><ul><li class="toc__item--sub"><a class="toc__link" href="#91-not-every-strategy-needs-a-special-type">9.1 Not Every Strategy Needs a Special Type</a></li><li class="toc__item--sub"><a class="toc__link" href="#92-expected-failures-and-exceptional-failures-are-different">9.2 Expected Failures and Exceptional Failures Are Different</a></li><li class="toc__item--sub"><a class="toc__link" href="#93-the-strategies-can-be-combined">9.3 The Strategies Can Be Combined</a></li></ul></li><li><a class="toc__link" href="#10-final-summary">10. Final Summary</a></li><li><a class="toc__link" href="#references">References</a></li></ol></nav></nav></aside></div><script type="module" src="/amr-tech/_astro/BlogPost.astro_astro_type_script_index_0_lang.DJQIz5e0.js"></script><section class="related" data-related aria-label="Related posts"><div class="related__head"><h2 class="related__title">Related posts</h2></div><div class="related__tabs" role="tablist" aria-label="Filter related posts by category"><button class="related__tab related__tab--active" type="button" role="tab" aria-selected="true" data-rel-tab="">All</button><button class="related__tab" type="button" role="tab" aria-selected="false" data-rel-tab="Architecture">Architecture</button><button class="related__tab" type="button" role="tab" aria-selected="false" data-rel-tab="Software Architecture">Software Architecture</button></div><ul class="related__list"><li class="related__row" data-rel-cat="Software Architecture"><span class="related__date meta-label">12 Nov 2026</span><a class="related__link" href="/amr-tech/blogs/layers-in-software-architecture/" lang="en">Layers in Software Architecture</a><span class="related__time meta-label">3 min</span></li><li class="related__row" data-rel-cat="Software Architecture"><span class="related__date meta-label">12 Nov 2026</span><a class="related__link" href="/amr-tech/blogs/probability-and-certainty/" lang="en">Probability and Certainty in Software Engineering</a><span class="related__time meta-label">5 min</span></li><li class="related__row" data-rel-cat="Software Architecture"><span class="related__date meta-label">12 Nov 2026</span><a class="related__link" href="/amr-tech/blogs/responsibility-ownership/" lang="en">Responsibility Ownership in Software Architecture</a><span class="related__time meta-label">2 min</span></li><li class="related__row" data-rel-cat="Architecture"><span class="related__date meta-label">03 Nov 2026</span><a class="related__link" href="/amr-tech/blogs/pvc/" lang="en">PVC — A Role-Based UI Construction Architecture</a><span class="related__time meta-label">108 min</span></li></ul></section><script type="module">function e(){let e=document.querySelector(`[data-related]`);if(e){let t=[...e.querySelectorAll(`[data-rel-tab]`)],n=[...e.querySelectorAll(`.related__row`)],r=e.querySelector(`[data-rel-more]`);function i(){let i=t.find(e=>e.classList.contains(`related__tab--active`))?.dataset.relTab??``,a=e.hasAttribute(`data-expanded`),o=0;for(let e of n)i&&e.dataset.relCat!==i?e.style.display=`none`:(o++,e.style.display=!a&&o>5?`none`:``);r&&(r.style.display=!a&&o>5?``:`none`)}for(let n of t)n.addEventListener(`click`,()=>{for(let e of t)e.classList.remove(`related__tab--active`),e.setAttribute(`aria-selected`,`false`);n.classList.add(`related__tab--active`),n.setAttribute(`aria-selected`,`true`),e.removeAttribute(`data-expanded`),i()});r?.addEventListener(`click`,()=>{e.setAttribute(`data-expanded`,``),i()}),i()}}window.__bindRelated_bound||(window.__bindRelated_bound=!0,document.addEventListener(`astro:page-load`,e));</script><script type="module" src="/amr-tech/_astro/BlogPost.astro_astro_type_script_index_1_lang.DJQIz5e0.js"></script></main><footer class="site-footer"><div class="site-footer__inner"><span class="meta-label">© 2026 Amr</span><nav class="site-footer__links" aria-label="Footer"><a href="/amr-tech/blogs/">Blog</a><a href="/amr-tech/rss.xml">RSS</a><a href="/amr-tech/llms.txt">llms.txt</a></nav></div></footer></body></html>

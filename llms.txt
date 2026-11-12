@@ -6,8 +6,11 @@ Each post lists all published versions. Append `.md` to any version URL for the 
 
 ## Posts
 
-- [Result Output Strategies](https://alaamer12.github.io/amr-tech/blogs/Result%20Output%20Strategies/): v2, 2026-11-08
+- [Function Outcome Strategies](https://alaamer12.github.io/amr-tech/blogs/Result%20Output%20Strategies/): v2, 2026-11-12
 - [Result Output Strategies](https://alaamer12.github.io/amr-tech/blogs/Result%20Output%20Strategies/v1/): v1, 2026-11-08
+- [Layers in Software Architecture](https://alaamer12.github.io/amr-tech/blogs/layers-in-software-architecture/): v1, 2026-11-12, Software Architecture
+- [Probability and Certainty in Software Engineering](https://alaamer12.github.io/amr-tech/blogs/probability-and-certainty/): v1, 2026-11-12, Software Architecture
+- [Responsibility Ownership in Software Architecture](https://alaamer12.github.io/amr-tech/blogs/responsibility-ownership/): v1, 2026-11-12, Software Architecture
 - [PVC — A Role-Based UI Construction Architecture](https://alaamer12.github.io/amr-tech/blogs/pvc/): v1, 2026-11-03, Architecture
   - [The Base Layer](https://alaamer12.github.io/amr-tech/blogs/pvc/base/)
   - [A Role-Based UI Construction Architecture for Web Applications](https://alaamer12.github.io/amr-tech/blogs/pvc/base/architecture/)

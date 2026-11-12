@@ -1,26 +1,27 @@
 ---
-thumbnail: ./v2-cover.jpg
+thumbnail: ./v1-cover.jpg
 ---
 
-# Function Outcome Strategies
+# Shot, Ladder, and Estimation
 
 ## 1. Overview
 
-Functions do not all need to handle unsuccessful operations in the same way.
+Within the **Throw / Result / Neither (TRN)** error-handling model, Result defines how a function communicates an expected outcome or failure to its caller.
 
-Some functions attempt to produce one specific value. Others try alternative approaches, produce estimates, propagate exceptional failures, or perform optional operations without allowing failures to affect the main execution flow.
+However, not all successful results are produced in the same way.
 
-This document defines five function outcome strategies:
+A function may:
+- Attempt to produce one specific, useful value and fail if it cannot.
+- Try multiple alternatives, progressively accepting less valuable results.
+- Produce an estimated value when an exact value cannot be known.
 
-1. **Shot** — Attempt to produce one specific value.
-2. **Ladder** — Progressively attempt alternative ways of producing a useful value.
-3. **Estimation** — Produce an estimated or probabilistic value.
-4. **Throw** — Propagate an exceptional failure.
-5. **Neither** — Contain a failure locally without propagating it or returning it as an error.
+To classify these behaviors, we introduce three Result Output Strategies:
 
-These strategies provide a vocabulary for deciding how individual functions should behave when executing their responsibilities.
+1. **Shot** — Single-attempt result.
+2. **Ladder** — Progressive fallback result.
+3. **Estimation** — Probabilistic or uncertain result.
 
-They are architectural conventions, not five universally standardized programming constructs. Their implementation depends on the programming language and application architecture.
+These strategies describe **how a function obtains and delivers its output**, rather than how it communicates errors.
 
 ---
 
@@ -28,45 +29,46 @@ They are architectural conventions, not five universally standardized programmin
 
 ### Definition
 
-Shot describes a function that makes one attempt to produce a specific intended value.
+Shot is a result strategy in which a function attempts to produce one specific intended value.
 
-The function has a clearly defined target outcome. It either successfully produces that value or cannot produce a useful value.
+The function either:
+- Successfully produces the intended useful value.
+- Fails to produce a useful value and returns an appropriate failure.
 
-It does not attempt alternative strategies or substitute a different value when its primary attempt fails.
+There is no fallback mechanism and no progressive degradation of the expected output.
 
 ### Characteristics
 
-- Has one intended output.
-- Makes one logical attempt to obtain that output.
-- Does not use fallback alternatives.
-- Either produces the intended useful value or reports that it could not.
-- Does not imply that the underlying implementation must execute only one instruction or one physical operation.
+- Has one primary target outcome.
+- Does not substitute alternative values when the intended value is unavailable.
+- Returns a useful value on success.
+- Returns an explicit failure when it cannot produce that value.
 
 ### Example
 
 ```typescript
-function getUser(id: string): User | null {
+function getUser(id: string): Result<User, DomainError> {
   const user = database.findUser(id);
 
-  if (!user) return null;
+  if (!user) {
+    return err(userNotFound(id));
+  }
 
-  return user;
+  return ok(user);
 }
 ```
 
-The function attempts to retrieve one specific user.
+The function either returns the requested user or communicates that the user does not exist.
 
-If the user exists, it returns that user. Otherwise, it returns no useful value.
-
-It does not search for another user or substitute a default user.
+It does not return another user's information, a default user, or an approximate user.
 
 ### Appropriate Use Cases
 
 - Retrieving a specific database record.
-- Reading a specific configuration value.
 - Validating a particular input.
-- Checking whether a particular resource exists.
-- Performing a calculation with a clearly defined output.
+- Performing a required calculation.
+- Checking whether a specific resource exists.
+- Executing a business operation with a clearly defined expected outcome.
 
 ---
 
@@ -74,68 +76,69 @@ It does not search for another user or substitute a default user.
 
 ### Definition
 
-Ladder describes a function that attempts to produce the best available value by following an ordered hierarchy of alternatives.
+Ladder is a result strategy in which a function attempts to produce the best available value through a predefined hierarchy of alternatives.
 
-Instead of depending on one specific approach, the function tries multiple approaches in priority order.
+If the preferred approach cannot produce a useful result, the function moves to the next alternative.
 
-If a preferred approach cannot produce an acceptable result, it moves to the next alternative.
+This continues until:
+- A sufficiently useful value is produced.
+- All available alternatives are exhausted.
 
-The process continues until a sufficiently useful value is obtained or all acceptable alternatives are exhausted.
+The function aims to maximize the usefulness of its output rather than requiring one exact source or method.
 
 ### Characteristics
 
-- Has multiple possible output paths.
-- Alternatives follow an intentional priority order.
-- Each alternative may provide a different level of quality, completeness, or availability.
-- A lower-priority alternative is considered when a higher-priority alternative fails or is unsuitable.
-- Can return a less valuable but still acceptable result.
-- Can fail when no acceptable alternative remains.
+- Has multiple possible output sources or strategies.
+- Alternatives follow an intentional priority or quality order.
+- A lower-priority alternative is attempted when a higher-priority alternative is unavailable or unsuitable.
+- The returned value may have lower quality or completeness than the preferred value.
+- Failure is returned only when no acceptable alternative remains.
 
 ### Example
 
 ```typescript
 async function getProfilePicture(
   user: User
-): Promise<ProfilePicture | null> {
+): Promise<Result<ProfilePicture, DomainError>> {
 
   const custom = await getCustomPicture(user);
-  if (custom) return custom;
+  if (custom) return ok(custom);
 
   const social = await getSocialPicture(user);
-  if (social) return social;
+  if (social) return ok(social);
 
-  const fallback = await getDefaultAvatar();
-  if (fallback) return fallback;
+  const defaultPicture = await getDefaultAvatar();
+  if (defaultPicture) return ok(defaultPicture);
 
-  return null;
+  return err(profilePictureUnavailable());
 }
 ```
 
-The function follows this hierarchy:
+The function follows this priority:
 
-1. Custom profile picture.
+1. User's custom picture.
 2. Social profile picture.
 3. Default avatar.
 4. No useful value.
 
-Each step provides an alternative way of obtaining an acceptable result.
+Each alternative provides a different level or source of value.
 
 ### Appropriate Use Cases
 
-- Multiple data providers.
+- Profile pictures and user-facing assets.
 - Cache retrieval with database fallback.
-- Alternative image or content sources.
-- Local-first applications.
-- Remote synchronization.
+- Multiple data providers.
+- Content retrieval from alternative sources.
+- Local-first applications with remote synchronization fallbacks.
 - Services that support degraded operation.
 
-### Important Considerations
+### Important Consideration
 
-A Ladder must have a meaningful priority order and a defined minimum acceptable result.
+A Ladder must have a meaningful fallback policy.
 
-Not every alternative is necessarily a valid substitute.
+Not every available value is an acceptable substitute. Alternatives must preserve the minimum correctness and usefulness required by the caller.
 
-For example, returning outdated financial information instead of current information might be misleading or dangerous unless the caller is explicitly informed about its age.
+For example, returning stale financial information as a fallback for current financial information may be unsafe unless its age and limitations are explicitly communicated.
 
 ---
 
@@ -143,20 +146,19 @@ For example, returning outdated financial information instead of current informa
 
 ### Definition
 
-Estimation describes a function that produces an estimated value when an exact or directly known value is unavailable or cannot reasonably be obtained.
+Estimation is a result strategy in which a function produces an estimated value rather than claiming to have obtained an exact or guaranteed value.
 
-Instead of claiming certainty, the function provides its best available approximation based on available information, statistical models, historical observations, heuristics, or predictive algorithms.
+The output represents the function's best available estimate based on incomplete information, statistical models, historical observations, heuristics, or other predictive methods.
 
-The output may include additional information describing its uncertainty.
+Where appropriate, the estimate includes uncertainty information, such as a probability, confidence measure, or prediction interval.
 
 ### Characteristics
 
-- Produces an estimated or predicted value.
-- Does not claim that the output is guaranteed to be exact.
-- Can use incomplete information.
-- Can include probability, confidence, uncertainty, or prediction intervals.
-- Requires an appropriate interpretation of the uncertainty information.
-- May be unable to produce an estimate if insufficient information is available.
+- Does not require an exact or directly observable value.
+- Produces an estimated or predicted output.
+- Can include a measure of uncertainty.
+- The estimated value must not be presented as a guaranteed fact.
+- The uncertainty measure must have a clearly defined meaning.
 
 ### Example
 
@@ -168,265 +170,132 @@ type Estimate<T> = {
 
 function estimateDeliveryDate(
   order: Order
-): Estimate<Date> {
+): Result<Estimate<Date>, DomainError> {
 
   const prediction = deliveryModel.predict(order);
 
-  return {
+  return ok({
     value: prediction.date,
     confidence: prediction.confidence
-  };
+  });
 }
 ```
 
-The function predicts a delivery date and provides a confidence measure.
+The function returns a predicted delivery date alongside a confidence measure.
 
-The returned date is an estimate, not a guaranteed delivery date.
+The date is an estimate, not a guaranteed delivery date.
 
 ### Appropriate Use Cases
 
 - Predicting delivery dates.
 - Estimating project completion times.
-- Forecasting demand.
-- Estimating missing measurements.
-- Machine learning predictions.
+- Predicting demand.
+- Estimating missing or unavailable measurements.
 - Statistical forecasting.
-- Estimating resource consumption.
+- Machine learning predictions.
+- Reconstructing values from incomplete information.
 
 ### Important Considerations
 
-Probability and confidence are not automatically interchangeable.
+**Probability and confidence are not interchangeable.**
 
-A probability should describe a clearly defined event. For example, an 85% probability of delivery by Thursday.
+A probability should describe a clearly defined event, such as:
+
+- There is an 85% probability that delivery will occur by Thursday.
 
 A confidence score may instead represent a model-specific measure of certainty or a ranking score.
 
-A numeric score between 0 and 1 does not automatically represent a statistically valid probability.
+A value between 0 and 1 does not automatically represent a statistically valid probability.
 
-Where reliability matters, estimates should be calibrated and evaluated against actual outcomes.
-
----
-
-## 5. Throw
-
-### Definition
-
-Throw describes a function that propagates an exceptional failure instead of treating it as an ordinary output.
-
-It is appropriate when an operation cannot continue according to its contract and the failure should be handled by an appropriate higher-level boundary.
-
-The function does not convert the exceptional failure into an ordinary absence value or silently ignore it.
-
-### Characteristics
-
-- Propagates an exception or equivalent exceptional signal.
-- Indicates that the operation could not complete according to its contract.
-- Does not require every intermediate caller to handle the failure.
-- Allows higher-level boundaries to catch, log, recover from, or terminate execution.
-- Is appropriate for broken invariants and failures that cannot be meaningfully handled at the current level.
-
-### Example
-
-```typescript
-function loadConfig(): Config {
-  const databaseUrl = process.env.DATABASE_URL;
-
-  if (!databaseUrl) {
-    throw new Error("DATABASE_URL is required");
-  }
-
-  return {
-    databaseUrl
-  };
-}
-```
-
-The application cannot operate without the required configuration.
-
-Instead of returning an ordinary unsuccessful outcome, the function throws an exception.
-
-The failure propagates to an appropriate application boundary.
-
-### Appropriate Use Cases
-
-- Missing mandatory configuration.
-- Violated internal invariants.
-- Corrupted state that makes continued execution unsafe.
-- Unexpected programming errors.
-- Failures that cannot be meaningfully recovered from at the current abstraction level.
-
-### Important Considerations
-
-Throw should not become the default mechanism for every unsuccessful operation.
-
-Expected business outcomes, such as insufficient funds or an unavailable username, should generally be communicated through ordinary function outputs rather than exceptional failures.
-
-Also, whether a technical failure is exceptional depends on the operation's contract. A database timeout might be an ordinary recoverable failure in one operation and an unrecoverable startup failure in another.
+Where statistical reliability matters, estimates should be calibrated and evaluated against actual outcomes.
 
 ---
 
-## 6. Neither
+## 5. Comparison
 
-### Definition
-
-Neither describes a function that performs an operation whose failure must not affect the main execution flow.
-
-If the operation fails, the function handles the failure locally, preserves observability where appropriate, and continues without propagating an exception or returning an error to its caller.
-
-The function is generally used for best-effort operations and non-critical side effects.
-
-### Characteristics
-
-- Does not propagate an ordinary failure to its caller.
-- Does not return an error result for the contained failure.
-- Handles the failure locally.
-- Can log structured warnings or report failures through monitoring.
-- Allows the primary operation to continue.
-- Must not be used when the failed operation is necessary for correctness or safety.
-
-### Example
-
-```typescript
-async function trackWithdrawal(
-  event: WithdrawalEvent
-): Promise<void> {
-
-  try {
-    await telemetry.send(event);
-  } catch (error) {
-    logger.warn(
-      {
-        code: "TEL-001",
-        cause: String(error)
-      },
-      "Telemetry delivery failed"
-    );
-  }
-}
-```
-
-The function attempts to send a telemetry event.
-
-If telemetry fails, the failure is contained locally. The withdrawal operation is not interrupted simply because an optional analytics service is unavailable.
-
-### Appropriate Use Cases
-
-- Sending optional telemetry.
-- Warming non-essential caches.
-- Sending non-critical analytics events.
-- Updating optional recommendations.
-- Performing non-essential background tasks.
-- Writing diagnostic breadcrumbs.
-
-### Important Considerations
-
-Neither does not mean silently ignoring failures.
-
-Failures should remain observable through appropriate logging, monitoring, or other operational mechanisms.
-
-It must not be used for operations whose successful completion is required for correctness, security, financial integrity, or user expectations.
-
-For example, a failed financial transaction must never be treated as a Neither failure.
+| Characteristic | Shot | Ladder | Estimation |
+|---|---|---|---|
+| Primary objective | Obtain a specific value | Obtain the best available value | Predict or approximate a value |
+| Output sources | One intended target | Multiple alternatives | Model, observations, or assumptions |
+| Fallbacks | None | Yes | Not required |
+| Exactness | Intended exact value | Depends on selected alternative | Not guaranteed |
+| Failure possibility | Yes | Yes, after exhausting alternatives | Yes, if estimation is impossible |
+| Uncertainty | Usually not represented | May vary by alternative | Explicitly represented where appropriate |
 
 ---
 
-## 7. Comparison
+## 6. Relationship Between the Three Strategies
 
-| Strategy | Primary behavior | When unsuccessful |
-|---|---|---|
-| Shot | Attempts one intended output | Produces no useful value |
-| Ladder | Tries ordered alternatives | Fails after exhausting alternatives |
-| Estimation | Produces an approximate output | May be unable to estimate |
-| Throw | Attempts an operation under an exceptional contract | Propagates an exception |
-| Neither | Performs a best-effort operation | Contains the failure locally |
+These strategies describe different ways of producing a Result. They should not automatically be considered mutually exclusive.
 
----
+For example, a Ladder may use an Estimation strategy as one of its fallback alternatives.
 
-## 8. Choosing the Appropriate Strategy
+Consider a delivery-date service:
 
-The following questions provide a practical decision process.
+1. Retrieve the confirmed delivery date.
+2. If unavailable, retrieve a carrier-provided estimated date.
+3. If unavailable, calculate an estimated date using historical delivery data.
+4. If no meaningful estimate can be produced, return a failure.
 
-### Question 1: Is the operation optional?
+This combines Ladder and Estimation.
 
-If the operation is non-critical and its failure must not interrupt the main flow, consider **Neither**.
+Therefore:
 
-### Question 2: Is the failure exceptional?
+- **Shot** describes a single intended output path.
+- **Ladder** describes progressive alternatives.
+- **Estimation** describes the epistemic nature of an output: it is estimated rather than known exactly.
 
-If the operation cannot continue according to its contract and the failure should propagate to a higher-level boundary, use **Throw**.
-
-### Question 3: Does the function need to produce an approximate value?
-
-If the output represents a prediction or approximation rather than a guaranteed value, use **Estimation**.
-
-### Question 4: Can the function use alternative approaches?
-
-If the function has multiple acceptable ways to produce a useful value, use **Ladder**.
-
-### Question 5: Is there only one intended output?
-
-If the function has one specific target and no fallback strategy, use **Shot**.
+They are useful classifications, but they do not necessarily represent three mutually exclusive execution models.
 
 ---
 
-## 9. Combining Strategies
+## 7. Relationship With Throw / Result / Neither
 
-The five strategies describe different aspects of function behavior. They should not be treated as five mutually exclusive implementation mechanisms.
+The three output strategies belong inside the broader Result contract.
 
-Some strategies can be combined when the function's responsibilities require it.
+They do not replace the TRN classification.
+
+TRN determines how a failure is communicated:
+
+- Throw: propagate an exceptional failure.
+- Result: return an explicit success or failure.
+- Neither: contain a non-critical failure locally and continue.
+
+Shot, Ladder, and Estimation describe the behavior of functions that use Result.
 
 For example:
 
-**Ladder + Estimation**
+| Scenario | TRN Contract | Output Strategy |
+|---|---|---|
+| Retrieve a specific user | Result | Shot |
+| Retrieve an image using alternative providers | Result | Ladder |
+| Predict a delivery date | Result | Estimation |
+| Retrieve a cached value, then fall back to a database | Result | Ladder |
+| Send optional analytics | Neither | Not applicable |
 
-A delivery service might:
-1. Retrieve a confirmed delivery date.
-2. Retrieve a carrier-provided estimated date.
-3. Calculate an estimated date using historical data.
-4. Return no useful value if no acceptable result can be produced.
-
-**Ladder + Shot**
-
-A function might use a primary retrieval attempt and one or more fallback retrieval attempts, where each individual retrieval operation follows Shot.
-
-**Neither + Ladder**
-
-An optional background process might attempt multiple providers to warm a cache. If every provider fails, the failure is contained locally and the main application continues.
-
-**Throw + Shot**
-
-A function might attempt one specific operation and throw when a required invariant is violated.
-
-These combinations demonstrate that the strategies can describe different levels of a function's behavior.
+A function's output strategy should be selected independently of its failure-reporting contract.
 
 ---
 
-## 10. Design Principles
+## 8. Design Principles
 
-When applying these strategies, follow these principles:
+When implementing these strategies, follow these principles:
 
-1. **Make the contract explicit:** Callers should understand what a function promises to produce and what happens when it cannot.
-2. **Preserve correctness:** Never return an alternative value that violates the function's requirements.
-3. **Make degradation visible:** If a Ladder returns a lower-quality alternative, expose its source or limitations when relevant.
-4. **Represent uncertainty honestly:** Estimates must not be presented as guaranteed facts.
-5. **Keep exceptional failures exceptional:** Do not use Throw for ordinary business outcomes.
-6. **Preserve observability:** Neither must not hide operational problems.
-7. **Avoid unnecessary complexity:** Use the simplest strategy that satisfies the function's contract.
-8. **Define recovery boundaries:** Make it clear which layer is responsible for handling propagated exceptions.
+1. **Preserve correctness:** A fallback must not introduce an invalid or misleading value.
+2. **Make degradation visible:** When a Ladder returns a lower-quality alternative, expose its source or quality when that information matters.
+3. **Represent uncertainty honestly:** An estimate must never be presented as a guaranteed value.
+4. **Do not hide failures:** Exhausting all acceptable alternatives should produce an explicit failure when the operation requires a useful result.
+5. **Keep contracts explicit:** Callers should understand whether they are receiving an exact value, a fallback, or an estimate.
+6. **Avoid unnecessary complexity:** Use Shot when one outcome is sufficient. Do not introduce a Ladder or Estimation mechanism without a real need.
 
 ---
 
-## 11. Final Summary
+## 9. Summary
 
-The five strategies provide a way to describe how functions behave when producing outputs or handling unsuccessful operations.
+The Result Output Strategies provide a way to classify how a function produces useful values:
 
-| Strategy | Core idea |
-|---|---|
-| **Shot** | One intended output, otherwise no useful value. |
-| **Ladder** | Progressively seek acceptable alternatives. |
-| **Estimation** | Produce an estimated value with appropriate uncertainty. |
-| **Throw** | Propagate an exceptional failure. |
-| **Neither** | Contain a non-critical failure and continue. |
+- **Shot:** One intended value, otherwise failure.
+- **Ladder:** Progressively seek acceptable alternatives until a useful value is found or all alternatives are exhausted.
+- **Estimation:** Produce an estimated value and represent its uncertainty appropriately.
 
-Together, these strategies establish a practical vocabulary for function contracts, output behavior, failure propagation, fallback policies, and uncertainty.
-
-The objective is not to force every function into a complicated framework. It is to make the function's behavior intentional, predictable, and understandable to the developers who use and maintain it.
+Together, they provide a vocabulary for describing not only whether a function succeeds, but also the nature and quality of the value it delivers.
