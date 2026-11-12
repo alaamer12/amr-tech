@@ -138,7 +138,7 @@ const coverUrl = coverMeta ? null : meta.thumbnailUrl;
       </figure>
     )}
 
-    {post.isTree && <TreeNav post={post} current={page ? page.urlPath : ''} />}
+    {post.isTree && post.tree && post.tree.length > 1 && <TreeNav post={post} current={page ? page.urlPath : ''} />}
 
     <div class="toc-inline">
       <ToC headings={headings} />

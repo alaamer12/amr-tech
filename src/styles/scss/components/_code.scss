@@ -1,9 +1,12 @@
 @use '../abstracts/variables' as v;
 
-// Shiki dual themes (defaultColor: false): every token span carries both
-// --shiki color sets; the dark theme swaps them at runtime.
+// Shiki dual themes: defaultColor is false, meaning Shiki outputs CSS variables
+// (--shiki-light, --shiki-dark, --shiki-light-bg, --shiki-dark-bg) on each span.
+// We apply --shiki-light by default (or explicitly in light mode), and switch
+// to --shiki-dark in dark mode.
 .astro-code {
   text-align: start;
+  color: var(--shiki-light);
   background-color: var(--code-bg);
   border: 1px solid var(--border);
   border-radius: v.$radius-md;
@@ -13,19 +16,26 @@
   font-family: var(--font-mono);
   font-size: v.$text-small;
   line-height: 1.6;
+
+  span {
+    color: var(--shiki-light);
+  }
+}
+
+[data-theme='light'] .astro-code,
+[data-theme='light'] .astro-code span {
+  color: var(--shiki-light);
 }
 
 [data-theme='dark'] .astro-code,
 [data-theme='dark'] .astro-code span {
   color: var(--shiki-dark) !important;
-  background-color: var(--shiki-dark-bg) !important;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) .astro-code,
   :root:not([data-theme]) .astro-code span {
     color: var(--shiki-dark) !important;
-    background-color: var(--shiki-dark-bg) !important;
   }
 }
 
