@@ -10,7 +10,8 @@
     "build:ci": "astro build && bun run emit-mirrors && pagefind --site dist --force-language en",
     "preview": "astro preview",
     "emit-mirrors": "node scripts/emit-mirrors.mjs",
-    "deploy:gh-pages": "node scripts/deploy-gh-pages.mjs"
+    "deploy:gh-pages": "node scripts/deploy-gh-pages.mjs",
+    "lint:code-blocks": "node scripts/lint-code-blocks.mjs"
   },
   "keywords": [],
   "author": "",
