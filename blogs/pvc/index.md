@@ -4,6 +4,7 @@ description: "The complete PVC documentation set: five architectural roles (Page
 date: 2026-11-03
 category: "Architecture"
 tags: ["architecture", "frontend", "react", "component-design", "project-structure"]
+thumbnail: ./cover.jpg
 order: 0
 ---
 

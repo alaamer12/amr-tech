@@ -1,0 +1,373 @@
+<!DOCTYPE html><html lang="en" data-base="/amr-tech/"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Result Output Strategies — Amr</title><meta name="description" content="Within the Throw / Result / Neither (TRN) error handling model, Result defines how a function communicates an expected outcome or failure to its caller."><link rel="canonical" href="https://alaamer12.github.io/amr-tech/blogs/Result%20Output%20Strategies/v1/"><meta property="og:site_name" content="Amr"><meta property="og:title" content="Result Output Strategies — Amr"><meta property="og:type" content="article"><meta property="og:url" content="https://alaamer12.github.io/amr-tech/blogs/Result%20Output%20Strategies/v1/"><meta property="og:image" content="https://alaamer12.github.io/amr-tech/_astro/v1-cover.XuU5Ou34_RFnq3.webp"><meta property="og:description" content="Within the Throw / Result / Neither (TRN) error handling model, Result defines how a function communicates an expected outcome or failure to its caller."><meta property="og:locale" content="en_US"><meta property="article:published_time" content="2026-11-08T16:41:05.000Z"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Result Output Strategies — Amr"><meta name="twitter:description" content="Within the Throw / Result / Neither (TRN) error handling model, Result defines how a function communicates an expected outcome or failure to its caller."><meta name="twitter:image" content="https://alaamer12.github.io/amr-tech/_astro/v1-cover.XuU5Ou34_RFnq3.webp"><link rel="alternate" type="application/rss+xml" title="Amr" href="/amr-tech/rss.xml"><link rel="sitemap" type="application/xml" href="/amr-tech/sitemap-index.xml"><link rel="icon" type="image/svg+xml" href="/amr-tech/favicon.svg"><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/amr-tech/_astro/ClientRouter.astro_astro_type_script_index_0_lang.DXqcZz58.js"></script><script type="application/ld+json">[{"@context":"https://schema.org","@type":"BlogPosting","headline":"Result Output Strategies","description":"Within the Throw / Result / Neither (TRN) error handling model, Result defines how a function communicates an expected outcome or failure to its caller.","url":"https://alaamer12.github.io/amr-tech/blogs/Result%20Output%20Strategies/v1/","image":"https://alaamer12.github.io/amr-tech/_astro/v1-cover.XuU5Ou34_RFnq3.webp","datePublished":"2026-11-08T16:41:05.000Z","dateModified":"2026-11-08T16:41:05.000Z","inLanguage":"en","author":{"@type":"Person","name":"Amr"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://alaamer12.github.io/amr-tech//"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://alaamer12.github.io/amr-tech/blogs/"},{"@type":"ListItem","position":3,"name":"Result Output Strategies","item":"https://alaamer12.github.io/amr-tech/blogs/Result%20Output%20Strategies/v1/"}]}]</script><link rel="stylesheet" href="/amr-tech/_astro/BaseLayout.BTeEYYcC.css"><style>@layer astro.images{:where([data-astro-image]){height:auto}:where([data-astro-image=full-width]){width:100%}:where([data-astro-image=constrained]){max-width:100%}[data-astro-image-fit=fill]{object-fit:fill}[data-astro-image-fit=contain]{object-fit:contain}[data-astro-image-fit=cover]{object-fit:cover}[data-astro-image-fit=scale-down]{object-fit:scale-down}[data-astro-image-pos=top]{object-position:top}[data-astro-image-pos=bottom]{object-position:bottom}[data-astro-image-pos=left]{object-position:left}[data-astro-image-pos=right]{object-position:right}[data-astro-image-pos=center]{object-position:center}[data-astro-image-pos=top-left]{object-position:top left}[data-astro-image-pos=top-right]{object-position:top right}[data-astro-image-pos=top-center]{object-position:top center}[data-astro-image-pos=bottom-left]{object-position:bottom left}[data-astro-image-pos=bottom-right]{object-position:bottom right}[data-astro-image-pos=bottom-center]{object-position:bottom center}[data-astro-image-pos=left-top]{object-position:left top}[data-astro-image-pos=left-bottom]{object-position:left bottom}[data-astro-image-pos=left-center]{object-position:left center}[data-astro-image-pos=right-top]{object-position:right top}[data-astro-image-pos=right-bottom]{object-position:right bottom}[data-astro-image-pos=right-center]{object-position:right center}[data-astro-image-pos=center-top]{object-position:center top}[data-astro-image-pos=center-bottom]{object-position:center bottom}[data-astro-image-pos=center-left]{object-position:center left}[data-astro-image-pos=center-right]{object-position:center right}}
+</style><style>[data-astro-transition-scope="astro-nfpogox7-1"] { view-transition-name: astro-nfpogox7-1; }@layer astro { ::view-transition-old(astro-nfpogox7-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(astro-nfpogox7-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(astro-nfpogox7-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(astro-nfpogox7-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-nfpogox7-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-nfpogox7-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-nfpogox7-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-nfpogox7-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-nfpogox7-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-nfpogox7-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-nfpogox7-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-nfpogox7-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head><body data-astro-transition-scope="astro-nfpogox7-1"><script data-astro-rerun>
+      (() => {
+        try {
+          const stored = localStorage.getItem('theme');
+          const dark = stored ? stored === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+        } catch {
+          document.documentElement.dataset.theme = 'light';
+        }
+        try {
+          document.documentElement.dataset.align = localStorage.getItem('align') || 'left';
+        } catch {
+          document.documentElement.dataset.align = 'left';
+        }
+      })();
+    </script><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><div class="site-header__inner"><a class="site-header__brand" href="/amr-tech/blogs/" aria-label="Amr home"><svg class="site-header__logo" width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="currentColor" opacity="0.08"></rect><path d="M9 22l7-12 7 12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="16" cy="24" r="1.6" fill="currentColor"></circle></svg>Amr</a><div class="align-toggle" role="group" aria-label="Content alignment"><button class="align-toggle__btn" type="button" data-align="left" aria-label="Align content left"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="15" y2="12"></line><line x1="3" y1="18" x2="18" y2="18"></line></svg></button><button class="align-toggle__btn" type="button" data-align="center" aria-label="Align content center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="6" y1="12" x2="18" y2="12"></line><line x1="4" y1="18" x2="20" y2="18"></line></svg></button><button class="align-toggle__btn" type="button" data-align="right" aria-label="Align content right"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="9" y1="12" x2="21" y2="12"></line><line x1="6" y1="18" x2="21" y2="18"></line></svg></button></div><script type="module">function e(){let e=[...document.querySelectorAll(`[data-align]`)];function t(t){document.documentElement.dataset.align=t;for(let n of e)n.classList.toggle(`align-toggle__btn--active`,n.dataset.align===t),n.setAttribute(`aria-pressed`,String(n.dataset.align===t));try{localStorage.setItem(`align`,t)}catch{}}for(let n of e)n.addEventListener(`click`,()=>t(n.dataset.align??`left`)),n.classList.toggle(`align-toggle__btn--active`,n.dataset.align===document.documentElement.dataset.align)}document.addEventListener(`astro:page-load`,e);</script><nav class="site-header__actions" aria-label="Main"><a class="site-header__icon-link" href="/amr-tech/rss.xml" aria-label="RSS feed"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9H4v-9zm0-5a14 14 0 0 1 14 14h-4A10 10 0 0 0 4 10V6zm2.5-2A16.5 16.5 0 0 1 22.5 21h-4A12.5 12.5 0 0 0 6.5 8.5v-4.5z" opacity="0"></path><circle cx="6.18" cy="17.82" r="2.18"></circle><path d="M4 4.05v3.06c9.39.3 12.56 3.4 12.89 12.89h3.06C19.7 9.2 14.8 4.3 4 4.05zm0 6.12v3.06c3.9.24 6.6 2.95 6.82 6.82h3.06C15.53 14.23 11.77 10.47 4 10.17z"></path></svg></a><button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-theme-toggle><svg class="theme-toggle__icon theme-toggle__icon--moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg><svg class="theme-toggle__icon theme-toggle__icon--sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></button><script type="module">var e=()=>matchMedia(`(prefers-reduced-motion: reduce)`).matches,t=!1;function n(e){let t=innerWidth,n=innerHeight,r=t/2,i=n/2;if(e){let t=e.getBoundingClientRect();r=t.left+t.width/2,i=t.top+t.height/2}let a=Math.hypot(Math.max(r,t-r),Math.max(i,n-i));return{cx:r,cy:i,maxRadius:a,vw:t,vh:n}}function r(e){let t=`${e.cx/e.vw*100}%`,n=`${e.cy/e.vh*100}%`,r=e.maxRadius/(Math.hypot(e.vw,e.vh)/Math.SQRT2)*100;return[`circle(0% at ${t} ${n})`,`circle(${r}% at ${t} ${n})`]}function i(e){let t=document.createElement(`div`);return t.className=`morph-ring`,t.style.left=`${e.cx-e.maxRadius}px`,t.style.top=`${e.cy-e.maxRadius}px`,t.style.width=t.style.height=`${e.maxRadius*2}px`,t.style.viewTransitionName=`ring`,document.body.appendChild(t),t}function a(e){document.documentElement.dataset.theme=e?`dark`:`light`;try{localStorage.setItem(`theme`,e?`dark`:`light`)}catch{}}function o(a,o,s){if(t)return;if(typeof document.startViewTransition!=`function`||e()){o();return}let c=n(a),l=r(c),u=document.documentElement,d=null;t=!0,u.dataset.morphing=``,u.style.setProperty(`--morph-dur`,`${s}ms`),u.style.setProperty(`--morph-clip-from`,l[0]);let f=document.startViewTransition(()=>{o(),d=i(c)});f.finished.finally(()=>{t=!1,d?.remove(),delete u.dataset.morphing,u.style.removeProperty(`--morph-dur`),u.style.removeProperty(`--morph-clip-from`)}),f.ready.then(()=>{u.animate({clipPath:l},{duration:s,easing:`ease-in-out`,fill:`forwards`,pseudoElement:`::view-transition-new(root)`})}).catch(()=>{})}function s(){let e=document.querySelector(`[data-theme-toggle]`);e&&e.addEventListener(`click`,()=>{let t=document.documentElement.dataset.theme!==`dark`;o(e,()=>a(t),400)})}document.addEventListener(`astro:page-load`,s);</script></nav></div></header><main class="page" id="main-content"><script data-astro-rerun>(function(){const base = "/amr-tech/";
+const slug = "Result Output Strategies";
+const versionNums = [1,2];
+const latestVersion = 2;
+
+    (() => {
+      const q = new URLSearchParams(location.search).get('version');
+      if (!q) return;
+      const wanted = q === 'latest' ? latestVersion : Number(q);
+      const path = location.pathname;
+      const bare = base + 'blogs/' + slug + '/';
+      if (!Number.isInteger(wanted) || !versionNums.includes(wanted)) {
+        if (path !== bare) location.replace(bare);
+        else history.replaceState(null, '', bare);
+        return;
+      }
+      const target = wanted === latestVersion ? bare : bare + 'v' + wanted + '/';
+      if (path !== target) location.replace(target);
+      else history.replaceState(null, '', target);
+    })();
+  })();</script><div class="reading-progress" aria-hidden="true"></div><script type="module">var e=document.documentElement,t=!1;function n(){t=!1;let n=document.querySelector(`.reading-progress`);if(!n)return;let r=e.scrollHeight-e.clientHeight;n.style.setProperty(`--progress`,r>0?(e.scrollTop/r).toFixed(4):`0`)}function r(){t||(t=!0,requestAnimationFrame(n))}addEventListener(`scroll`,r,{passive:!0}),addEventListener(`resize`,r,{passive:!0}),document.addEventListener(`astro:page-load`,n);</script><div class="post-shell"><article class="post-column" data-pagefind-body><div class="post-topbar"><a class="post-back" href="/amr-tech/blogs/">← Blog</a><button class="copy-page" type="button" data-copy-page data-md-url="/amr-tech/blogs/Result Output Strategies/v1.md"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span data-copy-label>Copy Page</span></button><script type="module">function e(){let e=document.querySelector(`[data-copy-page]`);if(!e)return;let t=e.querySelector(`[data-copy-label]`);e.addEventListener(`click`,async()=>{let n=e.getAttribute(`data-md-url`);t.textContent=`Copying…`;try{let e=await fetch(n).then(e=>{if(!e.ok)throw Error(`mirror missing`);return e.text()});await navigator.clipboard.writeText(e),t.textContent=`Copied ✓`}catch{t.textContent=`Copy failed`}setTimeout(()=>{t.textContent=`Copy Page`},2e3)})}document.addEventListener(`astro:page-load`,e);</script></div><header class="post-header"><div class="post-header__meta"><span class="meta-label">8 November 2026</span><span class="visually-hidden" data-pagefind-filter="category:uncategorized"></span><span class="visually-hidden" data-pagefind-meta="date:8 November 2026"></span></div><h1 class="post-title post-header__title" lang="en" data-pagefind-meta="title">Result Output Strategies</h1></header><div class="toc-inline"><nav class="toc" aria-label="Table of contents"><h2 class="toc__title">Table of Contents</h2><ol class="toc__list"><li><a class="toc__link" href="#1-overview">1. Overview</a></li><li><a class="toc__link" href="#2-shot">2. Shot</a><ul><li class="toc__item--sub"><a class="toc__link" href="#definition">Definition</a></li><li class="toc__item--sub"><a class="toc__link" href="#characteristics">Characteristics</a></li><li class="toc__item--sub"><a class="toc__link" href="#example">Example</a></li><li class="toc__item--sub"><a class="toc__link" href="#appropriate-use-cases">Appropriate Use Cases</a></li></ul></li><li><a class="toc__link" href="#3-ladder">3. Ladder</a><ul><li class="toc__item--sub"><a class="toc__link" href="#definition-1">Definition</a></li><li class="toc__item--sub"><a class="toc__link" href="#characteristics-1">Characteristics</a></li><li class="toc__item--sub"><a class="toc__link" href="#example-1">Example</a></li><li class="toc__item--sub"><a class="toc__link" href="#appropriate-use-cases-1">Appropriate Use Cases</a></li><li class="toc__item--sub"><a class="toc__link" href="#important-consideration">Important Consideration</a></li></ul></li><li><a class="toc__link" href="#4-estimation">4. Estimation</a><ul><li class="toc__item--sub"><a class="toc__link" href="#definition-2">Definition</a></li><li class="toc__item--sub"><a class="toc__link" href="#characteristics-2">Characteristics</a></li><li class="toc__item--sub"><a class="toc__link" href="#example-2">Example</a></li><li class="toc__item--sub"><a class="toc__link" href="#appropriate-use-cases-2">Appropriate Use Cases</a></li><li class="toc__item--sub"><a class="toc__link" href="#important-considerations">Important Considerations</a></li></ul></li><li><a class="toc__link" href="#5-comparison">5. Comparison</a></li><li><a class="toc__link" href="#6-relationship-between-the-three-strategies">6. Relationship Between the Three Strategies</a></li><li><a class="toc__link" href="#7-relationship-with-throw--result--neither">7. Relationship With Throw / Result / Neither</a></li><li><a class="toc__link" href="#8-design-principles">8. Design Principles</a></li><li><a class="toc__link" href="#9-summary">9. Summary</a></li></ol></nav></div><div class="post-body" lang="en"><h1 id="shot-ladder-and-estimation">Shot, Ladder, and Estimation</h1>
+<h2 id="1-overview">1. Overview</h2>
+<p>Within the <strong>Throw / Result / Neither (TRN)</strong> error-handling model, Result defines how a function communicates an expected outcome or failure to its caller.</p>
+<p>However, not all successful results are produced in the same way.</p>
+<p>A function may:</p>
+<ul>
+<li>Attempt to produce one specific, useful value and fail if it cannot.</li>
+<li>Try multiple alternatives, progressively accepting less valuable results.</li>
+<li>Produce an estimated value when an exact value cannot be known.</li>
+</ul>
+<p>To classify these behaviors, we introduce three Result Output Strategies:</p>
+<ol>
+<li><strong>Shot</strong> — Single-attempt result.</li>
+<li><strong>Ladder</strong> — Progressive fallback result.</li>
+<li><strong>Estimation</strong> — Probabilistic or uncertain result.</li>
+</ol>
+<p>These strategies describe <strong>how a function obtains and delivers its output</strong>, rather than how it communicates errors.</p>
+<hr>
+<h2 id="2-shot">2. Shot</h2>
+<h3 id="definition">Definition</h3>
+<p>Shot is a result strategy in which a function attempts to produce one specific intended value.</p>
+<p>The function either:</p>
+<ul>
+<li>Successfully produces the intended useful value.</li>
+<li>Fails to produce a useful value and returns an appropriate failure.</li>
+</ul>
+<p>There is no fallback mechanism and no progressive degradation of the expected output.</p>
+<h3 id="characteristics">Characteristics</h3>
+<ul>
+<li>Has one primary target outcome.</li>
+<li>Does not substitute alternative values when the intended value is unavailable.</li>
+<li>Returns a useful value on success.</li>
+<li>Returns an explicit failure when it cannot produce that value.</li>
+</ul>
+<h3 id="example">Example</h3>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> getUser</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">id</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> string</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">)</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Result</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">User</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">, </span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">DomainError</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt; {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> user</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> database.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">findUser</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(id);</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  if</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">!</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">user) {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    return</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> err</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">userNotFound</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(id));</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  return</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> ok</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(user);</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>The function either returns the requested user or communicates that the user does not exist.</p>
+<p>It does not return another user’s information, a default user, or an approximate user.</p>
+<h3 id="appropriate-use-cases">Appropriate Use Cases</h3>
+<ul>
+<li>Retrieving a specific database record.</li>
+<li>Validating a particular input.</li>
+<li>Performing a required calculation.</li>
+<li>Checking whether a specific resource exists.</li>
+<li>Executing a business operation with a clearly defined expected outcome.</li>
+</ul>
+<hr>
+<h2 id="3-ladder">3. Ladder</h2>
+<h3 id="definition-1">Definition</h3>
+<p>Ladder is a result strategy in which a function attempts to produce the best available value through a predefined hierarchy of alternatives.</p>
+<p>If the preferred approach cannot produce a useful result, the function moves to the next alternative.</p>
+<p>This continues until:</p>
+<ul>
+<li>A sufficiently useful value is produced.</li>
+<li>All available alternatives are exhausted.</li>
+</ul>
+<p>The function aims to maximize the usefulness of its output rather than requiring one exact source or method.</p>
+<h3 id="characteristics-1">Characteristics</h3>
+<ul>
+<li>Has multiple possible output sources or strategies.</li>
+<li>Alternatives follow an intentional priority or quality order.</li>
+<li>A lower-priority alternative is attempted when a higher-priority alternative is unavailable or unsuitable.</li>
+<li>The returned value may have lower quality or completeness than the preferred value.</li>
+<li>Failure is returned only when no acceptable alternative remains.</li>
+</ul>
+<h3 id="example-1">Example</h3>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">async</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> getProfilePicture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  user</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> User</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">)</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Promise</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">Result</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">ProfilePicture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">, </span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">DomainError</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;&gt; {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> custom</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> await</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> getCustomPicture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(user);</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  if</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (custom) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">return</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> ok</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(custom);</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> social</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> await</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> getSocialPicture</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(user);</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  if</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (social) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">return</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> ok</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(social);</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> defaultPicture</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> await</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> getDefaultAvatar</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">();</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  if</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (defaultPicture) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">return</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> ok</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(defaultPicture);</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  return</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> err</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">profilePictureUnavailable</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">());</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>The function follows this priority:</p>
+<ol>
+<li>User’s custom picture.</li>
+<li>Social profile picture.</li>
+<li>Default avatar.</li>
+<li>No useful value.</li>
+</ol>
+<p>Each alternative provides a different level or source of value.</p>
+<h3 id="appropriate-use-cases-1">Appropriate Use Cases</h3>
+<ul>
+<li>Profile pictures and user-facing assets.</li>
+<li>Cache retrieval with database fallback.</li>
+<li>Multiple data providers.</li>
+<li>Content retrieval from alternative sources.</li>
+<li>Local-first applications with remote synchronization fallbacks.</li>
+<li>Services that support degraded operation.</li>
+</ul>
+<h3 id="important-consideration">Important Consideration</h3>
+<p>A Ladder must have a meaningful fallback policy.</p>
+<p>Not every available value is an acceptable substitute. Alternatives must preserve the minimum correctness and usefulness required by the caller.</p>
+<p>For example, returning stale financial information as a fallback for current financial information may be unsafe unless its age and limitations are explicitly communicated.</p>
+<hr>
+<h2 id="4-estimation">4. Estimation</h2>
+<h3 id="definition-2">Definition</h3>
+<p>Estimation is a result strategy in which a function produces an estimated value rather than claiming to have obtained an exact or guaranteed value.</p>
+<p>The output represents the function’s best available estimate based on incomplete information, statistical models, historical observations, heuristics, or other predictive methods.</p>
+<p>Where appropriate, the estimate includes uncertainty information, such as a probability, confidence measure, or prediction interval.</p>
+<h3 id="characteristics-2">Characteristics</h3>
+<ul>
+<li>Does not require an exact or directly observable value.</li>
+<li>Produces an estimated or predicted output.</li>
+<li>Can include a measure of uncertainty.</li>
+<li>The estimated value must not be presented as a guaranteed fact.</li>
+<li>The uncertainty measure must have a clearly defined meaning.</li>
+</ul>
+<h3 id="example-2">Example</h3>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">type</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Estimate</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">T</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt; </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  value</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> T</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  confidence</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> number</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> estimateDeliveryDate</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  order</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Order</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">)</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> Result</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">Estimate</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&lt;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">Date</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt;, </span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">DomainError</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">&gt; {</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> prediction</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> deliveryModel.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">predict</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(order);</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  return</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> ok</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">({</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    value: prediction.date,</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    confidence: prediction.confidence</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  });</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre>
+<p>The function returns a predicted delivery date alongside a confidence measure.</p>
+<p>The date is an estimate, not a guaranteed delivery date.</p>
+<h3 id="appropriate-use-cases-2">Appropriate Use Cases</h3>
+<ul>
+<li>Predicting delivery dates.</li>
+<li>Estimating project completion times.</li>
+<li>Predicting demand.</li>
+<li>Estimating missing or unavailable measurements.</li>
+<li>Statistical forecasting.</li>
+<li>Machine learning predictions.</li>
+<li>Reconstructing values from incomplete information.</li>
+</ul>
+<h3 id="important-considerations">Important Considerations</h3>
+<p><strong>Probability and confidence are not interchangeable.</strong></p>
+<p>A probability should describe a clearly defined event, such as:</p>
+<ul>
+<li>There is an 85% probability that delivery will occur by Thursday.</li>
+</ul>
+<p>A confidence score may instead represent a model-specific measure of certainty or a ranking score.</p>
+<p>A value between 0 and 1 does not automatically represent a statistically valid probability.</p>
+<p>Where statistical reliability matters, estimates should be calibrated and evaluated against actual outcomes.</p>
+<hr>
+<h2 id="5-comparison">5. Comparison</h2>
+<table>
+<thead>
+<tr>
+<th>Characteristic</th>
+<th>Shot</th>
+<th>Ladder</th>
+<th>Estimation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Primary objective</td>
+<td>Obtain a specific value</td>
+<td>Obtain the best available value</td>
+<td>Predict or approximate a value</td>
+</tr>
+<tr>
+<td>Output sources</td>
+<td>One intended target</td>
+<td>Multiple alternatives</td>
+<td>Model, observations, or assumptions</td>
+</tr>
+<tr>
+<td>Fallbacks</td>
+<td>None</td>
+<td>Yes</td>
+<td>Not required</td>
+</tr>
+<tr>
+<td>Exactness</td>
+<td>Intended exact value</td>
+<td>Depends on selected alternative</td>
+<td>Not guaranteed</td>
+</tr>
+<tr>
+<td>Failure possibility</td>
+<td>Yes</td>
+<td>Yes, after exhausting alternatives</td>
+<td>Yes, if estimation is impossible</td>
+</tr>
+<tr>
+<td>Uncertainty</td>
+<td>Usually not represented</td>
+<td>May vary by alternative</td>
+<td>Explicitly represented where appropriate</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="6-relationship-between-the-three-strategies">6. Relationship Between the Three Strategies</h2>
+<p>These strategies describe different ways of producing a Result. They should not automatically be considered mutually exclusive.</p>
+<p>For example, a Ladder may use an Estimation strategy as one of its fallback alternatives.</p>
+<p>Consider a delivery-date service:</p>
+<ol>
+<li>Retrieve the confirmed delivery date.</li>
+<li>If unavailable, retrieve a carrier-provided estimated date.</li>
+<li>If unavailable, calculate an estimated date using historical delivery data.</li>
+<li>If no meaningful estimate can be produced, return a failure.</li>
+</ol>
+<p>This combines Ladder and Estimation.</p>
+<p>Therefore:</p>
+<ul>
+<li><strong>Shot</strong> describes a single intended output path.</li>
+<li><strong>Ladder</strong> describes progressive alternatives.</li>
+<li><strong>Estimation</strong> describes the epistemic nature of an output: it is estimated rather than known exactly.</li>
+</ul>
+<p>They are useful classifications, but they do not necessarily represent three mutually exclusive execution models.</p>
+<hr>
+<h2 id="7-relationship-with-throw--result--neither">7. Relationship With Throw / Result / Neither</h2>
+<p>The three output strategies belong inside the broader Result contract.</p>
+<p>They do not replace the TRN classification.</p>
+<p>TRN determines how a failure is communicated:</p>
+<ul>
+<li>Throw: propagate an exceptional failure.</li>
+<li>Result: return an explicit success or failure.</li>
+<li>Neither: contain a non-critical failure locally and continue.</li>
+</ul>
+<p>Shot, Ladder, and Estimation describe the behavior of functions that use Result.</p>
+<p>For example:</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>TRN Contract</th>
+<th>Output Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Retrieve a specific user</td>
+<td>Result</td>
+<td>Shot</td>
+</tr>
+<tr>
+<td>Retrieve an image using alternative providers</td>
+<td>Result</td>
+<td>Ladder</td>
+</tr>
+<tr>
+<td>Predict a delivery date</td>
+<td>Result</td>
+<td>Estimation</td>
+</tr>
+<tr>
+<td>Retrieve a cached value, then fall back to a database</td>
+<td>Result</td>
+<td>Ladder</td>
+</tr>
+<tr>
+<td>Send optional analytics</td>
+<td>Neither</td>
+<td>Not applicable</td>
+</tr>
+</tbody>
+</table>
+<p>A function’s output strategy should be selected independently of its failure-reporting contract.</p>
+<hr>
+<h2 id="8-design-principles">8. Design Principles</h2>
+<p>When implementing these strategies, follow these principles:</p>
+<ol>
+<li><strong>Preserve correctness:</strong> A fallback must not introduce an invalid or misleading value.</li>
+<li><strong>Make degradation visible:</strong> When a Ladder returns a lower-quality alternative, expose its source or quality when that information matters.</li>
+<li><strong>Represent uncertainty honestly:</strong> An estimate must never be presented as a guaranteed value.</li>
+<li><strong>Do not hide failures:</strong> Exhausting all acceptable alternatives should produce an explicit failure when the operation requires a useful result.</li>
+<li><strong>Keep contracts explicit:</strong> Callers should understand whether they are receiving an exact value, a fallback, or an estimate.</li>
+<li><strong>Avoid unnecessary complexity:</strong> Use Shot when one outcome is sufficient. Do not introduce a Ladder or Estimation mechanism without a real need.</li>
+</ol>
+<hr>
+<h2 id="9-summary">9. Summary</h2>
+<p>The Result Output Strategies provide a way to classify how a function produces useful values:</p>
+<ul>
+<li><strong>Shot:</strong> One intended value, otherwise failure.</li>
+<li><strong>Ladder:</strong> Progressively seek acceptable alternatives until a useful value is found or all alternatives are exhausted.</li>
+<li><strong>Estimation:</strong> Produce an estimated value and represent its uncertainty appropriately.</li>
+</ul>
+<p>Together, they provide a vocabulary for describing not only whether a function succeeds, but also the nature and quality of the value it delivers.</p>
+</div><nav class="post-nav" aria-label="More posts"><a class="post-nav__link" href="/amr-tech/blogs/pvc/"><span class="post-nav__label">← Previous</span><span>PVC — A Role-Based UI Construction Architecture</span></a></nav></article><details class="version-box"><summary class="version-box__toggle"><span class="version-box__marker">v1</span><span>2 versions</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 15l-6-6-6 6"></path></svg></summary><div class="version-box__menu"><a class="version-box__item is-current" href="/amr-tech/blogs/Result Output Strategies/v1/"><span class="version-box__marker">v1</span><span>Result Output Strategies</span></a><a class="version-box__item" href="/amr-tech/blogs/Result Output Strategies/"><span class="version-box__marker">v2</span><span>Result Output Strategies</span></a></div></details><aside class="toc-rail"><button class="toc-rail__toggle" type="button" data-toc-toggle aria-expanded="false" aria-controls="toc-panel"><svg class="toc-rail__chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M9 18l6-6-6-6"></path></svg><span>Contents</span></button><nav class="toc-rail__panel" id="toc-panel" aria-label="Table of contents"><nav class="toc" aria-label="Table of contents"><h2 class="toc__title">Table of Contents</h2><ol class="toc__list"><li><a class="toc__link" href="#1-overview">1. Overview</a></li><li><a class="toc__link" href="#2-shot">2. Shot</a><ul><li class="toc__item--sub"><a class="toc__link" href="#definition">Definition</a></li><li class="toc__item--sub"><a class="toc__link" href="#characteristics">Characteristics</a></li><li class="toc__item--sub"><a class="toc__link" href="#example">Example</a></li><li class="toc__item--sub"><a class="toc__link" href="#appropriate-use-cases">Appropriate Use Cases</a></li></ul></li><li><a class="toc__link" href="#3-ladder">3. Ladder</a><ul><li class="toc__item--sub"><a class="toc__link" href="#definition-1">Definition</a></li><li class="toc__item--sub"><a class="toc__link" href="#characteristics-1">Characteristics</a></li><li class="toc__item--sub"><a class="toc__link" href="#example-1">Example</a></li><li class="toc__item--sub"><a class="toc__link" href="#appropriate-use-cases-1">Appropriate Use Cases</a></li><li class="toc__item--sub"><a class="toc__link" href="#important-consideration">Important Consideration</a></li></ul></li><li><a class="toc__link" href="#4-estimation">4. Estimation</a><ul><li class="toc__item--sub"><a class="toc__link" href="#definition-2">Definition</a></li><li class="toc__item--sub"><a class="toc__link" href="#characteristics-2">Characteristics</a></li><li class="toc__item--sub"><a class="toc__link" href="#example-2">Example</a></li><li class="toc__item--sub"><a class="toc__link" href="#appropriate-use-cases-2">Appropriate Use Cases</a></li><li class="toc__item--sub"><a class="toc__link" href="#important-considerations">Important Considerations</a></li></ul></li><li><a class="toc__link" href="#5-comparison">5. Comparison</a></li><li><a class="toc__link" href="#6-relationship-between-the-three-strategies">6. Relationship Between the Three Strategies</a></li><li><a class="toc__link" href="#7-relationship-with-throw--result--neither">7. Relationship With Throw / Result / Neither</a></li><li><a class="toc__link" href="#8-design-principles">8. Design Principles</a></li><li><a class="toc__link" href="#9-summary">9. Summary</a></li></ol></nav></nav></aside></div><script type="module" src="/amr-tech/_astro/BlogPost.astro_astro_type_script_index_0_lang.DJQIz5e0.js"></script><section class="related" data-related aria-label="Related posts"><div class="related__head"><h2 class="related__title">Related posts</h2></div><div class="related__tabs" role="tablist" aria-label="Filter related posts by category"><button class="related__tab related__tab--active" type="button" role="tab" aria-selected="true" data-rel-tab="">All</button><button class="related__tab" type="button" role="tab" aria-selected="false" data-rel-tab="Architecture">Architecture</button></div><ul class="related__list"><li class="related__row" data-rel-cat="Architecture"><span class="related__date meta-label">03 Nov 2026</span><a class="related__link" href="/amr-tech/blogs/pvc/" lang="en">PVC — A Role-Based UI Construction Architecture</a><span class="related__time meta-label">108 min</span></li></ul></section><script type="module">function e(){let e=document.querySelector(`[data-related]`);if(e){let t=[...e.querySelectorAll(`[data-rel-tab]`)],n=[...e.querySelectorAll(`.related__row`)],r=e.querySelector(`[data-rel-more]`);function i(){let i=t.find(e=>e.classList.contains(`related__tab--active`))?.dataset.relTab??``,a=e.hasAttribute(`data-expanded`),o=0;for(let e of n)i&&e.dataset.relCat!==i?e.style.display=`none`:(o++,e.style.display=!a&&o>5?`none`:``);r&&(r.style.display=!a&&o>5?``:`none`)}for(let n of t)n.addEventListener(`click`,()=>{for(let e of t)e.classList.remove(`related__tab--active`),e.setAttribute(`aria-selected`,`false`);n.classList.add(`related__tab--active`),n.setAttribute(`aria-selected`,`true`),e.removeAttribute(`data-expanded`),i()});r?.addEventListener(`click`,()=>{e.setAttribute(`data-expanded`,``),i()}),i()}}window.__bindRelated_bound||(window.__bindRelated_bound=!0,document.addEventListener(`astro:page-load`,e));</script><script type="module" src="/amr-tech/_astro/BlogPost.astro_astro_type_script_index_1_lang.DJQIz5e0.js"></script></main><footer class="site-footer"><div class="site-footer__inner"><span class="meta-label">© 2026 Amr</span><nav class="site-footer__links" aria-label="Footer"><a href="/amr-tech/blogs/">Blog</a><a href="/amr-tech/rss.xml">RSS</a><a href="/amr-tech/llms.txt">llms.txt</a></nav></div></footer></body></html>

@@ -6,6 +6,8 @@ Each post lists all published versions. Append `.md` to any version URL for the 
 
 ## Posts
 
+- [Result Output Strategies](https://alaamer12.github.io/amr-tech/blogs/Result%20Output%20Strategies/): v2, 2026-11-08
+- [Result Output Strategies](https://alaamer12.github.io/amr-tech/blogs/Result%20Output%20Strategies/v1/): v1, 2026-11-08
 - [PVC — A Role-Based UI Construction Architecture](https://alaamer12.github.io/amr-tech/blogs/pvc/): v1, 2026-11-03, Architecture
   - [The Base Layer](https://alaamer12.github.io/amr-tech/blogs/pvc/base/)
   - [A Role-Based UI Construction Architecture for Web Applications](https://alaamer12.github.io/amr-tech/blogs/pvc/base/architecture/)
