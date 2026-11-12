@@ -91,17 +91,25 @@
   text-transform: uppercase;
   cursor: pointer;
   border-radius: v.$radius-md;
-  transition: color v.$transition-fast, border-color v.$transition-fast;
+  transition: transform v.$transition-base, color v.$transition-fast, border-color v.$transition-fast;
 
   [data-align='left'] & {
     inset-inline-end: 0;
     border-start-end-radius: 0;
+    transform: translateX(calc(100% - #{v.$spacing-xs}));
   }
 
   [data-align='center'] &,
   [data-align='right'] & {
     inset-inline-start: 0;
     border-start-start-radius: 0;
+    transform: translateX(calc(-100% + #{v.$spacing-xs}));
+  }
+
+  &:hover,
+  &:focus-visible,
+  .toc-rail[data-open] & {
+    transform: none;
   }
 
   &:hover {
