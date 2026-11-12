@@ -24,6 +24,14 @@
   clip-path: var(--morph-clip-from, none);
 }
 
+// Freeze per-element color/transform transitions while the morph runs, so the
+// snapshot captures settled colors and the reveal isn't fought by element fades.
+:root[data-morphing] *,
+:root[data-morphing] *::before,
+:root[data-morphing] *::after {
+  transition: none !important;
+}
+
 // Wavefront ring: its own VT group so it rides the reveal edge.
 .morph-ring {
   position: fixed;
