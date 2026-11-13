@@ -70,6 +70,13 @@ const headerCategory = page ? post.data.category : data.category;
 const headerTags = page ? (post.data.tags ?? []) : data.tags;
 const coverMeta = meta.thumbnailMeta;
 const coverUrl = coverMeta ? null : meta.thumbnailUrl;
+
+let bgImageUrl = null;
+if (meta.backgroundMeta) {
+  const bgImg = await getImage({ src: meta.backgroundMeta });
+  bgImageUrl = bgImg.src;
+}
+const bgMode = meta.bgMode ?? 'top';
 ---
 
 <BaseLayout
@@ -80,6 +87,8 @@ const coverUrl = coverMeta ? null : meta.thumbnailUrl;
   canonical={canonical}
   publishedTime={meta.date}
   jsonLd={jsonLd}
+  bgImage={bgImageUrl}
+  bgMode={bgMode}
 >
   {!page && (
   <script is:inline data-astro-rerun define:vars={{ base, slug: post.slug, versionNums, latestVersion }}>

@@ -181,6 +181,8 @@ export async function getPosts() {
       readingMinutes: Math.max(1, Math.round(words / 230)),
       thumbnailMeta: (typeof entry.data.thumbnail === 'object' ? entry.data.thumbnail : null) ?? img.meta ?? null,
       thumbnailUrl: img.url ?? null,
+      backgroundMeta: typeof entry.data.background === 'object' ? entry.data.background : null,
+      bgMode: entry.data.bg_mode ?? 'top',
     };
   };
 
@@ -235,10 +237,17 @@ export async function getPosts() {
     if (root.entry.data.thumbnail === 'tree') {
       throw new Error(`INVALID THUMBNAIL — "${root.id}" is the tree root and cannot use "thumbnail: tree".`);
     }
+    if (root.entry.data.background === 'tree') {
+      throw new Error(`INVALID BACKGROUND — "${root.id}" is the tree root and cannot use "background: tree".`);
+    }
     for (const p of children) {
       if (p.entry.data.thumbnail === 'tree') {
         p.thumbnailMeta = root.thumbnailMeta;
         p.thumbnailUrl = root.thumbnailUrl;
+      }
+      if (p.entry.data.background === 'tree') {
+        p.backgroundMeta = root.backgroundMeta;
+        p.bgMode = root.bgMode;
       }
     }
     const tree = [root, ...children];

@@ -1,0 +1,65 @@
+@use '../abstracts/variables' as v;
+
+// Background Cover Modes:
+// 1. 'top' (default): placed on top of the page content, underneath it (anchored to top, fade out or subtle blend)
+// 2. 'repeat': repeated across the entire page
+// 3. 'stretch': stretched to cover the entire page / viewport
+
+body.has-page-bg {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: var(--page-bg-url);
+    opacity: 0.18;
+    transition: opacity v.$transition-base;
+  }
+
+  // Dark mode overlay tuning for atmosphere
+  [data-theme='dark'] &,
+  &:not([data-theme]) {
+    &::before {
+      opacity: 0.22;
+    }
+  }
+
+  // Light mode subtle atmosphere
+  [data-theme='light'] &::before {
+    opacity: 0.14;
+  }
+
+  // 1. 'top' mode (default): placed on top of page content underneath it
+  &[data-bg-mode='top']::before {
+    position: absolute;
+    inset: 0 0 auto 0;
+    block-size: min(85vh, 720px);
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.7) 60%, rgba(0, 0, 0, 0) 100%);
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.7) 60%, rgba(0, 0, 0, 0) 100%);
+  }
+
+  // 2. 'repeat' mode: repeated across whole page
+  &[data-bg-mode='repeat']::before {
+    position: fixed;
+    inset: 0;
+    background-repeat: repeat;
+    background-position: top left;
+    background-size: auto;
+  }
+
+  // 3. 'stretch' mode: stretched across whole page
+  &[data-bg-mode='stretch']::before {
+    position: fixed;
+    inset: 0;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+  }
+}
+

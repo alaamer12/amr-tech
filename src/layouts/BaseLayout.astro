@@ -24,6 +24,8 @@ const {
   canonical = new URL(Astro.url.pathname, Astro.site).href,
   publishedTime,
   jsonLd,
+  bgImage,
+  bgMode,
 } = Astro.props;
 ---
 
@@ -48,7 +50,12 @@ const {
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
     <slot name="head" />
   </head>
-  <body transition:animate="fade">
+  <body
+    transition:animate="fade"
+    class:list={[{ 'has-page-bg': Boolean(bgImage) }]}
+    data-bg-mode={bgImage ? (bgMode || 'top') : undefined}
+    style={bgImage ? `--page-bg-url: url('${bgImage}');` : undefined}
+  >
     <script is:inline data-astro-rerun>
       (() => {
         try {
