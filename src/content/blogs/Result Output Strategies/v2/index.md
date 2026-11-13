@@ -1,5 +1,5 @@
 ---
-thumbnail: ./v2-cover.jpg
+thumbnail: ./_assets/v2-cover.jpg
 ---
 
 # Function Outcome Strategies

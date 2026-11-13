@@ -4,7 +4,7 @@ description: A software-engineering framework for examining behavior through dua
 date: 2026-11-12
 category: Software Architecture
 tags: [software-design, architecture, domain-modeling, function-design]
-thumbnail: ./cover.jpg
+thumbnail: ./_assets/cover.jpg
 lang: en
 ---
 

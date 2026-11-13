@@ -74,9 +74,9 @@ date: 2026-10-20       # publish date; fallback: git created date, then build da
 category: string       # free-form; omitted = no chip; chip bar auto-builds itself
 tags: [a, b]           # searchable metadata, not shown as chips
 draft: true            # dev-only; excluded from prod build, sitemap, RSS, llms.txt, search
-thumbnail: ./media/img.png   # repo-relative image; cover on the page + OG image (see fallback)
+thumbnail: ./_assets/img.png # repo-relative image; cover on the page + OG image (see fallback)
 # thumbnail: tree           # tree child pages only: reuse the tree root's thumbnail
-background: ./media/bg.png  # optional full-page background cover image
+background: ./_assets/bg.png # optional full-page background cover image
 # background: tree          # tree child pages only: reuse the tree root's background
 bg_mode: top                # background display mode: 'top' (default), 'repeat', or 'stretch'
 lang: en               # per-post language tag (en/ar/any) — styling only, no i18n routing

@@ -4,8 +4,8 @@ description: A practical distinction between explicit runtime boundaries (fronte
 date: 2026-11-12
 category: Software Architecture
 tags: [software-architecture, system-design, code-organization, dependency-rules]
-thumbnail: ./cover.jpg
-background: ./bg.jpg
+thumbnail: ./_assets/cover.jpg
+background: ./_assets/bg.jpg
 bg_mode: top
 lang: en
 ---

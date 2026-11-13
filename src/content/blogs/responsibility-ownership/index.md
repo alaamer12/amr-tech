@@ -4,7 +4,7 @@ description: A practical framework for defining whether a system responsibility 
 date: 2026-11-12
 category: Software Architecture
 tags: [software-architecture, system-design, micro-decisions, architecture-records]
-thumbnail: ./cover.jpg
+thumbnail: ./_assets/cover.jpg
 lang: en
 ---
 
