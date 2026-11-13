@@ -1,5 +1,5 @@
 ---
-thumbnail: ./v1-cover.jpg
+thumbnail: ./_assets/v1-cover.jpg
 ---
 
 # Shot, Ladder, and Estimation
