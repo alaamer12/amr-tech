@@ -6,6 +6,9 @@ Each post lists all published versions. Append `.md` to any version URL for the 
 
 ## Posts
 
+- [How OKF Organizes Directories: One Concept per File, One Bundle per Folder](https://alaamer12.github.io/amr-tech/blogs/okf-directory-model/okf-directory-model/): v1, 2026-11-16, Engineering
+- [Error as Truth](https://alaamer12.github.io/amr-tech/blogs/error-as-truth/): v1, 2026-11-15, Software Architecture
+- [The Three Project States: Draft, In-Progress, and Post-Production](https://alaamer12.github.io/amr-tech/blogs/project-lifecycle-states/): v1, 2026-11-15, Software Architecture
 - [Function Outcome Strategies](https://alaamer12.github.io/amr-tech/blogs/Result%20Output%20Strategies/): v2, 2026-11-12
 - [Result Output Strategies](https://alaamer12.github.io/amr-tech/blogs/Result%20Output%20Strategies/v1/): v1, 2026-11-08
 - [Layers in Software Architecture](https://alaamer12.github.io/amr-tech/blogs/layers-in-software-architecture/): v1, 2026-11-12, Software Architecture
