@@ -29,3 +29,6 @@ Whenever generating or creating images, diagrams, cover art, or editorial illust
   - Versioned folders use `v1.md`, `v2.md`, etc. (highest number wins for the latest route).
   - Tree posts use top-level `index.md`.
   - Maintain build guards: no duplicate bodies, no unhandled missing media references.
+  - **Tables & Data Presentation**:
+    - **Never write ASCII or pseudo-text box tables** (e.g. `┌───┐`, `+---+`, box-drawing characters inside code fences). They look sloppy, fail responsiveness, and break screen readers.
+    - Always format data and comparisons using **standard, professional GFM Markdown tables** (`| Col 1 | Col 2 |`) so the site's typography engine renders clean, bordered, accessible, and theme-adaptive HTML tables.

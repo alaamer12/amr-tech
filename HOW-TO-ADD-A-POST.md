@@ -178,6 +178,17 @@ Shiki, build-time, dual light/dark themes. Meta syntax supported:
 
 GFM footnotes work out of the box: `claim[^1]` plus `[^1]: source note`. They render as a numbered references section with back-links.
 
+## Tables & Data Formatting
+
+- **Never use ASCII/text-box art for tables** (e.g., `┌──┐`, `+---+`, box-drawing symbols inside code blocks).
+- Always use standard **GFM Markdown tables**:
+  ```markdown
+  | Metric | System A | System B |
+  | :--- | :--- | :--- |
+  | Latency | 12ms | 45ms |
+  ```
+  The site's styling engine automatically provides clean borders, readable cell padding, responsive horizontal scrolling, and adaptive dark/light theme styling.
+
 ## Tables
 
 Plain GFM tables — any width. The build makes them scroll horizontally inside the content area; a 30-column table never widens the page. No wrapper markup needed.

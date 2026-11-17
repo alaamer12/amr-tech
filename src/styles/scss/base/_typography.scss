@@ -106,6 +106,68 @@ body {
     margin-block: v.$spacing-lg;
     color: var(--text-muted);
     font-style: italic;
+
+    &.poem,
+    &.verse {
+      font-style: normal;
+      font-family: var(--font-verse);
+      font-size: clamp(1.25rem, 2vw, 1.6rem);
+      line-height: 2;
+      color: var(--text);
+      letter-spacing: 0.02em;
+      border-inline-start: 3px solid var(--accent);
+      padding: v.$spacing-xl v.$spacing-xl;
+      margin-block: v.$spacing-2xl;
+      background: linear-gradient(to right, rgba(217, 119, 87, 0.06), rgba(217, 119, 87, 0.01) 60%, transparent);
+      border-radius: 0 v.$radius-md v.$radius-md 0;
+      box-sizing: border-box;
+      inline-size: 100%;
+
+      .bayt,
+      .couplet {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: stretch;
+        gap: v.$spacing-xs;
+        padding-block: v.$spacing-xs;
+
+        @media (min-width: 768px) {
+          flex-direction: row;
+          align-items: baseline;
+          gap: v.$spacing-xl;
+        }
+
+        & + .bayt,
+        & + .couplet {
+          border-block-start: 1px dashed rgba(255, 255, 255, 0.08);
+          margin-block-start: v.$spacing-sm;
+          padding-block-start: v.$spacing-sm;
+
+          [data-theme='light'] & {
+            border-block-start-color: rgba(0, 0, 0, 0.08);
+          }
+        }
+      }
+
+      .shatr,
+      .hemistich {
+        flex: 1 1 50%;
+        margin: 0;
+
+        &:first-child {
+          text-align: start;
+        }
+
+        &:last-child {
+          text-align: start;
+
+          @media (min-width: 768px) {
+            text-align: end;
+          }
+        }
+      }
+    }
   }
 
   hr {
