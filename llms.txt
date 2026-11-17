@@ -6,6 +6,7 @@ Each post lists all published versions. Append `.md` to any version URL for the 
 
 ## Posts
 
+- [Move 37 in Seoul: What the Game of Go Taught Us About Machine Wonder](https://alaamer12.github.io/amr-tech/blogs/move-37-alphago-lee-sedol/): v1, 2026-11-18, Artificial Intelligence
 - [How OKF Organizes Directories: One Concept per File, One Bundle per Folder](https://alaamer12.github.io/amr-tech/blogs/okf-directory-model/okf-directory-model/): v1, 2026-11-16, Engineering
 - [Error as Truth](https://alaamer12.github.io/amr-tech/blogs/error-as-truth/): v1, 2026-11-15, Software Architecture
 - [The Three Project States: Draft, In-Progress, and Post-Production](https://alaamer12.github.io/amr-tech/blogs/project-lifecycle-states/): v1, 2026-11-15, Software Architecture
