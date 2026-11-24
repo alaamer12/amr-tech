@@ -321,3 +321,47 @@ export function relatedOf(post, allPosts, limit = 10) {
     lang: s.other.data.lang,
   }));
 }
+
+/**
+ * Checks if a post is a multi-page tree post with companion sub-pages.
+ */
+export function hasMultiPageTree(post) {
+  return Boolean(post && post.isTree && Array.isArray(post.tree) && post.tree.length > 1);
+}
+
+/**
+ * Returns all child companion pages of a tree post (excluding root).
+ */
+export function getTreeChildPages(post) {
+  if (!hasMultiPageTree(post)) return [];
+  return post.tree.filter((p) => p.urlPath !== '');
+}
+
+/**
+ * Produces Schema.org hierarchy properties (`hasPart` or `isPartOf`)
+ * for tree posts and tree sub-pages.
+ */
+export function getBlogSchemaHierarchy(post, page, siteOrigin = '', base = '/') {
+  if (page) {
+    return {
+      isPartOf: {
+        '@type': 'BlogPosting',
+        name: post.latest.title,
+        url: new URL(`${base}blogs/${post.slug}/`, siteOrigin).href,
+      },
+    };
+  }
+
+  const children = getTreeChildPages(post);
+  if (children.length > 0) {
+    return {
+      hasPart: children.map((p) => ({
+        '@type': 'WebPage',
+        name: p.title,
+        url: new URL(`${base}blogs/${post.slug}/${p.urlPath}/`, siteOrigin).href,
+      })),
+    };
+  }
+
+  return {};
+}

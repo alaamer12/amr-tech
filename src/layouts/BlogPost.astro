@@ -8,7 +8,9 @@ import ReadingProgress from '../components/ReadingProgress.astro';
 import CopyPage from '../components/CopyPage.astro';
 import RelatedPosts from '../components/RelatedPosts.astro';
 import TreeNav from '../components/TreeNav.astro';
+import AgentDirectives from '../components/AgentDirectives.astro';
 import { SITE } from '../lib/site.mjs';
+import { hasMultiPageTree, getBlogSchemaHierarchy } from '../lib/posts.mjs';
 
 const base = import.meta.env.BASE_URL;
 const { post, version, prev, next, related, page, treePrev, treeNext } = Astro.props;
@@ -51,6 +53,7 @@ const jsonLd = [
     dateModified: meta.date.toISOString(),
     inLanguage: data.lang,
     author: { '@type': 'Person', name: SITE.author },
+    ...getBlogSchemaHierarchy(post, page, Astro.site, base),
   },
   {
     '@context': 'https://schema.org',
@@ -147,7 +150,7 @@ const bgMode = meta.bgMode ?? 'top';
       </figure>
     )}
 
-    {post.isTree && post.tree && post.tree.length > 1 && <TreeNav post={post} current={page ? page.urlPath : ''} />}
+    {hasMultiPageTree(post) && <TreeNav post={post} current={page ? page.urlPath : ''} />}
 
     <div class="toc-inline">
       <ToC headings={headings} />
@@ -156,6 +159,8 @@ const bgMode = meta.bgMode ?? 'top';
     <div class="post-body" lang={data.lang}>
       <Content />
     </div>
+
+    <AgentDirectives post={post} version={version} page={page} />
 
     <nav class="post-nav" aria-label="More posts">
       {page && treePrev && (

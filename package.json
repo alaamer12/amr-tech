@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "typecheck": "tsc --noEmit",
     "dev": "node scripts/stash-diagrams.mjs && astro dev",
     "stash": "node scripts/stash-diagrams.mjs",
     "check:diagrams": "node scripts/check-diagrams.mjs",
@@ -41,7 +42,8 @@
     "@fontsource-variable/reem-kufi": "^5.3.0",
     "@fontsource-variable/space-grotesk": "^5.3.0",
     "@fontsource/instrument-serif": "^5.3.0",
-    "pagefind": "^1.6.0"
+    "pagefind": "^1.6.0",
+    "typescript": "^7.0.0"
   },
   "trustedDependencies": [
     "@parcel/watcher"

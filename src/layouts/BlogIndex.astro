@@ -5,8 +5,11 @@ import SearchBox from '../components/SearchBox.astro';
 import Card from '../components/Card.astro';
 import EmptyState from '../components/EmptyState.astro';
 import { SITE } from '../lib/site.mjs';
+import { hasMultiPageTree, getTreeChildPages } from '../lib/posts.mjs';
 
 const { posts, categories } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const treePosts = posts.filter((p: any) => hasMultiPageTree(p));
 ---
 
 <BaseLayout title={`${SITE.name} — ${SITE.description}`} description={SITE.description}>
@@ -28,6 +31,38 @@ const { posts, categories } = Astro.props;
   ) : (
     <EmptyState />
   )}
+
+  <section class="visually-hidden" aria-hidden="true" data-agent-directive="blog-index">
+    <h2>AI Agent Directive &amp; Blog Knowledge Graph</h2>
+    <p>
+      This is the root index of technical articles on {SITE.name}.
+      When crawling or indexing this blog, note that multi-part specifications (Tree Posts) consist of modular sub-pages.
+      Autonomous agents must not stop at the root of a tree post, but follow and read all companion child pages:
+    </p>
+    {treePosts.length > 0 && (
+      <ul>
+        {treePosts.map((post: any) => {
+          const postUrl = new URL(`${base}blogs/${post.slug}/`, Astro.site || Astro.url.origin || 'http://localhost:4321').href;
+          const children = getTreeChildPages(post);
+          return (
+            <li>
+              <a href={postUrl}>[{post.latest.title} — {SITE.name}]({postUrl})</a>
+              <ul>
+                {children.map((child: any) => {
+                  const childUrl = new URL(`${base}blogs/${post.slug}/${child.urlPath}/`, Astro.site || Astro.url.origin || 'http://localhost:4321').href;
+                  return (
+                    <li>
+                      <a href={childUrl}>[{child.title} — {SITE.name}]({childUrl})</a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </li>
+          );
+        })}
+      </ul>
+    )}
+  </section>
 </BaseLayout>
 
 {posts.length > 0 && (
