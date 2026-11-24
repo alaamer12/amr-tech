@@ -1,9 +1,9 @@
 ---
-title: "The Blockiya UML Notation System: Visual Architecture for React"
-description: "A formal architectural notation standard for frontend systems, built on UML class diagrams with stereotypes, contextual visibility, and explicit flow directions."
+title: "The Blockiya UML Notation System: Visual Architecture for Component Systems"
+description: "A formal architectural notation standard for any component UI stack, built on UML class diagrams with stereotypes, contextual visibility, and explicit flow directions."
 date: 2026-11-24
 category: "Software Architecture"
-tags: ["uml", "frontend", "react", "architecture", "diagrams"]
+tags: ["uml", "frontend", "react", "vue", "architecture", "diagrams"]
 thumbnail: tree
 order: 2
 lang: en
@@ -18,7 +18,7 @@ lang: en
 
 ## 1. Notation System Overview
 
-As frontend systems grow, informal component boxes with vague arrows fail to communicate data flow and ownership. The **Blockiya UML Notation** adapts formal UML class diagram semantics specifically for component architectures.
+As UI systems grow, informal component boxes with vague arrows fail to communicate data flow and ownership. The **Blockiya UML Notation** adapts formal UML class diagram semantics for component architectures of any stack—React, Vue, Svelte, or MAUI/Blazor alike; props columns simply carry the host language's types (`subscription: Subscription` in TypeScript, `Subscription subscription` in C#).
 
 ![Blockiya UML Taxonomy](./_assets/blockiya-uml-taxonomy.jpg)
 
@@ -51,7 +51,7 @@ Every Blockiya is diagrammed with four defined compartments:
 |---|---|---|
 | **Header** | Identity & Classification | Stereotype (`<<Compound>>`), Visibility marker (`●`), and Block Name |
 | **Props (▼ Inflow)** | Inputs | All props passed down by the caller, including callbacks received |
-| **Internal (◆ Hidden)** | Local State & Queries | Local state (`useState`), queries (`useQuery`), derivers (`useDerive`) |
+| **Internal (◆ Hidden)** | Local State & Queries | Local state (e.g., `useState`, refs, signals), data queries, derivers |
 | **Events (▲ Outflow)** | Outputs & Intents | Intents emitted upward (`onSaveIntent`) and callbacks invoked |
 
 ### Example Blockiya Definition
@@ -74,7 +74,7 @@ classDiagram
 
 ## 4. End-to-End Feature Diagram
 
-Here is a full feature architecture expressed in Mermaid using the Blockiya UML specification:
+Here is a full feature architecture expressed in Mermaid using the Blockiya UML specification. The type spellings below are the canonical TypeScript expression of the notation—a C# diagram of the same architecture would read `Subscription subscription`, an equivalent shape in the host language:
 
 ```mermaid
 classDiagram
@@ -193,7 +193,7 @@ classDiagram
 | `<<Primitive>>` | Non-behavioral visual element | `Box`, `Flex`, `Text`, `Button` |
 | `<<Behavioral>>` | Interactive compound component | `Dropdown`, `Modal`, `Accordion` |
 | `<<Adapter>>` | Boundary adapter | Wraps chart, editor, or canvas libraries |
-| `<<Utility>>` | Structural logic helper | `If`, `For`, `useIntent`, `useDerive` |
+| `<<Utility>>` | Compatible helper—interoperability slot | Snaps in without contradiction or taking over control: `If`, `For`, `useIntent`, `useDerive` |
 | `*--` | Strong composition (owns) | Parent Blockiya instantiates child block |
 | `..>` | Dependency usage | Component imports or consumes primitive/adapter |
 | `⊙--` | Provides Context | Blockiya provides a scoped Context Object |
