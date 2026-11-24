@@ -1,0 +1,338 @@
+<!DOCTYPE html><html lang="en" data-base="/amr-tech/"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>The Blockiya Pattern: Strict Component Architecture for Frontend Orchestration — Amr</title><meta name="description" content="A comprehensive guide to the Blockiya Pattern—an architectural standard that treats React components as disciplined building blocks with zero styling, derived props, and upward-firing intents."><link rel="canonical" href="https://alaamer12.github.io/amr-tech/blogs/blockiya/"><meta property="og:site_name" content="Amr"><meta property="og:title" content="The Blockiya Pattern: Strict Component Architecture for Frontend Orchestration — Amr"><meta property="og:type" content="article"><meta property="og:url" content="https://alaamer12.github.io/amr-tech/blogs/blockiya/"><meta property="og:image" content="https://alaamer12.github.io/amr-tech/_astro/cover.D54hOZ3k_Z2c0vQz.webp"><meta property="og:description" content="A comprehensive guide to the Blockiya Pattern—an architectural standard that treats React components as disciplined building blocks with zero styling, derived props, and upward-firing intents."><meta property="og:locale" content="en_US"><meta property="article:published_time" content="2026-11-24T00:00:00.000Z"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="The Blockiya Pattern: Strict Component Architecture for Frontend Orchestration — Amr"><meta name="twitter:description" content="A comprehensive guide to the Blockiya Pattern—an architectural standard that treats React components as disciplined building blocks with zero styling, derived props, and upward-firing intents."><meta name="twitter:image" content="https://alaamer12.github.io/amr-tech/_astro/cover.D54hOZ3k_Z2c0vQz.webp"><link rel="alternate" type="application/rss+xml" title="Amr" href="/amr-tech/rss.xml"><link rel="sitemap" type="application/xml" href="/amr-tech/sitemap-index.xml"><link rel="icon" type="image/svg+xml" href="/amr-tech/favicon.svg"><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/amr-tech/_astro/ClientRouter.astro_astro_type_script_index_0_lang.DXqcZz58.js"></script><script type="application/ld+json">[{"@context":"https://schema.org","@type":"BlogPosting","headline":"The Blockiya Pattern: Strict Component Architecture for Frontend Orchestration","description":"A comprehensive guide to the Blockiya Pattern—an architectural standard that treats React components as disciplined building blocks with zero styling, derived props, and upward-firing intents.","url":"https://alaamer12.github.io/amr-tech/blogs/blockiya/","image":"https://alaamer12.github.io/amr-tech/_astro/cover.D54hOZ3k_Z2c0vQz.webp","datePublished":"2026-11-24T00:00:00.000Z","dateModified":"2026-11-24T00:00:00.000Z","inLanguage":"en","author":{"@type":"Person","name":"Amr"}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://alaamer12.github.io/amr-tech//"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://alaamer12.github.io/amr-tech/blogs/"},{"@type":"ListItem","position":3,"name":"The Blockiya Pattern: Strict Component Architecture for Frontend Orchestration","item":"https://alaamer12.github.io/amr-tech/blogs/blockiya/"}]}]</script><link rel="stylesheet" href="/amr-tech/_astro/BaseLayout.C2pB7ty6.css"><style>@layer astro.images{:where([data-astro-image]){height:auto}:where([data-astro-image=full-width]){width:100%}:where([data-astro-image=constrained]){max-width:100%}[data-astro-image-fit=fill]{object-fit:fill}[data-astro-image-fit=contain]{object-fit:contain}[data-astro-image-fit=cover]{object-fit:cover}[data-astro-image-fit=scale-down]{object-fit:scale-down}[data-astro-image-pos=top]{object-position:top}[data-astro-image-pos=bottom]{object-position:bottom}[data-astro-image-pos=left]{object-position:left}[data-astro-image-pos=right]{object-position:right}[data-astro-image-pos=center]{object-position:center}[data-astro-image-pos=top-left]{object-position:top left}[data-astro-image-pos=top-right]{object-position:top right}[data-astro-image-pos=top-center]{object-position:top center}[data-astro-image-pos=bottom-left]{object-position:bottom left}[data-astro-image-pos=bottom-right]{object-position:bottom right}[data-astro-image-pos=bottom-center]{object-position:bottom center}[data-astro-image-pos=left-top]{object-position:left top}[data-astro-image-pos=left-bottom]{object-position:left bottom}[data-astro-image-pos=left-center]{object-position:left center}[data-astro-image-pos=right-top]{object-position:right top}[data-astro-image-pos=right-bottom]{object-position:right bottom}[data-astro-image-pos=right-center]{object-position:right center}[data-astro-image-pos=center-top]{object-position:center top}[data-astro-image-pos=center-bottom]{object-position:center bottom}[data-astro-image-pos=center-left]{object-position:center left}[data-astro-image-pos=center-right]{object-position:center right}}
+</style><style>[data-astro-transition-scope="astro-nfpogox7-1"] { view-transition-name: astro-nfpogox7-1; }@layer astro { ::view-transition-old(astro-nfpogox7-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(astro-nfpogox7-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(astro-nfpogox7-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(astro-nfpogox7-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-nfpogox7-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-nfpogox7-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-nfpogox7-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-nfpogox7-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-nfpogox7-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-nfpogox7-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-nfpogox7-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-nfpogox7-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head><body data-astro-transition-scope="astro-nfpogox7-1"><script data-astro-rerun>
+      (() => {
+        try {
+          const stored = localStorage.getItem('theme');
+          const dark = stored ? stored === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+        } catch {
+          document.documentElement.dataset.theme = 'light';
+        }
+        try {
+          document.documentElement.dataset.align = localStorage.getItem('align') || 'left';
+        } catch {
+          document.documentElement.dataset.align = 'left';
+        }
+      })();
+    </script><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header"><div class="site-header__inner"><a class="site-header__brand" href="/amr-tech/blogs/" aria-label="Amr home"><svg class="site-header__logo" width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="currentColor" opacity="0.08"></rect><path d="M9 22l7-12 7 12" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="16" cy="24" r="1.6" fill="currentColor"></circle></svg>Amr</a><div class="align-toggle" role="group" aria-label="Content alignment"><button class="align-toggle__btn" type="button" data-align="left" aria-label="Align content left"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="15" y2="12"></line><line x1="3" y1="18" x2="18" y2="18"></line></svg></button><button class="align-toggle__btn" type="button" data-align="center" aria-label="Align content center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="6" y1="12" x2="18" y2="12"></line><line x1="4" y1="18" x2="20" y2="18"></line></svg></button><button class="align-toggle__btn" type="button" data-align="right" aria-label="Align content right"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="9" y1="12" x2="21" y2="12"></line><line x1="6" y1="18" x2="21" y2="18"></line></svg></button></div><script type="module">function e(){let e=[...document.querySelectorAll(`[data-align]`)];function t(t){document.documentElement.dataset.align=t;for(let n of e)n.classList.toggle(`align-toggle__btn--active`,n.dataset.align===t),n.setAttribute(`aria-pressed`,String(n.dataset.align===t));try{localStorage.setItem(`align`,t)}catch{}}for(let n of e)n.addEventListener(`click`,()=>t(n.dataset.align??`left`)),n.classList.toggle(`align-toggle__btn--active`,n.dataset.align===document.documentElement.dataset.align)}document.addEventListener(`astro:page-load`,e);</script><nav class="site-header__actions" aria-label="Main"><a class="site-header__icon-link" href="/amr-tech/rss.xml" aria-label="RSS feed"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9H4v-9zm0-5a14 14 0 0 1 14 14h-4A10 10 0 0 0 4 10V6zm2.5-2A16.5 16.5 0 0 1 22.5 21h-4A12.5 12.5 0 0 0 6.5 8.5v-4.5z" opacity="0"></path><circle cx="6.18" cy="17.82" r="2.18"></circle><path d="M4 4.05v3.06c9.39.3 12.56 3.4 12.89 12.89h3.06C19.7 9.2 14.8 4.3 4 4.05zm0 6.12v3.06c3.9.24 6.6 2.95 6.82 6.82h3.06C15.53 14.23 11.77 10.47 4 10.17z"></path></svg></a><button class="theme-toggle" type="button" aria-label="Toggle dark mode" data-theme-toggle><svg class="theme-toggle__icon theme-toggle__icon--moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg><svg class="theme-toggle__icon theme-toggle__icon--sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></button><script type="module">var e=()=>matchMedia(`(prefers-reduced-motion: reduce)`).matches,t=!1;function n(e){let t=innerWidth,n=innerHeight,r=t/2,i=n/2;if(e){let t=e.getBoundingClientRect();r=t.left+t.width/2,i=t.top+t.height/2}let a=Math.hypot(Math.max(r,t-r),Math.max(i,n-i));return{cx:r,cy:i,maxRadius:a,vw:t,vh:n}}function r(e){let t=`${e.cx/e.vw*100}%`,n=`${e.cy/e.vh*100}%`,r=e.maxRadius/(Math.hypot(e.vw,e.vh)/Math.SQRT2)*100;return[`circle(0% at ${t} ${n})`,`circle(${r}% at ${t} ${n})`]}function i(e){let t=document.createElement(`div`);return t.className=`morph-ring`,t.style.left=`${e.cx-e.maxRadius}px`,t.style.top=`${e.cy-e.maxRadius}px`,t.style.width=t.style.height=`${e.maxRadius*2}px`,t.style.viewTransitionName=`ring`,document.body.appendChild(t),t}function a(e){document.documentElement.dataset.theme=e?`dark`:`light`;try{localStorage.setItem(`theme`,e?`dark`:`light`)}catch{}}function o(a,o,s){if(t)return;if(typeof document.startViewTransition!=`function`||e()){o();return}let c=n(a),l=r(c),u=document.documentElement,d=null;t=!0,u.dataset.morphing=``,u.style.setProperty(`--morph-dur`,`${s}ms`),u.style.setProperty(`--morph-clip-from`,l[0]);let f=document.startViewTransition(()=>{o(),d=i(c)});f.finished.finally(()=>{t=!1,d?.remove(),delete u.dataset.morphing,u.style.removeProperty(`--morph-dur`),u.style.removeProperty(`--morph-clip-from`)}),f.ready.then(()=>{u.animate({clipPath:l},{duration:s,easing:`ease-in-out`,fill:`forwards`,pseudoElement:`::view-transition-new(root)`})}).catch(()=>{})}function s(){let e=document.querySelector(`[data-theme-toggle]`);e&&e.addEventListener(`click`,()=>{let t=document.documentElement.dataset.theme!==`dark`;o(e,()=>a(t),400)})}document.addEventListener(`astro:page-load`,s);</script></nav></div></header><main class="page" id="main-content"><script data-astro-rerun>(function(){const base = "/amr-tech/";
+const slug = "blockiya";
+const versionNums = [1];
+const latestVersion = 1;
+
+    (() => {
+      const q = new URLSearchParams(location.search).get('version');
+      if (!q) return;
+      const wanted = q === 'latest' ? latestVersion : Number(q);
+      const path = location.pathname;
+      const bare = base + 'blogs/' + slug + '/';
+      if (!Number.isInteger(wanted) || !versionNums.includes(wanted)) {
+        if (path !== bare) location.replace(bare);
+        else history.replaceState(null, '', bare);
+        return;
+      }
+      const target = wanted === latestVersion ? bare : bare + 'v' + wanted + '/';
+      if (path !== target) location.replace(target);
+      else history.replaceState(null, '', target);
+    })();
+  })();</script><div class="reading-progress" aria-hidden="true"></div><script type="module">var e=document.documentElement,t=!1;function n(){t=!1;let n=document.querySelector(`.reading-progress`);if(!n)return;let r=e.scrollHeight-e.clientHeight;n.style.setProperty(`--progress`,r>0?(e.scrollTop/r).toFixed(4):`0`)}function r(){t||(t=!0,requestAnimationFrame(n))}addEventListener(`scroll`,r,{passive:!0}),addEventListener(`resize`,r,{passive:!0}),document.addEventListener(`astro:page-load`,n);</script><div class="post-shell"><article class="post-column" data-pagefind-body><div class="post-topbar"><a class="post-back" href="/amr-tech/blogs/">← Blog</a><button class="copy-page" type="button" data-copy-page data-md-url="/amr-tech/blogs/blockiya.md"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span data-copy-label>Copy Page</span></button><script type="module">function e(){let e=document.querySelector(`[data-copy-page]`);if(!e)return;let t=e.querySelector(`[data-copy-label]`);e.addEventListener(`click`,async()=>{let n=e.getAttribute(`data-md-url`);t.textContent=`Copying…`;try{let e=await fetch(n).then(e=>{if(!e.ok)throw Error(`mirror missing`);return e.text()});await navigator.clipboard.writeText(e),t.textContent=`Copied ✓`}catch{t.textContent=`Copy failed`}setTimeout(()=>{t.textContent=`Copy Page`},2e3)})}document.addEventListener(`astro:page-load`,e);</script></div><header class="post-header"><div class="post-header__meta"><span class="meta-label">24 November 2026</span><span class="card__category">Software Architecture</span><span class="visually-hidden" data-pagefind-filter="category:Software Architecture"></span><span class="visually-hidden" data-pagefind-meta="date:24 November 2026"></span></div><h1 class="post-title post-header__title" lang="en" data-pagefind-meta="title">The Blockiya Pattern: Strict Component Architecture for Frontend Orchestration</h1><p class="post-lede post-header__lede" lang="en">A comprehensive guide to the Blockiya Pattern—an architectural standard that treats React components as disciplined building blocks with zero styling, derived props, and upward-firing intents.</p><div class="post-tags"><a class="post-tag" href="/amr-tech/blogs/?tag=react">react</a><a class="post-tag" href="/amr-tech/blogs/?tag=frontend">frontend</a><a class="post-tag" href="/amr-tech/blogs/?tag=software-architecture">software-architecture</a><a class="post-tag" href="/amr-tech/blogs/?tag=clean-code">clean-code</a><a class="post-tag" href="/amr-tech/blogs/?tag=design-systems">design-systems</a><a class="post-tag" href="/amr-tech/blogs/?tag=typescript">typescript</a></div></header><figure class="post-cover"><img src="/amr-tech/_astro/cover.D54hOZ3k_ZXCPAK.webp" srcset="/amr-tech/_astro/cover.D54hOZ3k_Z23mAYu.webp 640w, /amr-tech/_astro/cover.D54hOZ3k_25z8iK.webp 750w, /amr-tech/_astro/cover.D54hOZ3k_2pVY8C.webp 828w, /amr-tech/_astro/cover.D54hOZ3k_2jWAoA.webp 1080w, /amr-tech/_astro/cover.D54hOZ3k_ZXCPAK.webp 1280w" alt loading="eager" decoding="async" sizes="(min-width: 1280px) 1280px, 100vw" data-astro-image="constrained" data-astro-image-fit="cover" data-astro-image-pos="center" width="1280" height="720" class="post-cover__image"></figure><nav class="tree-nav" aria-label="Post pages"><ul class="tree-nav__list"><li class="tree-nav__item tree-nav__item--depth-0 tree-nav__item--current"><a href="/amr-tech/blogs/blockiya/" aria-current="page">The Blockiya Pattern: Strict Component Architecture for Frontend Orchestration</a></li><li class="tree-nav__item tree-nav__item--depth-1"><a href="/amr-tech/blogs/blockiya/uml-notation/">The Blockiya UML Notation System: Visual Architecture for React</a></li><li class="tree-nav__item tree-nav__item--depth-1"><a href="/amr-tech/blogs/blockiya/implementation/">Strict Blockiya &amp; blockiya-core: The Mechanics of Frontend Discipline</a></li><li class="tree-nav__item tree-nav__item--depth-1"><a href="/amr-tech/blogs/blockiya/examples/">Blockiya by Example: Real-World Architecture &amp; Implementations</a></li></ul></nav><div class="toc-inline"><nav class="toc" aria-label="Table of contents"><h2 class="toc__title">Table of Contents</h2><ol class="toc__list"><li><a class="toc__link" href="#1-what-is-blockiya">1. What is Blockiya?</a></li><li><a class="toc__link" href="#2-why-blockiya-exists">2. Why Blockiya Exists</a></li><li><a class="toc__link" href="#3-the-layer-stack">3. The Layer Stack</a></li><li><a class="toc__link" href="#4-stereotypes-the-shared-vocabulary">4. Stereotypes: The Shared Vocabulary</a></li><li><a class="toc__link" href="#5-the-blockiya-contract">5. The Blockiya Contract</a><ul><li class="toc__item--sub"><a class="toc__link" href="#strict-non-negotiable-rules">Strict Non-Negotiable Rules</a></li></ul></li><li><a class="toc__link" href="#6-strict-blockiya--v21">6. Strict Blockiya — v2.1</a></li><li><a class="toc__link" href="#7-state-complexity-decision-matrix">7. State Complexity Decision Matrix</a><ul><li class="toc__item--sub"><a class="toc__link" href="#the-three-questions">The Three Questions</a></li></ul></li><li><a class="toc__link" href="#8-deep-dive-topics-in-this-series">8. Deep-Dive Topics in This Series</a></li></ol></nav></div><div class="post-body" lang="en"><blockquote>
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li><strong>The Architect Mental Model:</strong> A Blockiya is an orchestrator. It owns domain state, coordinates data queries, derives props before passing them down, and translates user actions into intents fired upward. It never writes CSS or reaches into third-party library internals.</li>
+<li><strong>Zero Styling Rule:</strong> Blockiyas write zero CSS—no <code>className</code>, no <code>style</code> attributes, no utility strings. All visual presentation is delegated strictly to design system primitives.</li>
+<li><strong>Unidirectional Strict Contract:</strong> Every tier in the stack only communicates with the layer immediately beneath it, while events and intentions flow strictly upward to the caller.</li>
+<li><strong>Strict Blockiya (v2.1):</strong> Enforces mechanical consistency with <code>blockiya-core</code> utilities—replacing fragile inline <code>isLoading</code>/<code>error</code> flags with <code>useIntent</code>, inline selectors with <code>useDerive</code>, and messy ternaries with <code>&lt;If&gt;</code>, <code>&lt;Maybe&gt;</code>, and <code>&lt;For&gt;</code>.</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="1-what-is-blockiya">1. What is Blockiya?</h2>
+<p>A <strong>Blockiya</strong> is an orchestrator. It owns domain state, talks to data sources through hooks, derives props before passing them down, and translates user interactions into clean intents that fire upward.</p>
+<p>It never writes CSS. It never touches inline styles. It never reaches into a third-party library’s internals. And it never decides what happens after an intent is fired—what happens next is always the caller’s concern.</p>
+<p>The name originates from the Arabic word for “block” (<strong>بلوكية</strong>) — a deliberate structural building unit characterized by an immutable shape, clear boundaries, and a known interface. Much like a stone block in classic architecture, it can be picked up, relocated, and set into a completely different context without altering its internal logic.</p>
+<p>The mental model is that of an <strong>architect, not a craftsman</strong>. An architect does not mold bricks, nor do they lay mortar. An architect determines what the building requires and assembles the right materials in the right positions. Everything else is delegated.</p>
+<p><img alt="The Blockiya Architectural Stack" loading="lazy" decoding="async" sizes="(min-width: 1376px) 1376px, 100vw" data-astro-image="constrained" data-astro-image-pos="center" width="1376" height="768" src="/amr-tech/_astro/blockiya-architecture.B6hGyiyn_ZUtE6g.webp" srcset="/amr-tech/_astro/blockiya-architecture.B6hGyiyn_Z2pn51s.webp 640w, /amr-tech/_astro/blockiya-architecture.B6hGyiyn_Z2os8KD.webp 750w, /amr-tech/_astro/blockiya-architecture.B6hGyiyn_ncALX.webp 828w, /amr-tech/_astro/blockiya-architecture.B6hGyiyn_Z16OhiF.webp 1080w, /amr-tech/_astro/blockiya-architecture.B6hGyiyn_Z2tw645.webp 1280w, /amr-tech/_astro/blockiya-architecture.B6hGyiyn_ZUtE6g.webp 1376w"></p>
+<hr>
+<h2 id="2-why-blockiya-exists">2. Why Blockiya Exists</h2>
+<p>Before establishing this pattern, components inevitably degraded into catch-alls. A single 800-line React file would:</p>
+<ol>
+<li>Fetch data directly via raw API promises or ad-hoc <code>fetch()</code> calls.</li>
+<li>Juggle three or four tangled pieces of local state.</li>
+<li>Write sprawling inline CSS or arbitrary utility classes.</li>
+<li>Directly instantiate complex external libraries (like <code>xterm.js</code> or <code>CodeMirror</code>).</li>
+<li>Fire arbitrary router navigation calls and pop confirmation modals on button clicks.</li>
+</ol>
+<p>Changing one property broke unrelated features. Writing reliable unit tests was impossible without mocking the entire runtime world.</p>
+<p>Blockiya solves this by enforcing a single, non-negotiable architectural rule:</p>
+<blockquote>
+<p><strong>Every piece of the system knows only about the layer directly below it, and fires intentions only upward.</strong></p>
+</blockquote>
+<hr>
+<h2 id="3-the-layer-stack">3. The Layer Stack</h2>
+<p>In the Blockiya architecture, responsibilities are stratified into strict hierarchical tiers:</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Responsibility</th>
+<th>Key Characteristics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Page</strong></td>
+<td>Route &amp; layout orchestration</td>
+<td>Handles URL routing, layout grid, and passes route context downward</td>
+</tr>
+<tr>
+<td><strong>Blockiya</strong></td>
+<td>Domain orchestration &amp; state</td>
+<td>Owns domain state, queries data, derives props, fires intents upward</td>
+</tr>
+<tr>
+<td><strong>Child Components</strong></td>
+<td>Presentational rendering</td>
+<td>Receive strictly derived props, own no domain state, emit callbacks</td>
+</tr>
+<tr>
+<td><strong>Behavioral Primitives</strong></td>
+<td>Interactive UI primitives</td>
+<td>Manage keyboard navigation, focus, and ARIA internally (Dropdown, Modal)</td>
+</tr>
+<tr>
+<td><strong>Non-Behavioral Primitives</strong></td>
+<td>Visual design system tokens</td>
+<td>Pure layout and typography tokens (Box, Flex, Text, Button)</td>
+</tr>
+<tr>
+<td><strong>Adapters</strong></td>
+<td>Third-party library boundaries</td>
+<td>Wrap external tools, translate design tokens and events, manage lifecycle</td>
+</tr>
+<tr>
+<td><strong>Utilities (<code>blockiya-core</code>)</strong></td>
+<td>Pattern-native structural helpers</td>
+<td>Provide structural rendering (<code>If</code>, <code>For</code>) and intent handling (<code>useIntent</code>)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="4-stereotypes-the-shared-vocabulary">4. Stereotypes: The Shared Vocabulary</h2>
+<p>Stereotypes classify components by architectural role. They appear in technical design documents, architectural diagrams, and code comments as <code>&lt;&lt;Stereotype&gt;&gt;</code>. While not compiler-enforced, they make architectural intent visible at a glance.</p>
+<table>
+<thead>
+<tr>
+<th>Stereotype</th>
+<th>Meaning</th>
+<th>When to Use</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;&lt;Page&gt;&gt;</code></td>
+<td>Top-level route component</td>
+<td>Next.js / Astro / React Router pages</td>
+<td><code>BillingOverviewPage</code></td>
+</tr>
+<tr>
+<td><code>&lt;&lt;Feature&gt;&gt;</code></td>
+<td>Large workflow orchestrator</td>
+<td>Multi-step wizards, complex flows</td>
+<td><code>CheckoutWizardBlock</code></td>
+</tr>
+<tr>
+<td><code>&lt;&lt;Compound&gt;&gt;</code></td>
+<td>Multi-component Blockiya</td>
+<td>Combines 2 to 5 child blocks</td>
+<td><code>BillingOverviewBlock</code></td>
+</tr>
+<tr>
+<td><code>&lt;&lt;Atomic&gt;&gt;</code></td>
+<td>Single-purpose Blockiya</td>
+<td>Focused, leaf-level orchestrator</td>
+<td><code>UsageChartsBlock</code></td>
+</tr>
+<tr>
+<td><code>&lt;&lt;Primitive&gt;&gt;</code></td>
+<td>Non-behavioral design component</td>
+<td>Visual design tokens, zero interaction logic</td>
+<td><code>Button</code>, <code>VStack</code>, <code>Text</code>, <code>Box</code></td>
+</tr>
+<tr>
+<td><code>&lt;&lt;Behavioral&gt;&gt;</code></td>
+<td>Behavioral design component</td>
+<td>Owns internal interaction state (<code>isOpen</code>, focus)</td>
+<td><code>Dropdown</code>, <code>Modal</code>, <code>Tooltip</code></td>
+</tr>
+<tr>
+<td><code>&lt;&lt;Context&gt;&gt;</code></td>
+<td>Context provider</td>
+<td>Deep prop sharing across descendants</td>
+<td><code>ProjectContext</code></td>
+</tr>
+<tr>
+<td><code>&lt;&lt;Hook/Query&gt;&gt;</code></td>
+<td>Data fetching hook</td>
+<td>External server state access</td>
+<td><code>useBillingUsage</code>, <code>useProjects</code></td>
+</tr>
+<tr>
+<td><code>&lt;&lt;Adapter&gt;&gt;</code></td>
+<td>Third-party library wrapper</td>
+<td>Isolates external tools, maps tokens/events</td>
+<td><code>CodeEditorAdapter</code>, <code>TerminalAdapter</code></td>
+</tr>
+<tr>
+<td><code>&lt;&lt;Utility&gt;&gt;</code></td>
+<td>Pattern-native structural helper</td>
+<td>Structural mechanics (<code>useIntent</code>, <code>If</code>, <code>useDerive</code>)</td>
+<td><code>If</code>, <code>For</code>, <code>useIntent</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>[!TIP]
+<strong>Stereotypes are growth signals.</strong> When an <code>&lt;&lt;Atomic&gt;&gt;</code> block starts accumulating multiple children and expanding beyond its single concern, it is signaling that it needs to be promoted to a <code>&lt;&lt;Compound&gt;&gt;</code> block, or split into focused peers.</p>
+</blockquote>
+<hr>
+<h2 id="5-the-blockiya-contract">5. The Blockiya Contract</h2>
+<p>A Blockiya is the <strong>only</strong> piece in the stack permitted to:</p>
+<ul>
+<li>Fetch or mutate data (via hooks from <code>queries/</code>, never raw <code>fetch()</code>).</li>
+<li>Own domain state (<code>isEditing</code>, <code>draft</code>, <code>isLoading</code>, <code>isSaving</code>).</li>
+<li>Derive props before passing them down.</li>
+<li>Decide which children to render and when.</li>
+<li>Fire intents upward to its caller.</li>
+</ul>
+<h3 id="strict-non-negotiable-rules">Strict Non-Negotiable Rules</h3>
+<ol>
+<li><strong>Zero Styling:</strong> No <code>className</code>, no <code>style</code> attributes, no inline CSS, no utility classes. All visual output must pass through design system primitives.</li>
+<li><strong>Never Call APIs Directly:</strong> All data fetching and mutations must go through dedicated hooks from the <code>queries/</code> layer.</li>
+<li><strong>The 3–7 Props Ceiling:</strong> A Blockiya should receive 3–7 props and emit 3–7 intents. Exceeding this range indicates that the component has taken on multiple domains and must be split.</li>
+<li><strong>Derive Before You Pass:</strong> Raw API payloads never touch child components. Always transform raw models into view-specific shapes.</li>
+<li><strong>Fire Intents and Stop:</strong> The Blockiya does not care what happens next. It announces what happened (<code>onSaveIntent</code>) and stops.</li>
+</ol>
+<pre class="astro-code astro-code-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e; overflow-x: auto;" tabindex="0" data-language="tsx"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D">// ✅ Correct: Fires intent, completes its responsibility</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">const</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> handleDelete</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> () </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=&gt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">  onDeleteIntent</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(userId);</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D">// ❌ Incorrect: Blockiya makes a UX decision that belongs to the parent/caller</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">const</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> handleDelete</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> () </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=&gt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  if</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> (window.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">confirm</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"Are you sure?"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">)) {</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">    onDeleteIntent</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(userId);</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">    navigate</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"/users"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">); </span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D">// Leaking navigation and UX flow into the block</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">  }</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">};</span></span></code></pre>
+<hr>
+<h2 id="6-strict-blockiya--v21">6. Strict Blockiya — v2.1</h2>
+<p>Strict Blockiya is the disciplined, opinionated variant of the pattern. Much like how the Repository Pattern provides strict vs. loose implementations, Strict Blockiya introduces mechanical constraints that eliminate developer discretion:</p>
+<ol>
+<li><strong><code>blockiya-core</code> utilities are required:</strong> Every async operation runs through <code>useIntent</code>. Every derivation runs through <code>useDerive</code>. Conditional and list rendering uses <code>&lt;If&gt;</code>, <code>&lt;Maybe&gt;</code>, and <code>&lt;For&gt;</code>.</li>
+<li><strong>No <code>useState</code> for async lifecycle:</strong> Never manually track <code>[isLoading, setIsLoading]</code> and <code>[error, setError]</code> pairs. <code>useIntent</code> manages this lifecycle automatically.</li>
+<li><strong>No inline derivations:</strong> Avoid computing <code>{ fullName: </code>${user.first} ${user.last}<code> }</code> directly inside JSX. Derivations must live in named functions executed via <code>useDerive</code>.</li>
+<li><strong>Declarative structural rendering:</strong> Discard brittle <code>{condition &amp;&amp; &lt;Component /&gt;}</code> patterns in favor of explicit structural components.</li>
+</ol>
+<hr>
+<h2 id="7-state-complexity-decision-matrix">7. State Complexity Decision Matrix</h2>
+<p>Where should state live? Follow this definitive decision hierarchy:</p>
+<table>
+<thead>
+<tr>
+<th>State Type</th>
+<th>Characteristics</th>
+<th>Where It Lives</th>
+<th>Recommended Mechanism</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Local UI State</strong></td>
+<td>Transient, single-component (input focus, hover)</td>
+<td>Leaf component</td>
+<td><code>useState</code> inside the component</td>
+</tr>
+<tr>
+<td><strong>Form Draft State</strong></td>
+<td>Editable copy of domain data during session</td>
+<td>Blockiya</td>
+<td><code>useState</code> in Blockiya, passed via controlled props</td>
+</tr>
+<tr>
+<td><strong>Server State</strong></td>
+<td>Remote data, requires caching and invalidation</td>
+<td>Query layer</td>
+<td>TanStack Query / SWR hook in <code>queries/</code></td>
+</tr>
+<tr>
+<td><strong>Shared Feature State</strong></td>
+<td>Required by multiple blocks in one feature</td>
+<td>Feature Root</td>
+<td><code>Context Object</code> provided by feature Blockiya</td>
+</tr>
+<tr>
+<td><strong>Global App State</strong></td>
+<td>Cross-cutting, persists across route changes</td>
+<td>Global Store</td>
+<td>Zustand / Pinia outside <code>features/</code></td>
+</tr>
+<tr>
+<td><strong>URL State</strong></td>
+<td>Filters, active tabs, search pagination</td>
+<td>Router</td>
+<td>URL search parameters (<code>useSearchParams</code>)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="the-three-questions">The Three Questions</h3>
+<p>When deciding where a new piece of state belongs, ask these questions in exact order:</p>
+<ol>
+<li><em>Does any other component need to know about this?</em> If <strong>No</strong> → keep it in local <code>useState</code>.</li>
+<li><em>Does this state originate from or synchronize with a backend?</em> If <strong>Yes</strong> → place it in a query hook inside <code>queries/</code>.</li>
+<li><em>Do multiple independent features across the application require this?</em> If <strong>Yes</strong> → place it in a global store.</li>
+</ol>
+<p>If none of the above apply, scope it to a <strong>Feature Context</strong> provided by the nearest parent Blockiya.</p>
+<hr>
+<h2 id="8-deep-dive-topics-in-this-series">8. Deep-Dive Topics in This Series</h2>
+<p>Explore the full specification across the companion chapters of this guide:</p>
+<ul>
+<li><a href="/amr-tech/blogs/blockiya/uml-notation/"><strong>UML Notation System</strong></a> — The formal visual vocabulary, symbols, visibility markers, and Mermaid class diagram conventions.</li>
+<li><a href="/amr-tech/blogs/blockiya/implementation/"><strong>Core Implementation &amp; Utilities</strong></a> — The complete <code>blockiya-core</code> package, featuring <code>useIntent</code>, <code>useDerive</code>, <code>&lt;If&gt;</code>, <code>&lt;Maybe&gt;</code>, <code>&lt;For&gt;</code>, and <code>&lt;Compose&gt;</code>.</li>
+<li><a href="/amr-tech/blogs/blockiya/examples/"><strong>Code Examples &amp; Case Studies</strong></a> — Comprehensive real-world implementations including User Profile blocks, Adapters, and Compound Components.</li>
+</ul>
+</div><nav class="post-nav" aria-label="More posts"><a class="post-nav__link" href="/amr-tech/blogs/what-are-guards-in-programming-blog-package/"><span class="post-nav__label">← Previous</span><span>What Are Guards in Programming? Guard Clauses, Access Control, Type Narrowing, and How They Differ from Gates and Sentinels</span></a></nav></article><aside class="toc-rail"><button class="toc-rail__toggle" type="button" data-toc-toggle aria-expanded="false" aria-controls="toc-panel"><svg class="toc-rail__chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M9 18l6-6-6-6"></path></svg><span>Contents</span></button><nav class="toc-rail__panel" id="toc-panel" aria-label="Table of contents"><nav class="toc" aria-label="Table of contents"><h2 class="toc__title">Table of Contents</h2><ol class="toc__list"><li><a class="toc__link" href="#1-what-is-blockiya">1. What is Blockiya?</a></li><li><a class="toc__link" href="#2-why-blockiya-exists">2. Why Blockiya Exists</a></li><li><a class="toc__link" href="#3-the-layer-stack">3. The Layer Stack</a></li><li><a class="toc__link" href="#4-stereotypes-the-shared-vocabulary">4. Stereotypes: The Shared Vocabulary</a></li><li><a class="toc__link" href="#5-the-blockiya-contract">5. The Blockiya Contract</a><ul><li class="toc__item--sub"><a class="toc__link" href="#strict-non-negotiable-rules">Strict Non-Negotiable Rules</a></li></ul></li><li><a class="toc__link" href="#6-strict-blockiya--v21">6. Strict Blockiya — v2.1</a></li><li><a class="toc__link" href="#7-state-complexity-decision-matrix">7. State Complexity Decision Matrix</a><ul><li class="toc__item--sub"><a class="toc__link" href="#the-three-questions">The Three Questions</a></li></ul></li><li><a class="toc__link" href="#8-deep-dive-topics-in-this-series">8. Deep-Dive Topics in This Series</a></li></ol></nav></nav></aside></div><script type="module" src="/amr-tech/_astro/BlogPost.astro_astro_type_script_index_0_lang.Bd86GGUj.js"></script><section class="related" data-related aria-label="Related posts"><div class="related__head"><h2 class="related__title">Related posts</h2></div><div class="related__tabs" role="tablist" aria-label="Filter related posts by category"><button class="related__tab related__tab--active" type="button" role="tab" aria-selected="true" data-rel-tab="">All</button><button class="related__tab" type="button" role="tab" aria-selected="false" data-rel-tab="Architecture">Architecture</button><button class="related__tab" type="button" role="tab" aria-selected="false" data-rel-tab="Artificial Intelligence">Artificial Intelligence</button><button class="related__tab" type="button" role="tab" aria-selected="false" data-rel-tab="Engineering">Engineering</button><button class="related__tab" type="button" role="tab" aria-selected="false" data-rel-tab="Software Architecture">Software Architecture</button><button class="related__tab" type="button" role="tab" aria-selected="false" data-rel-tab="Software Engineering">Software Engineering</button></div><ul class="related__list"><li class="related__row" data-rel-cat="Software Architecture"><span class="related__date meta-label">15 Nov 2026</span><a class="related__link" href="/amr-tech/blogs/error-as-truth/" lang="en">Error as Truth</a><span class="related__time meta-label">6 min</span></li><li class="related__row" data-rel-cat="Software Architecture"><span class="related__date meta-label">12 Nov 2026</span><a class="related__link" href="/amr-tech/blogs/layers-in-software-architecture/" lang="en">Layers in Software Architecture</a><span class="related__time meta-label">3 min</span></li><li class="related__row" data-rel-cat="Software Architecture"><span class="related__date meta-label">12 Nov 2026</span><a class="related__link" href="/amr-tech/blogs/responsibility-ownership/" lang="en">Responsibility Ownership in Software Architecture</a><span class="related__time meta-label">2 min</span></li><li class="related__row" data-rel-cat="Software Engineering"><span class="related__date meta-label">20 Nov 2026</span><a class="related__link" href="/amr-tech/blogs/what-are-guards-in-programming-blog-package/" lang="en">What Are Guards in Programming? Guard Clauses, Access Control, Type Narrowing, and How They Differ from Gates and Sentinels</a><span class="related__time meta-label">14 min</span></li><li class="related__row" data-rel-cat="Software Architecture"><span class="related__date meta-label">15 Nov 2026</span><a class="related__link" href="/amr-tech/blogs/project-lifecycle-states/" lang="en">The Three Project States: Draft, In-Progress, and Post-Production</a><span class="related__time meta-label">4 min</span></li><li class="related__row" data-rel-cat="Software Architecture"><span class="related__date meta-label">12 Nov 2026</span><a class="related__link" href="/amr-tech/blogs/probability-and-certainty/" lang="en">Probability and Certainty in Software Engineering</a><span class="related__time meta-label">5 min</span></li><li class="related__row" data-rel-cat="Architecture"><span class="related__date meta-label">03 Nov 2026</span><a class="related__link" href="/amr-tech/blogs/pvc/" lang="en">PVC — A Role-Based UI Construction Architecture</a><span class="related__time meta-label">108 min</span></li><li class="related__row" data-rel-cat="Artificial Intelligence"><span class="related__date meta-label">18 Nov 2026</span><a class="related__link" href="/amr-tech/blogs/move-37-alphago-lee-sedol/" lang="en">Move 37 in Seoul: What the Game of Go Taught Us About Machine Wonder</a><span class="related__time meta-label">8 min</span></li><li class="related__row" data-rel-cat="Engineering"><span class="related__date meta-label">16 Nov 2026</span><a class="related__link" href="/amr-tech/blogs/okf-directory-model/okf-directory-model/" lang="en">How OKF Organizes Directories: One Concept per File, One Bundle per Folder</a><span class="related__time meta-label">9 min</span></li><li class="related__row" data-rel-cat><span class="related__date meta-label">12 Nov 2026</span><a class="related__link" href="/amr-tech/blogs/Result Output Strategies/" lang="en">Function Outcome Strategies</a><span class="related__time meta-label">20 min</span></li></ul><button class="related__more" type="button" data-rel-more>Load more</button></section><script type="module">function e(){let e=document.querySelector(`[data-related]`);if(e){let t=[...e.querySelectorAll(`[data-rel-tab]`)],n=[...e.querySelectorAll(`.related__row`)],r=e.querySelector(`[data-rel-more]`);function i(){let i=t.find(e=>e.classList.contains(`related__tab--active`))?.dataset.relTab??``,a=e.hasAttribute(`data-expanded`),o=0;for(let e of n)i&&e.dataset.relCat!==i?e.style.display=`none`:(o++,e.style.display=!a&&o>5?`none`:``);r&&(r.style.display=!a&&o>5?``:`none`)}for(let n of t)n.addEventListener(`click`,()=>{for(let e of t)e.classList.remove(`related__tab--active`),e.setAttribute(`aria-selected`,`false`);n.classList.add(`related__tab--active`),n.setAttribute(`aria-selected`,`true`),e.removeAttribute(`data-expanded`),i()});r?.addEventListener(`click`,()=>{e.setAttribute(`data-expanded`,``),i()}),i()}}window.__bindRelated_bound||(window.__bindRelated_bound=!0,document.addEventListener(`astro:page-load`,e));</script><script type="module" src="/amr-tech/_astro/BlogPost.astro_astro_type_script_index_1_lang.Bd86GGUj.js"></script></main><footer class="site-footer"><div class="site-footer__inner"><span class="meta-label">© 2026 Amr</span><nav class="site-footer__links" aria-label="Footer"><a href="/amr-tech/blogs/">Blog</a><a href="/amr-tech/rss.xml">RSS</a><a href="/amr-tech/llms.txt">llms.txt</a></nav></div></footer></body></html>

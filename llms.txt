@@ -6,6 +6,11 @@ Each post lists all published versions. Append `.md` to any version URL for the 
 
 ## Posts
 
+- [The Blockiya Pattern: Strict Component Architecture for Frontend Orchestration](https://alaamer12.github.io/amr-tech/blogs/blockiya/): v1, 2026-11-24, Software Architecture
+  - [The Blockiya UML Notation System: Visual Architecture for React](https://alaamer12.github.io/amr-tech/blogs/blockiya/uml-notation/)
+  - [Strict Blockiya & blockiya-core: The Mechanics of Frontend Discipline](https://alaamer12.github.io/amr-tech/blogs/blockiya/implementation/)
+  - [Blockiya by Example: Real-World Architecture & Implementations](https://alaamer12.github.io/amr-tech/blogs/blockiya/examples/)
+- [What Are Guards in Programming? Guard Clauses, Access Control, Type Narrowing, and How They Differ from Gates and Sentinels](https://alaamer12.github.io/amr-tech/blogs/what-are-guards-in-programming-blog-package/): v1, 2026-11-20, Software Engineering
 - [Move 37 in Seoul: What the Game of Go Taught Us About Machine Wonder](https://alaamer12.github.io/amr-tech/blogs/move-37-alphago-lee-sedol/): v1, 2026-11-18, Artificial Intelligence
 - [How OKF Organizes Directories: One Concept per File, One Bundle per Folder](https://alaamer12.github.io/amr-tech/blogs/okf-directory-model/okf-directory-model/): v1, 2026-11-16, Engineering
 - [Error as Truth](https://alaamer12.github.io/amr-tech/blogs/error-as-truth/): v1, 2026-11-15, Software Architecture

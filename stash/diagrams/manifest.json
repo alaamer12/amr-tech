@@ -1,0 +1,34 @@
+{
+  "diagram-e227f9bcea7d782c": {
+    "hash": "e227f9bcea7d782c",
+    "type": "sequence",
+    "width": 891,
+    "height": 1106,
+    "srcFile": "src/content/blogs/blockiya/examples.md",
+    "diagramIndex": 1
+  },
+  "diagram-c2ceaae33fe2cf5c": {
+    "hash": "c2ceaae33fe2cf5c",
+    "type": "class",
+    "width": 246,
+    "height": 248,
+    "srcFile": "src/content/blogs/blockiya/uml-notation.md",
+    "diagramIndex": 1
+  },
+  "diagram-481d386858e7b506": {
+    "hash": "481d386858e7b506",
+    "type": "class",
+    "width": 1272,
+    "height": 1037,
+    "srcFile": "src/content/blogs/blockiya/uml-notation.md",
+    "diagramIndex": 2
+  },
+  "diagram-8d247c99ff1083e5": {
+    "hash": "8d247c99ff1083e5",
+    "type": "flowchart",
+    "width": 1114,
+    "height": 256,
+    "srcFile": "src/content/blogs/error-as-truth/index.md",
+    "diagramIndex": 1
+  }
+}
