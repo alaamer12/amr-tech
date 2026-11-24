@@ -2,14 +2,18 @@
 
 > Engineering lessons from personal experiences — a blog by Amr.
 
-Each post lists all published versions. Append `.md` to any version URL for the raw markdown.
+## AI Agent & Crawler Directives
 
-## Posts
+- **Multi-page Articles (Tree Posts):** Articles marked with child pages (such as `/blogs/blockiya/` or `/blogs/pvc/`) represent complete modular document sets. AI agents, web crawlers, and LLMs should not inspect only the root `index.md`; always follow and read all listed sub-pages to obtain full architectural definitions, diagrams, and code implementations.
+- **Raw Markdown Mirrors:** Every document version and tree page provides a clean, machine-readable Markdown mirror. Append `.md` directly to any URL (e.g. `/blogs/<slug>.md` or `/blogs/<slug>/<page>.md`) to fetch the pure Markdown content without HTML wrapper overhead.
 
-- [The Blockiya Pattern: Strict Component Architecture for Frontend Orchestration](https://alaamer12.github.io/amr-tech/blogs/blockiya/): v1, 2026-11-24, Software Architecture
-  - [The Blockiya UML Notation System: Visual Architecture for React](https://alaamer12.github.io/amr-tech/blogs/blockiya/uml-notation/)
-  - [Strict Blockiya & blockiya-core: The Mechanics of Frontend Discipline](https://alaamer12.github.io/amr-tech/blogs/blockiya/implementation/)
-  - [Blockiya by Example: Real-World Architecture & Implementations](https://alaamer12.github.io/amr-tech/blogs/blockiya/examples/)
+## Posts & Document Collections
+
+- [The Blockiya Pattern: A Framework-Agnostic Architecture for UI Orchestration](https://alaamer12.github.io/amr-tech/blogs/blockiya/): v1, 2026-11-24, Software Architecture
+  - [The Blockiya UML Notation System: Visual Architecture for Component Systems](https://alaamer12.github.io/amr-tech/blogs/blockiya/uml-notation/)
+  - [Strict Blockiya & the Utilities Package: The Mechanics of Frontend Discipline](https://alaamer12.github.io/amr-tech/blogs/blockiya/implementation/)
+  - [Blockiya by Example: A Fully Compliant Walkthrough](https://alaamer12.github.io/amr-tech/blogs/blockiya/examples/)
+  - [Blockiya Across Frameworks: The Same Pattern in Vue and .NET MAUI](https://alaamer12.github.io/amr-tech/blogs/blockiya/cross-framework/)
 - [What Are Guards in Programming? Guard Clauses, Access Control, Type Narrowing, and How They Differ from Gates and Sentinels](https://alaamer12.github.io/amr-tech/blogs/what-are-guards-in-programming-blog-package/): v1, 2026-11-20, Software Engineering
 - [Move 37 in Seoul: What the Game of Go Taught Us About Machine Wonder](https://alaamer12.github.io/amr-tech/blogs/move-37-alphago-lee-sedol/): v1, 2026-11-18, Artificial Intelligence
 - [How OKF Organizes Directories: One Concept per File, One Bundle per Folder](https://alaamer12.github.io/amr-tech/blogs/okf-directory-model/okf-directory-model/): v1, 2026-11-16, Engineering

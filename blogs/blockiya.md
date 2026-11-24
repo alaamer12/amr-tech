@@ -1,31 +1,33 @@
 ---
-title: "The Blockiya Pattern: Strict Component Architecture for Frontend Orchestration"
-description: "A comprehensive guide to the Blockiya Pattern—an architectural standard that treats React components as disciplined building blocks with zero styling, derived props, and upward-firing intents."
+title: "The Blockiya Pattern: A Framework-Agnostic Architecture for UI Orchestration"
+description: "A comprehensive guide to the Blockiya Pattern (v2.2.0)—an architectural standard that treats UI as disciplined building blocks with zero styling, derived props, and upward-firing intents. Incubated in React/TypeScript, portable to Vue, Svelte, Solid, and MAUI/Blazor."
 date: 2026-11-24
 category: "Software Architecture"
-tags: ["react", "frontend", "software-architecture", "clean-code", "design-systems", "typescript"]
+tags: ["react", "vue", "maui", "frontend", "software-architecture", "clean-code", "design-systems", "typescript", "csharp"]
 thumbnail: ./_assets/cover.jpg
 order: 1
 lang: en
 ---
 
 > **Key Takeaways**
-> - **The Architect Mental Model:** A Blockiya is an orchestrator. It owns domain state, coordinates data queries, derives props before passing them down, and translates user actions into intents fired upward. It never writes CSS or reaches into third-party library internals.
+> - **The Two Moves:** Blockiya is about exactly two things—separate the system into building blocks where each layer knows only the layer directly below it, and make those blocks define intents that fire upward. Everything else exists to keep those two moves honest.
+> - **Framework-Agnostic by Design:** The pattern was inspired, tested, and produced in React project experiments, and its canonical reference code is React/TypeScript—but the roles and rules port cleanly to Vue composables, Svelte, Solid, and MAUI/Blazor C#, like MVVM before it. Only the way you write the code changes.
 > - **Zero Styling Rule:** Blockiyas write zero CSS—no `className`, no `style` attributes, no utility strings. All visual presentation is delegated strictly to design system primitives.
-> - **Unidirectional Strict Contract:** Every tier in the stack only communicates with the layer immediately beneath it, while events and intentions flow strictly upward to the caller.
-> - **Strict Blockiya (v2.1):** Enforces mechanical consistency with `blockiya-core` utilities—replacing fragile inline `isLoading`/`error` flags with `useIntent`, inline selectors with `useDerive`, and messy ternaries with `<If>`, `<Maybe>`, and `<For>`.
+> - **Strict Blockiya:** Enforces mechanical consistency with a utilities package—replacing fragile inline `isLoading`/`error` flags with `useIntent`, inline selectors with `useDerive`, and messy ternaries with `<If>`, `<Maybe>`, and `<For>`. `blockiya-core` is the recommended package name; the rule binds the contract, not the label.
 
 ---
 
 ## 1. What is Blockiya?
 
-A **Blockiya** is an orchestrator. It owns domain state, talks to data sources through hooks, derives props before passing them down, and translates user interactions into clean intents that fire upward. 
+A **Blockiya** is an orchestrator. It owns domain state, talks to data sources through the data layer, derives props before passing them down, and translates user interactions into clean intents that fire upward. 
 
 It never writes CSS. It never touches inline styles. It never reaches into a third-party library's internals. And it never decides what happens after an intent is fired—what happens next is always the caller's concern.
 
-The name originates from the Arabic word for "block" (**بلوكية**) — a deliberate structural building unit characterized by an immutable shape, clear boundaries, and a known interface. Much like a stone block in classic architecture, it can be picked up, relocated, and set into a completely different context without altering its internal logic.
+The pattern is about **exactly two moves**: separate the system into building blocks with strict knowledge boundaries, and make those blocks define intents upward. The name originates from the Arabic word for "block" (**بلوكية**) — a deliberate structural building unit characterized by an immutable shape, clear boundaries, and a known interface. Much like a stone block in classic architecture, it can be picked up, relocated, and set into a completely different context without altering its internal logic.
 
 The mental model is that of an **architect, not a craftsman**. An architect does not mold bricks, nor do they lay mortar. An architect determines what the building requires and assembles the right materials in the right positions. Everything else is delegated.
+
+One clarification the pattern deserves: **Blockiya is not a React pattern.** It was inspired, tested, and produced in React project experiments, which is why the reference code in this series is React/TypeScript—but the rules concern ownership, direction, and isolation, none of which mention a framework. Like MVVM before it, the idea applies broadly; only the syntax changes. Section 8 maps every role onto Vue, Svelte, Solid, and MAUI/Blazor.
 
 ![The Blockiya Architectural Stack](./_assets/blockiya-architecture.jpg)
 
@@ -60,7 +62,7 @@ In the Blockiya architecture, responsibilities are stratified into strict hierar
 | **Behavioral Primitives** | Interactive UI primitives | Manage keyboard navigation, focus, and ARIA internally (Dropdown, Modal) |
 | **Non-Behavioral Primitives** | Visual design system tokens | Pure layout and typography tokens (Box, Flex, Text, Button) |
 | **Adapters** | Third-party library boundaries | Wrap external tools, translate design tokens and events, manage lifecycle |
-| **Utilities (`blockiya-core`)** | Pattern-native structural helpers | Provide structural rendering (`If`, `For`) and intent handling (`useIntent`) |
+| **Utilities** | Compatibility slot for helpers | Any package whose helpers snap in without contradiction or taking over control. Recommended name: `blockiya-core` (`If`, `useIntent`, `useDerive`) |
 
 ---
 
@@ -70,7 +72,7 @@ Stereotypes classify components by architectural role. They appear in technical 
 
 | Stereotype | Meaning | When to Use | Example |
 |---|---|---|---|
-| `<<Page>>` | Top-level route component | Next.js / Astro / React Router pages | `BillingOverviewPage` |
+| `<<Page>>` | Top-level route component | Framework route pages (e.g., Next.js, Astro, React Router, Nuxt) | `BillingOverviewPage` |
 | `<<Feature>>` | Large workflow orchestrator | Multi-step wizards, complex flows | `CheckoutWizardBlock` |
 | `<<Compound>>` | Multi-component Blockiya | Combines 2 to 5 child blocks | `BillingOverviewBlock` |
 | `<<Atomic>>` | Single-purpose Blockiya | Focused, leaf-level orchestrator | `UsageChartsBlock` |
@@ -79,7 +81,7 @@ Stereotypes classify components by architectural role. They appear in technical 
 | `<<Context>>` | Context provider | Deep prop sharing across descendants | `ProjectContext` |
 | `<<Hook/Query>>` | Data fetching hook | External server state access | `useBillingUsage`, `useProjects` |
 | `<<Adapter>>` | Third-party library wrapper | Isolates external tools, maps tokens/events | `CodeEditorAdapter`, `TerminalAdapter` |
-| `<<Utility>>` | Pattern-native structural helper | Structural mechanics (`useIntent`, `If`, `useDerive`) | `If`, `For`, `useIntent` |
+| `<<Utility>>` | Compatible helper—an interoperability slot | Works alongside a Blockiya without contradiction or taking over control | `If`, `For`, `useIntent`, `useDerive` |
 
 > [!TIP]
 > **Stereotypes are growth signals.** When an `<<Atomic>>` block starts accumulating multiple children and expanding beyond its single concern, it is signaling that it needs to be promoted to a `<<Compound>>` block, or split into focused peers.
@@ -120,14 +122,14 @@ const handleDelete = () => {
 
 ---
 
-## 6. Strict Blockiya — v2.1
+## 6. Strict Blockiya
 
 Strict Blockiya is the disciplined, opinionated variant of the pattern. Much like how the Repository Pattern provides strict vs. loose implementations, Strict Blockiya introduces mechanical constraints that eliminate developer discretion:
 
-1. **`blockiya-core` utilities are required:** Every async operation runs through `useIntent`. Every derivation runs through `useDerive`. Conditional and list rendering uses `<If>`, `<Maybe>`, and `<For>`.
+1. **Utilities-package helpers are required:** Every async operation runs through `useIntent`. Every derivation runs through `useDerive`. Conditional and list rendering uses `<If>`, `<Maybe>`, and `<For>`. The package name is yours—**`blockiya-core` is the recommended name**—what binds is the single public barrel and the utilities themselves.
 2. **No `useState` for async lifecycle:** Never manually track `[isLoading, setIsLoading]` and `[error, setError]` pairs. `useIntent` manages this lifecycle automatically.
 3. **No inline derivations:** Avoid computing `{ fullName: `${user.first} ${user.last}` }` directly inside JSX. Derivations must live in named functions executed via `useDerive`.
-4. **Declarative structural rendering:** Discard brittle `{condition && <Component />}` patterns in favor of explicit structural components.
+4. **Declarative structural rendering:** Discard brittle `{condition && <Component />}` patterns in favor of explicit structural components (in template-driven stacks like Vue or Svelte, the template's own `v-if`/`{#if}` satisfies this rule—the requirement is visible rendering shape, not JSX ceremony).
 
 ---
 
@@ -139,9 +141,9 @@ Where should state live? Follow this definitive decision hierarchy:
 |---|---|---|---|
 | **Local UI State** | Transient, single-component (input focus, hover) | Leaf component | `useState` inside the component |
 | **Form Draft State** | Editable copy of domain data during session | Blockiya | `useState` in Blockiya, passed via controlled props |
-| **Server State** | Remote data, requires caching and invalidation | Query layer | TanStack Query / SWR hook in `queries/` |
+| **Server State** | Remote data, requires caching and invalidation | Query layer | Server-state hook (e.g., TanStack Query, SWR, or a hand-rolled composable) in `queries/` |
 | **Shared Feature State**| Required by multiple blocks in one feature | Feature Root | `Context Object` provided by feature Blockiya |
-| **Global App State** | Cross-cutting, persists across route changes | Global Store | Zustand / Pinia outside `features/` |
+| **Global App State** | Cross-cutting, persists across route changes | Global Store | Global store (e.g., Zustand, Pinia, NgRx) outside `features/` |
 | **URL State** | Filters, active tabs, search pagination | Router | URL search parameters (`useSearchParams`) |
 
 ### The Three Questions
@@ -155,11 +157,36 @@ If none of the above apply, scope it to a **Feature Context** provided by the ne
 
 ---
 
-## 8. Deep-Dive Topics in This Series
+## 8. Blockiya Beyond React
+
+Because the rules concern **ownership** (who holds state), **direction** (derived props down, intents up), and **isolation** (adapters absorb third-party complexity), they survive every translation. The table below maps each role onto common stacks—the "e.g." column choices are illustrative, not mandated:
+
+| Blockiya role | React (canonical) | Vue (e.g.) | Svelte (e.g.) | Solid (e.g.) | MAUI / Blazor C# (e.g.) |
+|---|---|---|---|---|---|
+| Blockiya (orchestrator) | Component + hooks | Container + composables | Component `<script>` / runes | Component + signals | ViewModel or orchestrating control |
+| Presentational child | Stateless component | Presentational component | Snippet / component | Presentational component | `DataTemplate` / dumb view |
+| Primitives (tokens only) | Emotion + styled-system | Token-prop components | Classless components | Styled props | XAML implicit styles + token resources |
+| Derived props (`useDerive`) | Hook + module-scope deriver | `computed()` | derived rune | derived signal | `IValueConverter` / property mapping |
+| Editable draft (`useDerivedState`) | Hook | `ref` watching source | writable derived rune | signal + effect | ViewModel field re-seeded on source change |
+| Intent lifecycle (`useIntent`) | Hook | Composable with `busy`/`error` refs | Store or rune group | Signal set | Command with `IsRunning` / async state |
+| Structural `If`/`For`/`Maybe` | Utility components | `v-if` / `v-for` | `{#if}` / `{#each}` | `<Show>` / `<For>` | `DataTrigger` / collection binding |
+| Page (post-intent decisions) | Route component | Router view | Route component | Route component | Shell / page code-behind handling events |
+
+The intent contract survives every row of that table: in MAUI, the ViewModel raises its `SaveIntent` event and **stops**—navigation, confirmation dialogs, and toasts belong to the page, exactly as in React.
+
+> [!TIP]
+> **Vue is the closest natural fit.** Vue already encourages modular files—one concern per file, composables for stateful logic—which maps one-to-one onto the Blockiya folder shape (`index` orchestrator, `queries`-style composables, `children` views). The pattern adds rules to Vue's own preferences, not structure.
+
+**What does not port automatically:** concrete utility packages (like the canonical `blockiya-core` code) and static-analysis tooling are stack-specific. In another framework, re-express the concepts natively—the contract is the pattern, the code is its expression. The [cross-framework chapter](./cross-framework.md) implements the same `UserProfileBlock` end-to-end in Vue and .NET MAUI to prove it.
+
+---
+
+## 9. Deep-Dive Topics in This Series
 
 Explore the full specification across the companion chapters of this guide:
 
 - [**UML Notation System**](./uml-notation.md) — The formal visual vocabulary, symbols, visibility markers, and Mermaid class diagram conventions.
-- [**Core Implementation & Utilities**](./implementation.md) — The complete `blockiya-core` package, featuring `useIntent`, `useDerive`, `<If>`, `<Maybe>`, `<For>`, and `<Compose>`.
-- [**Code Examples & Case Studies**](./examples.md) — Comprehensive real-world implementations including User Profile blocks, Adapters, and Compound Components.
+- [**Strict Blockiya & the Utilities Package**](./implementation.md) — The reference implementation of the `<<Utility>>` slot: `useIntent`, `useDerive`, `<If>`, `<Maybe>`, `<For>`, and `<Compose>`, plus why the package name is a recommendation.
+- [**Code Examples & Case Studies**](./examples.md) — A fully compliant React `UserProfileBlock`: queries layer, controlled children, Adapter wrappers, intent lifecycle sequence.
+- [**Blockiya Across Frameworks**](./cross-framework.md) — The same `UserProfileBlock` built end-to-end in Vue 3 composables and .NET MAUI C#, with a cross-framework invariants checklist.
 

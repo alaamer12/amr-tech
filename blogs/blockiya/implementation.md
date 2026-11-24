@@ -1,6 +1,6 @@
 ---
-title: "Strict Blockiya & blockiya-core: The Mechanics of Frontend Discipline"
-description: "Explore the reference implementation of blockiya-core—a zero-dependency structural utility package that automates async intent lifecycles, memoized derivations, and declarative JSX flow."
+title: "Strict Blockiya & the Utilities Package: The Mechanics of Frontend Discipline"
+description: "Explore the reference implementation of the blockiya-core utilities package—the canonical occupant of the <<Utility>> interoperability slot—and how it automates async intent lifecycles, memoized derivations, and declarative rendering flow."
 date: 2026-11-24
 category: "Software Architecture"
 tags: ["react", "frontend", "typescript", "architecture", "hooks"]
@@ -10,20 +10,22 @@ lang: en
 ---
 
 > **Key Takeaways**
+> - **The Slot, Not the Label:** The `<<Utility>>` stereotype is a compatibility standard—helpers that work alongside Blockiya machinery without contradiction or taking over control. `blockiya-core` is the recommended name for the package, not a requirement.
 > - **Eliminate Ad-Hoc State:** `useIntent` replaces manually created `isLoading` and `error` state pairs with a standardized, type-safe async lifecycle.
 > - **Mechanical Derivation:** `useDerive` guarantees that raw domain payloads are transformed into presentation-ready structures before being passed downward.
 > - **Declarative Structural Flow:** Structural components (`<If>`, `<Maybe>`, `<For>`, `<Repeat>`, `<Compose>`) replace fragmented JavaScript ternaries with clean, readable JSX pipelines.
 
 ---
 
-## 1. Introducing `blockiya-core`
+## 1. Introducing the Utilities Package
 
-Introduced in **v2.1 (Strict Blockiya)**, `blockiya-core` belongs to the `<<Utility>>` stereotype. It fills a crucial void in modern frontend codebases: **pattern-native structural helpers** that belong neither to domain business logic nor to visual design systems.
+Introduced with **Strict Blockiya**, the utilities package is the `<<Utility>>` stereotype in practice: the canonical **compatibility standard** for helpers that work alongside Blockiya machinery. Its author's recommended name is `blockiya-core`—use it or pick your own; what the pattern binds is the single public barrel and the engagement contract:
 
-The test for utility membership is **removal**:
-> *If you stripped away every single domain word and business concept from your codebase, would this helper still make complete sense?*
+> A helper qualifies as a `<<Utility>>` when it keeps working alongside Blockiya **without contradiction and without taking over control**: no domain knowledge, no visual output, and never steering state placement or intent flow. It contributes; it never orchestrates.
 
-If yes, it belongs in `blockiya-core`.
+That is a Lego-brick test, not a category of code: anything that snaps in without changing how the machine runs belongs in the slot—and any package can occupy it. `blockiya-core` occupies it first, with the helpers every Blockiya reaches for.
+
+Two families live inside under different rights. The intent utilities, derivation hooks, and structural renderers exist **because the pattern demands them** ("derive before you pass" → `useDerive`; "fire intents and stop" → `useIntent`). The interaction hooks (`useToggle`, `useDebounce`, `usePrevious`, `useStableCallback`) are generic mechanics **admitted by contract**—they qualify because they satisfy the interoperability clauses, which is exactly the opening that lets other compatible packages hold the same slot.
 
 ---
 
@@ -53,7 +55,7 @@ shared/
     index.ts               # Single public export surface
 ```
 
-All consumer files must import strictly from the package root:
+All consumer files must import strictly from the package root—never from internal subpaths (the barrel is what lets the internals move freely):
 
 ```tsx
 import { If, For, useIntent, useDerive } from "@/shared/blockiya-core";
@@ -90,8 +92,8 @@ Enforces unique key resolution and built-in empty-state handling:
 ```tsx
 <For
   each={invoices}
-  keyBy={(inv) => inv.id}
-  empty={<Text variant="muted">No recent invoices.</Text>}
+  keyExtractor={(inv) => inv.id}
+  fallback={<Text variant="muted">No recent invoices.</Text>}
 >
   {(invoice) => <InvoiceRow item={invoice} />}
 </For>
@@ -103,13 +105,7 @@ Combines multiple React context providers into a single linear declaration:
 
 ```tsx
 // Instead of 5 nested Provider tags:
-<Compose
-  providers={[
-    [ThemeProvider, { theme }],
-    [ProjectContext.Provider, { value: projectState }],
-    [ToastProvider, {}],
-  ]}
->
+<Compose pipes={[ThemeProvider, QueryProvider, AuthProvider]}>
   <DashboardFeature />
 </Compose>
 ```
@@ -138,18 +134,22 @@ const handleSave = async () => {
 };
 ```
 
-`useIntent` encapsulates this entire lifecycle into a unified, type-safe hook:
+`useIntent` encapsulates this entire lifecycle into a unified, type-safe hook. Its result object owns the lifecycle: `fire` (stable identity, no `useCallback` needed by the caller), `isLoading`, `error`, and `reset`:
 
 ```tsx
 // ✅ Strict Blockiya: Managed via useIntent
-const {
-  execute: handleSave,
-  isLoading: isSaving,
-  error: saveError,
-} = useIntent(async () => {
+const save = useIntent(async () => {
   const saved = await saveUser(draft);
   onSaveIntent(saved); // Fires upward to caller
 });
+
+// In JSX:
+<Button onClick={() => save.fire()} disabled={save.isLoading}>
+  {save.isLoading ? "Saving…" : "Save"}
+</Button>
+<If condition={save.error}>
+  {(err) => <Text variant="danger">{err.message}</Text>}
+</If>
 ```
 
 ---
@@ -159,8 +159,8 @@ const {
 The Blockiya pattern mandates: **derive before you pass**. Raw database or API structures should never penetrate presentational layers.
 
 ```tsx
-// Standalone pure selector function
-function selectDisplayUser(user: User): DisplayUser {
+// Standalone pure selector function — named derive*, defined at module scope
+function deriveDisplayUser(user: User): DisplayUser {
   return {
     fullName: `${user.firstName} ${user.lastName}`,
     roleBadge: user.role === "admin" ? "Administrator" : "Member",
@@ -169,8 +169,14 @@ function selectDisplayUser(user: User): DisplayUser {
 }
 
 // Inside the Blockiya:
-const displayUser = useDerive(user, selectDisplayUser);
+const displayUser = useDerive(user, deriveDisplayUser);
 ```
 
-By decoupling derivation from the component body, `selectDisplayUser` can be unit-tested as a pure function with zero mocks.
+By decoupling derivation from the component body, `deriveDisplayUser` can be unit-tested as a pure function with zero mocks. The `useDerive` hook keeps the deriver out of the dependency business by contract: it must be a stable, module-scope function—never inline.
+
+---
+
+## 6. Not Just React
+
+Everything here is the React/TypeScript expression of the pattern. Vue ports `useIntent`/`useDerivedState` to plain composables with `ref`/`watch`, Svelte to runes or stores, and MAUI/Blazor C# maps the same lifecycle onto commands with `IsRunning`—the contracts survive, the syntax changes. See the [cross-framework chapter](./cross-framework.md) for complete working ports.
 
