@@ -77,12 +77,6 @@ classDiagram
 Here is a full feature architecture expressed in Mermaid using the Blockiya UML specification:
 
 ```mermaid
----
-config:
-  theme: default
-  look: handDrawn
-  layout: elk
----
 classDiagram
     %% Page Level
     class BillingOverviewPage {

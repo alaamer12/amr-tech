@@ -4,6 +4,7 @@
 // reads all its colors/fonts from these CSS variables, so the dark/light
 // morph restyles diagrams without re-rendering.
 .pele {
+  position: relative;
   --pele-bg: var(--surface);
   --pele-fg: var(--text);
   --pele-muted: var(--text-muted);
@@ -32,6 +33,7 @@
   svg {
     display: block;
     max-width: 100%;
+    width: fit-content;
     height: auto;
     margin-inline: auto;
   }

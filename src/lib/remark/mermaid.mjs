@@ -1,5 +1,6 @@
 import { defineMdastPlugin } from 'satteri';
 import { render } from 'pele';
+import { createHash } from 'node:crypto';
 
 let counter = 0;
 
@@ -7,7 +8,9 @@ export const amrMermaid = defineMdastPlugin({
   name: 'amr-mermaid',
   code(node, ctx) {
     if (node.lang !== 'mermaid') return;
-    const source = node.value ?? '';
+    const source = (node.value ?? '').trim();
+    const hash = createHash('sha256').update(source).digest('hex').slice(0, 16);
+    const diagramId = `diagram-${hash}`;
     const file = ctx.fileURL ? decodeURIComponent(ctx.fileURL.pathname).replace(/^\/[A-Za-z]:/, '') : 'unknown file';
     let result;
     try {
@@ -19,7 +22,7 @@ export const amrMermaid = defineMdastPlugin({
       );
     }
     ctx.replaceNode(node, {
-      raw: `<div class="pele" role="img" aria-label="Mermaid diagram">${result.svg}</div>`,
+      raw: `<div class="pele" role="img" aria-label="Mermaid diagram" data-diagram-id="${diagramId}" data-diagram-hash="${hash}">${result.svg}</div>`,
       mdxExpressions: false,
     });
   },

@@ -188,3 +188,76 @@
 .post-nav__label {
   @include m.mono-label;
 }
+
+// Download Button for Images and Diagrams
+.img-download-wrapper {
+  position: relative;
+  display: block;
+  inline-size: 100%;
+
+  // For inline images that aren't block level
+  img {
+    display: block;
+  }
+
+  &:hover .img-download-btn,
+  &:focus-within .img-download-btn {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+}
+
+.img-download-btn {
+  @include m.focus-visible;
+
+  position: absolute;
+  top: v.$spacing-sm;
+  right: v.$spacing-sm;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: v.$spacing-2xs;
+  padding: v.$spacing-2xs v.$spacing-sm;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: v.$radius-pill;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: v.$text-label;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-4px);
+  transition: opacity v.$transition-fast, transform v.$transition-fast, color v.$transition-fast, border-color v.$transition-fast, background-color v.$transition-fast;
+
+  @media (hover: none) {
+    // Touch devices: always visible
+    opacity: 0.9;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  &:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: var(--surface-2);
+  }
+
+  &--active {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translateY(0) !important;
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  &__icon {
+    flex-shrink: 0;
+  }
+}
+
