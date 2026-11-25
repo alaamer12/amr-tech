@@ -31,6 +31,22 @@
     "srcFile": "src/content/blogs/error-as-truth/index.md",
     "diagramIndex": 1
   },
+  "diagram-3c6a24d8b3649e48": {
+    "hash": "3c6a24d8b3649e48",
+    "type": "flowchart",
+    "width": 1417,
+    "height": 82,
+    "srcFile": "src/content/blogs/import-free-declaration-apis/index.md",
+    "diagramIndex": 1
+  },
+  "diagram-7f3a97baa82449e3": {
+    "hash": "7f3a97baa82449e3",
+    "type": "flowchart",
+    "width": 710,
+    "height": 834,
+    "srcFile": "src/content/blogs/import-free-declaration-apis/index.md",
+    "diagramIndex": 2
+  },
   "diagram-eeef92e45bc6d0fd": {
     "hash": "eeef92e45bc6d0fd",
     "type": "flowchart",
