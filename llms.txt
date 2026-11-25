@@ -9,6 +9,8 @@
 
 ## Posts & Document Collections
 
+- [Designing Import-Free Declaration APIs in JavaScript](https://alaamer12.github.io/amr-tech/blogs/import-free-declaration-apis/): v1, 2026-11-25, Software Architecture
+- [Marketing Site vs. App Subdomain: How to Split example.com from app.example.com](https://alaamer12.github.io/amr-tech/blogs/marketing-site-vs-app-subdomain/): v1, 2026-11-25, Software Architecture
 - [The Blockiya Pattern: A Framework-Agnostic Architecture for UI Orchestration](https://alaamer12.github.io/amr-tech/blogs/blockiya/): v1, 2026-11-24, Software Architecture
   - [The Blockiya UML Notation System: Visual Architecture for Component Systems](https://alaamer12.github.io/amr-tech/blogs/blockiya/uml-notation/)
   - [Strict Blockiya & the Utilities Package: The Mechanics of Frontend Discipline](https://alaamer12.github.io/amr-tech/blogs/blockiya/implementation/)

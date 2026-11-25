@@ -30,5 +30,149 @@
     "height": 256,
     "srcFile": "src/content/blogs/error-as-truth/index.md",
     "diagramIndex": 1
+  },
+  "diagram-3c6a24d8b3649e48": {
+    "hash": "3c6a24d8b3649e48",
+    "type": "flowchart",
+    "width": 1417,
+    "height": 82,
+    "srcFile": "src/content/blogs/import-free-declaration-apis/index.md",
+    "diagramIndex": 1
+  },
+  "diagram-7f3a97baa82449e3": {
+    "hash": "7f3a97baa82449e3",
+    "type": "flowchart",
+    "width": 710,
+    "height": 834,
+    "srcFile": "src/content/blogs/import-free-declaration-apis/index.md",
+    "diagramIndex": 2
+  },
+  "diagram-eeef92e45bc6d0fd": {
+    "hash": "eeef92e45bc6d0fd",
+    "type": "flowchart",
+    "width": 1749,
+    "height": 611,
+    "srcFile": "src/content/blogs/marketing-site-vs-app-subdomain/v1.md",
+    "diagramIndex": 1
+  },
+  "diagram-1948aeb47aa6da09": {
+    "hash": "1948aeb47aa6da09",
+    "type": "flowchart",
+    "width": 1094,
+    "height": 152,
+    "srcFile": "src/content/blogs/marketing-site-vs-app-subdomain/v1.md",
+    "diagramIndex": 2
+  },
+  "diagram-4a79f04d615f374a": {
+    "hash": "4a79f04d615f374a",
+    "type": "flowchart",
+    "width": 952,
+    "height": 311,
+    "srcFile": "src/content/blogs/marketing-site-vs-app-subdomain/v1.md",
+    "diagramIndex": 3
+  },
+  "diagram-6033a23cd9c4107c": {
+    "hash": "6033a23cd9c4107c",
+    "type": "sequence",
+    "width": 1323,
+    "height": 652,
+    "srcFile": "src/content/blogs/marketing-site-vs-app-subdomain/v1.md",
+    "diagramIndex": 4
+  },
+  "diagram-2db0498578283558": {
+    "hash": "2db0498578283558",
+    "type": "flowchart",
+    "width": 520,
+    "height": 716,
+    "srcFile": "src/content/blogs/marketing-site-vs-app-subdomain/v1.md",
+    "diagramIndex": 5
+  },
+  "diagram-555f7c8ad62df4ce": {
+    "hash": "555f7c8ad62df4ce",
+    "type": "sequence",
+    "width": 1413,
+    "height": 608,
+    "srcFile": "src/content/blogs/marketing-site-vs-app-subdomain/v1.md",
+    "diagramIndex": 6
+  },
+  "diagram-20217585beb328ee": {
+    "hash": "20217585beb328ee",
+    "type": "flowchart",
+    "width": 852,
+    "height": 1046,
+    "srcFile": "src/content/blogs/marketing-site-vs-app-subdomain/v1.md",
+    "diagramIndex": 7
+  },
+  "diagram-d8ba9c59a085b5e6": {
+    "hash": "d8ba9c59a085b5e6",
+    "type": "sequence",
+    "width": 1384,
+    "height": 458,
+    "srcFile": "src/content/blogs/marketing-site-vs-app-subdomain/v1.md",
+    "diagramIndex": 8
+  },
+  "diagram-7fe209ee0cf6d95c": {
+    "hash": "7fe209ee0cf6d95c",
+    "type": "sequence",
+    "width": 1376,
+    "height": 651,
+    "srcFile": "src/content/blogs/marketing-site-vs-app-subdomain/v1.md",
+    "diagramIndex": 9
+  },
+  "diagram-5a64a8b95eaf0d81": {
+    "hash": "5a64a8b95eaf0d81",
+    "type": "flowchart",
+    "width": 1752,
+    "height": 388,
+    "srcFile": "src/content/blogs/marketing-site-vs-app-subdomain/v1.md",
+    "diagramIndex": 10
+  },
+  "diagram-e981f7639b3b3181": {
+    "hash": "e981f7639b3b3181",
+    "type": "flowchart",
+    "width": 1104,
+    "height": 529,
+    "srcFile": "src/content/blogs/marketing-site-vs-app-subdomain/v1.md",
+    "diagramIndex": 11
+  },
+  "diagram-8ad98893e111e6ae": {
+    "hash": "8ad98893e111e6ae",
+    "type": "state",
+    "width": 775,
+    "height": 992,
+    "srcFile": "src/content/blogs/marketing-site-vs-app-subdomain/v1.md",
+    "diagramIndex": 12
+  },
+  "diagram-a1388ecdd7acbc86": {
+    "hash": "a1388ecdd7acbc86",
+    "type": "flowchart",
+    "width": 1537,
+    "height": 696,
+    "srcFile": "src/content/blogs/marketing-site-vs-app-subdomain/v1.md",
+    "diagramIndex": 13
+  },
+  "diagram-02c5e438b5506281": {
+    "hash": "02c5e438b5506281",
+    "type": "flowchart",
+    "width": 475,
+    "height": 842,
+    "srcFile": "src/content/blogs/marketing-site-vs-app-subdomain/v1.md",
+    "diagramIndex": 14
+  },
+  "diagram-d238b1e68dd95228": {
+    "hash": "d238b1e68dd95228",
+    "type": "sequence",
+    "width": 1231,
+    "height": 736,
+    "srcFile": "src/content/blogs/marketing-site-vs-app-subdomain/v1.md",
+    "diagramIndex": 15
+  },
+  "diagram-f7afcbeafc8f6608": {
+    "hash": "f7afcbeafc8f6608",
+    "type": "flowchart",
+    "width": 544,
+    "height": 784,
+    "srcFile": "src/content/blogs/marketing-site-vs-app-subdomain/v1.md",
+    "diagramIndex": 16
   }
 }

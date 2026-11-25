@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" width="1200" height="560" fill="none">
+  <defs>
+    <pattern id="pgrid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="560" rx="12" fill="#141414"/>
+  <rect width="1200" height="560" rx="12" fill="url(#pgrid)"/>
+  <rect x="1" y="1" width="1198" height="558" rx="12" stroke="rgba(255,255,255,0.09)" stroke-width="1"/>
+
+  <!-- Left: AST Tree -->
+  <g stroke="rgba(255,255,255,0.22)" stroke-width="2">
+    <line x1="250" y1="140" x2="150" y2="250"/>
+    <line x1="250" y1="140" x2="350" y2="250"/>
+    <line x1="150" y1="250" x2="100" y2="380"/>
+    <line x1="150" y1="250" x2="200" y2="380"/>
+    <line x1="350" y1="250" x2="300" y2="380"/>
+    <line x1="350" y1="250" x2="400" y2="380"/>
+  </g>
+
+  <circle cx="250" cy="140" r="22" fill="#1c1c1c" stroke="#d97757" stroke-width="2.5"/>
+  <circle cx="150" cy="250" r="18" fill="#1c1c1c" stroke="#6fae8f" stroke-width="2"/>
+  <circle cx="350" cy="250" r="18" fill="#1c1c1c" stroke="#7aa7d9" stroke-width="2"/>
+  <circle cx="100" cy="380" r="14" fill="#1c1c1c" stroke="#e0a458" stroke-width="2"/>
+  <circle cx="200" cy="380" r="14" fill="#1c1c1c" stroke="#e0a458" stroke-width="2"/>
+  <circle cx="300" cy="380" r="14" fill="#1c1c1c" stroke="#a78bda" stroke-width="2"/>
+  <circle cx="400" cy="380" r="14" fill="#1c1c1c" stroke="#d97757" stroke-width="2"/>
+
+  <!-- Center: Transformation Prism -->
+  <path d="M 430 280 L 540 280" stroke="#d97757" stroke-width="2.5" stroke-dasharray="5 5"/>
+  <polygon points="600,150 690,280 600,410 510,280" fill="#1c1c1c" stroke="#d97757" stroke-width="2.5"/>
+  <circle cx="600" cy="280" r="16" fill="#d97757" opacity="0.9"/>
+  <path d="M 690 280 L 790 280" stroke="#6fae8f" stroke-width="2.5"/>
+
+  <!-- Right: Emitted Module Stream -->
+  <g transform="translate(800, 140)">
+    <rect x="0" y="0" width="300" height="280" rx="12" fill="#0a0a0a" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+    <rect x="28" y="36" width="140" height="10" rx="5" fill="#d97757"/>
+    <rect x="28" y="72" width="220" height="10" rx="5" fill="#6fae8f" opacity="0.85"/>
+    <rect x="28" y="108" width="180" height="10" rx="5" fill="#7aa7d9" opacity="0.85"/>
+    <rect x="28" y="144" width="240" height="10" rx="5" fill="#ededed" opacity="0.7"/>
+    <rect x="28" y="180" width="160" height="10" rx="5" fill="#e0a458" opacity="0.8"/>
+    <rect x="28" y="216" width="200" height="10" rx="5" fill="#a1a1a1" opacity="0.45"/>
+  </g>
+</svg>
+
